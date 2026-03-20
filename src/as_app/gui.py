@@ -45,12 +45,28 @@ class App(tk.Tk):
             return
         self.deiconify()
 
+        self._setup_styles()
         self._build_ui()
+        self._bind_shortcuts()
         self._apply_permissions()
+        self._refresh_action_bar_state()
         self.reload_cache()
         self.apply_filter()
         self.refresh_stats()
         self._start_auto_update_checks()
+
+    def _setup_styles(self) -> None:
+        style = ttk.Style(self)
+        try:
+            style.theme_use("clam")
+        except Exception:
+            pass
+
+        self.option_add("*Font", ("Segoe UI", 10))
+        style.configure("Treeview", rowheight=24)
+        style.configure("Treeview.Heading", font=("Segoe UI", 10, "bold"))
+        style.configure("Invalid.TEntry", fieldbackground="#fff1f2")
+        style.configure("Invalid.TCombobox", fieldbackground="#fff1f2")
 
     def _build_ui(self) -> None:
         self.banner_frame = tk.Frame(self, bg="#fff3cd", bd=1, relief="solid")
@@ -99,6 +115,90 @@ class App(tk.Tk):
         if self._is_admin() and hasattr(self, "tab_users"):
             self._build_users_ui(self.tab_users)
 
+        self.action_bar = ttk.Frame(self, padding=(10, 8))
+        self.action_bar.pack(fill="x", side="bottom")
+        self.action_bar.columnconfigure(20, weight=1)
+
+        self.btn_import = ttk.Button(self.action_bar, text="Importar", command=self.on_import)
+        self.btn_import.grid(row=0, column=0, sticky="w")
+        self.btn_new_form = ttk.Button(self.action_bar, text="Novo", command=self.on_new_child_form)
+        self.btn_new_form.grid(row=0, column=1, padx=(8, 0))
+        self.btn_add_child = ttk.Button(self.action_bar, text="+ Criança", command=self.on_add)
+        self.btn_add_child.grid(row=0, column=2, padx=(8, 0))
+        self.btn_save_child = ttk.Button(self.action_bar, text="Salvar", command=self.on_save)
+        self.btn_save_child.grid(row=0, column=3, padx=(8, 0))
+        self.btn_new_att = ttk.Button(self.action_bar, text="+ Atendimento", command=self.on_new_attendance, state="disabled")
+        self.btn_new_att.grid(row=0, column=4, padx=(12, 0))
+        self.btn_edit_att = ttk.Button(self.action_bar, text="Editar atendimento", command=self.on_edit_attendance, state="disabled")
+        self.btn_edit_att.grid(row=0, column=5, padx=(8, 0))
+        self.btn_attach = ttk.Button(self.action_bar, text="Anexar", command=self.on_attachment_add, state="disabled")
+        self.btn_attach.grid(row=0, column=6, padx=(8, 0))
+        self.btn_backup_quick = ttk.Button(self.action_bar, text="Backup", command=self.on_backup_create)
+        self.btn_backup_quick.grid(row=0, column=7, padx=(12, 0))
+
+        ttk.Separator(self.action_bar, orient="horizontal").grid(row=1, column=0, columnspan=21, sticky="ew", pady=(8, 0))
+
+        self.status_var = tk.StringVar(value="")
+        ttk.Label(self.action_bar, textvariable=self.status_var, foreground="gray").grid(
+            row=2, column=0, columnspan=21, sticky="w", pady=(6, 0)
+        )
+
+        self.notebook.bind("<<NotebookTabChanged>>", lambda _e: self._refresh_action_bar_state())
+
+    def _bind_shortcuts(self) -> None:
+        def bind(seq: str, fn) -> None:
+            self.bind_all(seq, lambda _e: (fn(), "break"))
+
+        bind("<Control-f>", self.focus_search)
+        bind("<Control-n>", self.on_new_child_form)
+        bind("<Control-s>", self.on_save)
+        bind("<Control-i>", self.on_import)
+        bind("<Control-Return>", self.on_new_attendance)
+        bind("<Control-e>", self.on_edit_attendance)
+        bind("<Alt-1>", lambda: self.notebook.select(self.tab_cadastros))
+        bind("<Alt-2>", lambda: self.notebook.select(self.tab_stats))
+        bind("<Alt-3>", lambda: self.notebook.select(self.tab_history))
+        bind("<Alt-4>", lambda: self.notebook.select(self.tab_reports))
+        bind("<Alt-5>", lambda: self.notebook.select(self.tab_backup))
+        bind("<Alt-6>", lambda: self.notebook.select(self.tab_audit))
+
+    def _current_tab_text(self) -> str:
+        try:
+            tab_id = self.notebook.select()
+            return str(self.notebook.tab(tab_id, "text") or "")
+        except Exception:
+            return ""
+
+    def _refresh_action_bar_state(self) -> None:
+        can_edit = self._can_edit()
+        in_cadastros = self._current_tab_text().strip().lower().startswith("cadastros")
+
+        if hasattr(self, "btn_import"):
+            self.btn_import.configure(state=("normal" if (can_edit and in_cadastros) else "disabled"))
+        if hasattr(self, "btn_new_form"):
+            self.btn_new_form.configure(state=("normal" if can_edit else "disabled"))
+        if hasattr(self, "btn_add_child"):
+            self.btn_add_child.configure(state=("normal" if can_edit else "disabled"))
+        if hasattr(self, "btn_save_child"):
+            state = "normal" if (can_edit and in_cadastros and bool(self.selected_id)) else "disabled"
+            self.btn_save_child.configure(state=state)
+        if hasattr(self, "btn_new_att"):
+            state = "normal" if (can_edit and bool(self.selected_id)) else "disabled"
+            self.btn_new_att.configure(state=state)
+        if hasattr(self, "btn_edit_att"):
+            state = "normal" if (can_edit and bool(self.selected_attendance_id)) else "disabled"
+            self.btn_edit_att.configure(state=state)
+        if hasattr(self, "btn_attach"):
+            state = "normal" if (can_edit and bool(self.selected_attendance_id)) else "disabled"
+            self.btn_attach.configure(state=state)
+        if hasattr(self, "btn_backup_quick"):
+            self.btn_backup_quick.configure(state=("normal" if can_edit else "disabled"))
+        if hasattr(self, "btn_merge"):
+            self.btn_merge.configure(state=("normal" if can_edit else "disabled"))
+        if hasattr(self, "btn_history_edit"):
+            state = "normal" if (can_edit and bool(self.selected_attendance_id)) else "disabled"
+            self.btn_history_edit.configure(state=state)
+
     def _build_cadastros_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=2)
         root.columnconfigure(1, weight=3)
@@ -110,9 +210,9 @@ class App(tk.Tk):
 
         ttk.Label(top, text="Buscar:").grid(row=0, column=0, sticky="w")
         self.search_var = tk.StringVar()
-        search = ttk.Entry(top, textvariable=self.search_var)
-        search.grid(row=0, column=1, sticky="ew", padx=(8, 0))
-        search.bind("<KeyRelease>", lambda _e: self.apply_filter())
+        self.search_entry = ttk.Entry(top, textvariable=self.search_var)
+        self.search_entry.grid(row=0, column=1, sticky="ew", padx=(8, 0))
+        self.search_entry.bind("<KeyRelease>", lambda _e: self.apply_filter())
 
         self.user_label_var = tk.StringVar(value=self._user_label())
         ttk.Label(top, textvariable=self.user_label_var).grid(row=0, column=2, sticky="e", padx=(16, 8))
@@ -166,8 +266,13 @@ class App(tk.Tk):
 
         main_left = ttk.Frame(root, padding=(10, 0, 10, 10))
         main_left.grid(row=1, column=0, sticky="nsew")
-        main_left.rowconfigure(0, weight=1)
+        main_left.rowconfigure(1, weight=1)
         main_left.columnconfigure(0, weight=1)
+
+        self.results_var = tk.StringVar(value="Resultados: 0")
+        ttk.Label(main_left, textvariable=self.results_var, foreground="gray").grid(
+            row=0, column=0, sticky="w", pady=(0, 6)
+        )
 
         self.tree = ttk.Treeview(
             main_left,
@@ -184,12 +289,15 @@ class App(tk.Tk):
         self.tree.heading("escola", text="Escola")
         self.tree.column("escola", width=200, anchor="w")
 
-        self.tree.grid(row=0, column=0, sticky="nsew")
+        self._setup_treeview(self.tree, numeric_cols={"idade"})
+
+        self.tree.grid(row=1, column=0, sticky="nsew")
         self.tree.bind("<<TreeviewSelect>>", lambda _e: self.on_select())
+        self.tree.bind("<Return>", lambda _e: getattr(self, "nome_entry", self.tree).focus_set())
 
         vsb = ttk.Scrollbar(main_left, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscrollcommand=vsb.set)
-        vsb.grid(row=0, column=1, sticky="ns")
+        vsb.grid(row=1, column=1, sticky="ns")
 
         main_right = ttk.Frame(root, padding=(0, 0, 10, 10))
         main_right.grid(row=1, column=1, sticky="nsew")
@@ -205,7 +313,9 @@ class App(tk.Tk):
         r += 1
         ttk.Label(main_right, text="Criança:").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.nome_var = tk.StringVar()
-        ttk.Entry(main_right, textvariable=self.nome_var).grid(row=r, column=1, sticky="ew", pady=(0, 6))
+        self.nome_entry = ttk.Entry(main_right, textvariable=self.nome_var)
+        self.nome_entry.grid(row=r, column=1, sticky="ew", pady=(0, 6))
+        self.nome_entry.bind("<KeyRelease>", lambda _e: self._clear_invalid(self.nome_entry))
 
         r += 1
         ttk.Label(main_right, text="Idade:").grid(row=r, column=0, sticky="w", pady=(0, 6))
@@ -219,6 +329,8 @@ class App(tk.Tk):
         self.escola_var = tk.StringVar()
         self.escola_cb = ttk.Combobox(main_right, textvariable=self.escola_var, state="normal", values=[])
         self.escola_cb.grid(row=r, column=1, sticky="ew", pady=(0, 6))
+        self.escola_cb.bind("<KeyRelease>", lambda _e: self._clear_invalid(self.escola_cb))
+        self.escola_cb.bind("<<ComboboxSelected>>", lambda _e: self._clear_invalid(self.escola_cb))
 
         r += 1
         ttk.Label(main_right, text="Nascimento (dd/mm/aaaa):").grid(row=r, column=0, sticky="w", pady=(0, 6))
@@ -240,25 +352,8 @@ class App(tk.Tk):
             row=r, column=1, sticky="ew", pady=(0, 6)
         )
 
-        bottom = ttk.Frame(root, padding=10)
-        bottom.grid(row=2, column=0, columnspan=2, sticky="ew")
-        bottom.columnconfigure(0, weight=1)
-
-        self.btn_import = ttk.Button(bottom, text="Importar planilha", command=self.on_import)
-        self.btn_import.grid(row=0, column=0, sticky="w")
-        self.btn_add_child = ttk.Button(bottom, text="Adicionar criança", command=self.on_add)
-        self.btn_add_child.grid(row=0, column=1, padx=8)
-        self.btn_save_child = ttk.Button(bottom, text="Salvar alterações", command=self.on_save)
-        self.btn_save_child.grid(row=0, column=2, padx=(0, 8))
-        self.btn_new_att = ttk.Button(bottom, text="Novo atendimento", command=self.on_new_attendance, state="disabled")
-        self.btn_new_att.grid(row=0, column=3)
-        self.btn_merge = ttk.Button(bottom, text="Mesclar", command=self.on_merge_children)
-        self.btn_merge.grid(row=0, column=4, padx=(8, 0))
-
-        self.status_var = tk.StringVar(value="")
-        ttk.Label(bottom, textvariable=self.status_var, foreground="gray").grid(
-            row=1, column=0, columnspan=3, sticky="w", pady=(8, 0)
-        )
+        self.btn_merge = ttk.Button(main_right, text="Mesclar duplicados…", command=self.on_merge_children)
+        self.btn_merge.grid(row=r + 1, column=1, sticky="w", pady=(10, 0))
 
     def _build_stats_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
@@ -301,6 +396,7 @@ class App(tk.Tk):
         self.stats_tree_school.column("escola", width=340, anchor="w")
         self.stats_tree_school.heading("qtd", text="Qtd")
         self.stats_tree_school.column("qtd", width=80, anchor="center")
+        self._setup_treeview(self.stats_tree_school, numeric_cols={"qtd"})
         self.stats_tree_school.grid(row=1, column=0, sticky="nsew")
 
         vsb1 = ttk.Scrollbar(left, orient="vertical", command=self.stats_tree_school.yview)
@@ -318,6 +414,7 @@ class App(tk.Tk):
         self.stats_tree_age.column("idade", width=120, anchor="w")
         self.stats_tree_age.heading("qtd", text="Qtd")
         self.stats_tree_age.column("qtd", width=80, anchor="center")
+        self._setup_treeview(self.stats_tree_age, numeric_cols={"idade", "qtd"})
         self.stats_tree_age.grid(row=1, column=0, sticky="nsew")
 
         vsb2 = ttk.Scrollbar(right, orient="vertical", command=self.stats_tree_age.yview)
@@ -392,6 +489,7 @@ class App(tk.Tk):
         self.users_tree.column("role", width=100, anchor="w")
         self.users_tree.heading("active", text="Ativo")
         self.users_tree.column("active", width=80, anchor="center")
+        self._setup_treeview(self.users_tree)
         self.users_tree.grid(row=0, column=0, sticky="nsew")
         self.users_tree.bind("<<TreeviewSelect>>", lambda _e: self.on_user_select())
 
@@ -447,6 +545,7 @@ class App(tk.Tk):
         for col, w in [("at", 200), ("actor", 140), ("action", 160), ("etype", 100), ("eid", 260)]:
             self.audit_tree.heading(col, text=col)
             self.audit_tree.column(col, width=w, anchor="w")
+        self._setup_treeview(self.audit_tree)
         self.audit_tree.grid(row=0, column=0, sticky="nsew")
         self.audit_tree.bind("<<TreeviewSelect>>", lambda _e: self.on_audit_select())
 
@@ -482,11 +581,13 @@ class App(tk.Tk):
             self.stats_tree_school.delete(iid)
         for school, count in stats.by_school:
             self.stats_tree_school.insert("", "end", values=(school, str(count)))
+        self._apply_zebra(self.stats_tree_school)
 
         for iid in self.stats_tree_age.get_children():
             self.stats_tree_age.delete(iid)
         for age, count in stats.by_age:
             self.stats_tree_age.insert("", "end", values=(age, str(count)))
+        self._apply_zebra(self.stats_tree_age)
 
     def set_status(self, msg: str) -> None:
         self.status_var.set(msg)
@@ -509,19 +610,7 @@ class App(tk.Tk):
         return self._role() == "admin"
 
     def _apply_permissions(self) -> None:
-        can_edit = self._can_edit()
-        if hasattr(self, "btn_import"):
-            self.btn_import.configure(state=("normal" if can_edit else "disabled"))
-        if hasattr(self, "btn_add_child"):
-            self.btn_add_child.configure(state=("normal" if can_edit else "disabled"))
-        if hasattr(self, "btn_save_child"):
-            self.btn_save_child.configure(state=("normal" if can_edit else "disabled"))
-        if hasattr(self, "btn_new_att"):
-            # still depends on selection, so keep disabled if no selection
-            state = "normal" if (can_edit and self.selected_id) else "disabled"
-            self.btn_new_att.configure(state=state)
-        if hasattr(self, "btn_merge"):
-            self.btn_merge.configure(state=("normal" if can_edit else "disabled"))
+        self._refresh_action_bar_state()
 
     def _validate_child_age(self, child: dict) -> bool:
         age = child.get("idade")
@@ -540,6 +629,67 @@ class App(tk.Tk):
             "Validação",
             f"Idade ({age}) parece não bater com nascimento ({birth}). Idade calculada ~ {calc}. Salvar mesmo assim?",
         )
+
+    def _set_invalid(self, widget) -> None:
+        try:
+            if isinstance(widget, ttk.Entry):
+                widget.configure(style="Invalid.TEntry")
+            elif isinstance(widget, ttk.Combobox):
+                widget.configure(style="Invalid.TCombobox")
+        except Exception:
+            pass
+
+    def _clear_invalid(self, widget) -> None:
+        try:
+            if isinstance(widget, ttk.Entry):
+                widget.configure(style="TEntry")
+            elif isinstance(widget, ttk.Combobox):
+                widget.configure(style="TCombobox")
+        except Exception:
+            pass
+
+    def _clear_child_form_validation(self) -> None:
+        if hasattr(self, "nome_entry"):
+            self._clear_invalid(self.nome_entry)
+        if hasattr(self, "escola_cb"):
+            self._clear_invalid(self.escola_cb)
+
+    def _setup_treeview(self, tree: ttk.Treeview, *, numeric_cols: set[str] | None = None) -> None:
+        numeric_cols = set(numeric_cols or set())
+        tree.tag_configure("even", background="#ffffff")
+        tree.tag_configure("odd", background="#f7f7f7")
+
+        for col in tree["columns"]:
+            tree.heading(col, command=lambda c=col: self._tree_sort(tree, c, numeric=(c in numeric_cols)))
+
+    def _tree_sort(self, tree: ttk.Treeview, col: str, *, numeric: bool) -> None:
+        state = getattr(self, "_tree_sort_state", None)
+        if state is None:
+            state = {}
+            self._tree_sort_state = state
+        per_tree = state.setdefault(id(tree), {})
+        descending = bool(per_tree.get(col, False))
+
+        def key_for(v: str):
+            t = (v or "").strip()
+            if numeric:
+                try:
+                    return (0, float(t))
+                except Exception:
+                    return (1, 0.0)
+            return (0, t.casefold())
+
+        rows = [(key_for(tree.set(iid, col)), iid) for iid in tree.get_children("")]
+        rows.sort(key=lambda x: x[0], reverse=descending)
+        for idx, (_k, iid) in enumerate(rows):
+            tree.move(iid, "", idx)
+
+        per_tree[col] = not descending
+        self._apply_zebra(tree)
+
+    def _apply_zebra(self, tree: ttk.Treeview) -> None:
+        for idx, iid in enumerate(tree.get_children("")):
+            tree.item(iid, tags=("even" if idx % 2 == 0 else "odd",))
 
     def reload_cache(self) -> None:
         db = self.store.load()
@@ -660,7 +810,39 @@ class App(tk.Tk):
             escola = c.get("escola") or ""
             self.tree.insert("", "end", iid=iid, values=(nome, idade, escola))
 
-        self.set_status(f"{len(items)} registros" + (" (filtrado)" if query else ""))
+        self._apply_zebra(self.tree)
+
+        filtered = bool(
+            query
+            or school
+            or has_att
+            or has_vd
+            or (age_min is not None)
+            or (age_max is not None)
+            or bool(start_dt)
+            or bool(end_dt)
+        )
+        msg = f"Resultados: {len(items)}" + (" (filtrado)" if filtered else "")
+        if hasattr(self, "results_var"):
+            self.results_var.set(msg)
+        self.set_status(msg)
+
+    def focus_search(self) -> None:
+        if hasattr(self, "tab_cadastros"):
+            self.notebook.select(self.tab_cadastros)
+        if hasattr(self, "search_entry"):
+            self.search_entry.focus_set()
+            self.search_entry.selection_range(0, "end")
+
+    def on_new_child_form(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        if hasattr(self, "tab_cadastros"):
+            self.notebook.select(self.tab_cadastros)
+        self.clear_form()
+        if hasattr(self, "nome_entry"):
+            self.nome_entry.focus_set()
 
     def on_select(self) -> None:
         sel = self.tree.selection()
@@ -680,8 +862,9 @@ class App(tk.Tk):
         self.escola_var.set("")
         self.nasc_var.set("")
         self.meta_var.set("")
-        self.btn_new_att.configure(state="disabled")
+        self._clear_child_form_validation()
         self._sync_history_selection()
+        self._refresh_action_bar_state()
 
     def fill_form(self, child: dict) -> None:
         self.selected_id = child.get("id")
@@ -692,8 +875,8 @@ class App(tk.Tk):
         self.nasc_var.set(iso_to_br_date(child.get("data_nascimento")))
 
         self.meta_var.set(f"created_at={child.get('created_at')} | updated_at={child.get('updated_at')}")
-        self.btn_new_att.configure(state=("normal" if self._can_edit() else "disabled"))
         self._sync_history_selection()
+        self._refresh_action_bar_state()
 
     def _child_from_form(self, *, use_selected_id: bool) -> dict:
         birth_iso = br_date_to_iso(self.nasc_var.get() or "")
@@ -709,13 +892,20 @@ class App(tk.Tk):
         if not self._can_edit():
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
+        self._clear_child_form_validation()
         nome = (self.nome_var.get() or "").strip()
         if not nome:
-            messagebox.showwarning("Validação", "Preencha o nome da criança.")
+            self.set_status("Preencha o nome da criança.")
+            if hasattr(self, "nome_entry"):
+                self._set_invalid(self.nome_entry)
+                self.nome_entry.focus_set()
             return
         escola = (self.escola_var.get() or "").strip()
         if not escola:
-            messagebox.showwarning("Validação", "Preencha a escola.")
+            self.set_status("Preencha a escola.")
+            if hasattr(self, "escola_cb"):
+                self._set_invalid(self.escola_cb)
+                self.escola_cb.focus_set()
             return
         actor = self._actor()
         child = self._child_from_form(use_selected_id=False)
@@ -734,15 +924,24 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         if not self.selected_id:
-            messagebox.showinfo("Salvar", "Selecione um registro para salvar alterações (ou use 'Adicionar criança').")
+            self.set_status("Selecione uma criança na lista para salvar (ou use '+ Criança').")
+            if hasattr(self, "tab_cadastros"):
+                self.notebook.select(self.tab_cadastros)
             return
+        self._clear_child_form_validation()
         nome = (self.nome_var.get() or "").strip()
         if not nome:
-            messagebox.showwarning("Validação", "Preencha o nome da criança.")
+            self.set_status("Preencha o nome da criança.")
+            if hasattr(self, "nome_entry"):
+                self._set_invalid(self.nome_entry)
+                self.nome_entry.focus_set()
             return
         escola = (self.escola_var.get() or "").strip()
         if not escola:
-            messagebox.showwarning("Validação", "Preencha a escola.")
+            self.set_status("Preencha a escola.")
+            if hasattr(self, "escola_cb"):
+                self._set_invalid(self.escola_cb)
+                self.escola_cb.focus_set()
             return
         actor = self._actor()
         child = self._child_from_form(use_selected_id=True)
@@ -794,11 +993,9 @@ class App(tk.Tk):
             self.reload_cache()
             self.apply_filter()
             self.refresh_stats()
-            messagebox.showinfo(
-                "Importação",
-                f"OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})",
+            self.set_status(
+                f"Importação OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})"
             )
-            self.set_status(f"Importação OK (batch {res.batch_id})")
         except Exception as e:
             messagebox.showerror("Erro ao importar", str(e))
             self.set_status("Erro ao importar")
@@ -925,6 +1122,7 @@ class App(tk.Tk):
             self.users_tree.insert(
                 "", "end", iid=iid, values=(u.get("username") or "", u.get("role") or "", "sim" if u.get("active", True) else "não")
             )
+        self._apply_zebra(self.users_tree)
 
     def on_user_new(self) -> None:
         self.user_id_var.set("")
@@ -996,6 +1194,7 @@ class App(tk.Tk):
             self.audit_tree.insert(
                 "", "end", iid=iid, values=(e.get("at") or "", e.get("actor") or "", e.get("action") or "", e.get("entity_type") or "", e.get("entity_id") or "")
             )
+        self._apply_zebra(self.audit_tree)
         self.audit_details.delete("1.0", "end")
 
     def on_audit_select(self) -> None:
@@ -1023,7 +1222,9 @@ class App(tk.Tk):
         ttk.Label(top, text="Criança:").grid(row=0, column=0, sticky="w")
         self.history_child_var = tk.StringVar(value="(nenhuma selecionada)")
         ttk.Label(top, textvariable=self.history_child_var).grid(row=0, column=1, sticky="w", padx=(8, 0))
-        ttk.Button(top, text="Novo atendimento", command=self.on_new_attendance).grid(row=0, column=2, padx=(8, 0))
+        ttk.Button(top, text="+ Atendimento", command=self.on_new_attendance).grid(row=0, column=2, padx=(8, 0))
+        self.btn_history_edit = ttk.Button(top, text="Editar", command=self.on_edit_attendance, state="disabled")
+        self.btn_history_edit.grid(row=0, column=3, padx=(8, 0))
 
         mid = ttk.Frame(root, padding=(10, 0, 10, 10))
         mid.grid(row=1, column=0, sticky="nsew")
@@ -1050,8 +1251,10 @@ class App(tk.Tk):
         self.history_tree.column("tem_atend", width=100, anchor="center")
         self.history_tree.heading("tem_vd", text="VD")
         self.history_tree.column("tem_vd", width=80, anchor="center")
+        self._setup_treeview(self.history_tree)
         self.history_tree.grid(row=0, column=0, sticky="nsew")
         self.history_tree.bind("<<TreeviewSelect>>", lambda _e: self.on_history_select())
+        self.history_tree.bind("<Double-1>", lambda _e: self.on_edit_attendance())
 
         vsb = ttk.Scrollbar(mid, orient="vertical", command=self.history_tree.yview)
         self.history_tree.configure(yscrollcommand=vsb.set)
@@ -1094,6 +1297,7 @@ class App(tk.Tk):
         self.attach_tree.column("quando", width=180, anchor="w")
         self.attach_tree.heading("por", text="Por")
         self.attach_tree.column("por", width=160, anchor="w")
+        self._setup_treeview(self.attach_tree)
         self.attach_tree.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         vsb3 = ttk.Scrollbar(attach, orient="vertical", command=self.attach_tree.yview)
@@ -1103,12 +1307,12 @@ class App(tk.Tk):
     def _sync_history_selection(self) -> None:
         if not self.selected_id:
             self.history_child_var.set("(nenhuma selecionada)")
-            self.btn_new_att.configure(state="disabled")
             self.reload_history()
             return
         name = (self.nome_var.get() or "").strip()
         self.history_child_var.set(name or self.selected_id)
         self.reload_history()
+        self._refresh_action_bar_state()
 
     def reload_history(self) -> None:
         for iid in self.history_tree.get_children():
@@ -1117,6 +1321,7 @@ class App(tk.Tk):
         self.selected_attendance_id = None
         self._set_history_texts("", "")
         self._reload_attachments()
+        self._refresh_action_bar_state()
         if not self.selected_id:
             return
 
@@ -1131,6 +1336,7 @@ class App(tk.Tk):
             tem_atend = "sim" if (att.get("atendimento_text") or "").strip() else ""
             tem_vd = "sim" if (att.get("vd_text") or "").strip() else ""
             self.history_tree.insert("", "end", iid=iid, values=(when, tipo, prof, res, reg, tem_atend, tem_vd))
+        self._apply_zebra(self.history_tree)
 
     def _set_history_texts(self, atendimento: str, vd: str) -> None:
         self.history_txt_atend.configure(state="normal")
@@ -1154,6 +1360,7 @@ class App(tk.Tk):
             return
         self._set_history_texts(att.get("atendimento_text") or "", att.get("vd_text") or "")
         self._reload_attachments()
+        self._refresh_action_bar_state()
 
     def _reload_attachments(self) -> None:
         if not hasattr(self, "attach_tree"):
@@ -1171,13 +1378,16 @@ class App(tk.Tk):
                 iid=iid,
                 values=(a.get("original_name") or "", a.get("added_at") or "", a.get("added_by") or ""),
             )
+        self._apply_zebra(self.attach_tree)
 
     def on_attachment_add(self) -> None:
         if not self._can_edit():
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         if not self.selected_attendance_id:
-            messagebox.showinfo("Anexo", "Selecione um atendimento primeiro.")
+            self.set_status("Selecione um atendimento no Histórico para anexar.")
+            if hasattr(self, "tab_history"):
+                self.notebook.select(self.tab_history)
             return
         src = filedialog.askopenfilename(title="Selecionar anexo")
         if not src:
@@ -1267,10 +1477,73 @@ class App(tk.Tk):
             "vd_text": dialog.result["vd_text"],
             "source": {"type": "manual"},
         }
-        self.store.add_attendance(att, actor=actor)
+        saved = self.store.add_attendance(att, actor=actor)
+        self.reload_cache()
+        self.apply_filter()
         self.reload_history()
         self.refresh_stats()
         self.set_status("Atendimento registrado")
+        try:
+            self.notebook.select(self.tab_history)
+            if saved.get("id"):
+                self.history_tree.selection_set(saved["id"])
+                self.history_tree.see(saved["id"])
+        except Exception:
+            pass
+        self.reload_audit()
+
+    def on_edit_attendance(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        if not self.selected_id:
+            self.set_status("Selecione uma criança primeiro.")
+            try:
+                self.notebook.select(self.tab_cadastros)
+            except Exception:
+                pass
+            return
+        if not self.selected_attendance_id:
+            self.set_status("Selecione um atendimento no Histórico para editar.")
+            try:
+                self.notebook.select(self.tab_history)
+            except Exception:
+                pass
+            return
+
+        actor = self._actor()
+        items = self.store.list_attendances(self.selected_id)
+        att = next((a for a in items if (a.get("id") or "") == (self.selected_attendance_id or "")), None)
+        if not att:
+            self.set_status("Atendimento não encontrado.")
+            return
+
+        dialog = AttendanceDialog(self, default_prof=(att.get("profissional") or actor), attendance=att)
+        self.wait_window(dialog)
+        if dialog.result is None:
+            return
+
+        updated = self.store.update_attendance(
+            self.selected_attendance_id,
+            {
+                "occurred_at": dialog.result["occurred_at"],
+                "tipo": dialog.result["tipo"],
+                "profissional": dialog.result["profissional"],
+                "resultado": dialog.result.get("resultado") or "",
+                "atendimento_text": dialog.result["atendimento_text"],
+                "vd_text": dialog.result["vd_text"],
+            },
+            actor=actor,
+        )
+        if updated is None:
+            messagebox.showerror("Editar", "Não consegui salvar as alterações.")
+            return
+
+        self.reload_cache()
+        self.apply_filter()
+        self.reload_history()
+        self.refresh_stats()
+        self.set_status("Atendimento atualizado")
         self.reload_audit()
 
     def _login_flow(self) -> dict | None:
@@ -1433,39 +1706,44 @@ class App(tk.Tk):
 
 
 class AttendanceDialog(tk.Toplevel):
-    def __init__(self, parent: tk.Tk, *, default_prof: str):
+    def __init__(self, parent: tk.Tk, *, default_prof: str, attendance: dict | None = None):
         super().__init__(parent)
-        self.title("Novo atendimento")
+        is_edit = attendance is not None
+        self.title("Editar atendimento" if is_edit else "Novo atendimento")
         self.resizable(True, True)
         self.result: dict | None = None
 
         self.columnconfigure(1, weight=1)
 
         ttk.Label(self, text="Data/hora (ISO):").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
-        self.when_var = tk.StringVar(value=now_iso())
+        self.when_var = tk.StringVar(value=(attendance.get("occurred_at") if attendance else now_iso()))
         ttk.Entry(self, textvariable=self.when_var).grid(row=0, column=1, sticky="ew", padx=10, pady=(10, 6))
 
         ttk.Label(self, text="Tipo:").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 6))
-        self.tipo_var = tk.StringVar(value="atendimento")
+        self.tipo_var = tk.StringVar(value=((attendance.get("tipo") if attendance else "") or "atendimento"))
         ttk.Combobox(self, textvariable=self.tipo_var, values=["atendimento", "vd", "outro"], state="readonly").grid(
             row=1, column=1, sticky="w", padx=10, pady=(0, 6)
         )
 
         ttk.Label(self, text="Profissional:").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 6))
-        self.prof_var = tk.StringVar(value=default_prof)
+        self.prof_var = tk.StringVar(value=((attendance.get("profissional") if attendance else "") or default_prof))
         ttk.Entry(self, textvariable=self.prof_var).grid(row=2, column=1, sticky="ew", padx=10, pady=(0, 6))
 
         ttk.Label(self, text="Resultado:").grid(row=3, column=0, sticky="w", padx=10, pady=(0, 6))
-        self.res_var = tk.StringVar(value="")
+        self.res_var = tk.StringVar(value=((attendance.get("resultado") if attendance else "") or ""))
         ttk.Entry(self, textvariable=self.res_var).grid(row=3, column=1, sticky="ew", padx=10, pady=(0, 6))
 
         ttk.Label(self, text="Atendimento:").grid(row=4, column=0, sticky="nw", padx=10, pady=(0, 6))
         self.txt_at = tk.Text(self, height=8, wrap="word")
         self.txt_at.grid(row=4, column=1, sticky="nsew", padx=10, pady=(0, 6))
+        if attendance:
+            self.txt_at.insert("1.0", attendance.get("atendimento_text") or "")
 
         ttk.Label(self, text="VD:").grid(row=5, column=0, sticky="nw", padx=10, pady=(0, 6))
         self.txt_vd = tk.Text(self, height=8, wrap="word")
         self.txt_vd.grid(row=5, column=1, sticky="nsew", padx=10, pady=(0, 6))
+        if attendance:
+            self.txt_vd.insert("1.0", attendance.get("vd_text") or "")
 
         btns = ttk.Frame(self)
         btns.grid(row=6, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
@@ -1473,6 +1751,7 @@ class AttendanceDialog(tk.Toplevel):
         ttk.Button(btns, text="Salvar", command=self._save).grid(row=0, column=1)
 
         self.bind("<Escape>", lambda _e: self.destroy())
+        self.bind("<Control-Return>", lambda _e: self._save())
 
     def _save(self) -> None:
         when = (self.when_var.get() or "").strip()

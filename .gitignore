@@ -4,6 +4,7 @@ data/metadata/*.log
 data/attachments/
 data/backups/
 data/exports/
+data/as_db.json
 __pycache__/
 *.pyc
 .venv/

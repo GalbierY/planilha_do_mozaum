@@ -412,6 +412,41 @@ class JsonStore:
         self.save(db)
         return attendance
 
+    def update_attendance(
+        self,
+        attendance_id: str,
+        patch: dict[str, Any],
+        *,
+        actor: str | None = None,
+    ) -> dict[str, Any] | None:
+        db = self.load()
+        attendances: list[dict[str, Any]] = list(db.get("attendances") or [])
+
+        target = next((a for a in attendances if (a.get("id") or "") == attendance_id), None)
+        if target is None:
+            return None
+
+        before = dict(target)
+        skip = {"id", "child_id", "created_at"}
+        for k, v in (patch or {}).items():
+            if k in skip:
+                continue
+            target[k] = v
+        target["updated_at"] = now_iso()
+
+        db["attendances"] = attendances
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="attendance.update",
+                entity_type="attendance",
+                entity_id=attendance_id,
+                details={"diff": self._diff(before, target)},
+            )
+        self.save(db)
+        return target
+
     def new_child_from_form(
         self,
         *,
