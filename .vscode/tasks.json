@@ -2,12 +2,23 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "AS Local: Instalar deps",
+      "type": "shell",
+      "command": "py",
+      "args": [
+        "-3",
+        "${workspaceFolder}\\bootstrap.py",
+        "--deps-only"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "AS Local: Rodar GUI (Python)",
       "type": "shell",
       "command": "py",
       "args": [
         "-3",
-        "${workspaceFolder}\\gui.py"
+        "${workspaceFolder}\\bootstrap.py"
       ],
       "problemMatcher": []
     }

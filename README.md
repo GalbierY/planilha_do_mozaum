@@ -6,7 +6,7 @@ GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (es
 
 - Duplo clique: `start_gui.cmd`
 - Ou via terminal:
-  - `py -3 gui.py`
+  - `py -3 bootstrap.py`
 - VS Code:
   - Abra a pasta e pressione `F5` (config em `.vscode/launch.json`)
 

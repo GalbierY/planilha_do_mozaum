@@ -1,4 +1,4 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-py -3 gui.py
+py -3 bootstrap.py

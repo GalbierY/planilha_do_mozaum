@@ -7,6 +7,9 @@
       "request": "launch",
       "program": "${workspaceFolder}\\gui.py",
       "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "preLaunchTask": "AS Local: Instalar deps",
       "console": "integratedTerminal",
       "justMyCode": true
     }
