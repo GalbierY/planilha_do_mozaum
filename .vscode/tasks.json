@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "AS Local: Rodar GUI (Python)",
+      "type": "shell",
+      "command": "py",
+      "args": [
+        "-3",
+        "${workspaceFolder}\\gui.py"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

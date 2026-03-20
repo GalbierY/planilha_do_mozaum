@@ -1,7 +1,8 @@
-Planilhas/*.xlsx
-Planilhas/*.xls
-Planilhas/*.csv
-Planilhas/*.docx
-Planilhas/*.doc
-Planilhas/*.pdf
-Planilhas/*.txt
+data/metadata/*.json
+data/metadata/*.log
+*.user
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.vscode/.ropeproject/

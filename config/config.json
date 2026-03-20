@@ -1,0 +1,6 @@
+{
+  "app_name": "AS Local (MVP)",
+  "db_path": "data/metadata/as_db.json",
+  "xlsx_default_path": "data/AssistenteSocial.xlsx",
+  "xlsx_default_sheet": "Base2025"
+}
