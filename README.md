@@ -15,6 +15,10 @@ GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (es
 - A planilha base: `data/AssistenteSocial.xlsx`
 - O “banco” local (JSON): `data/metadata/as_db.json` (ignorado pelo git)
 
+## Auto-update (git)
+
+- Se `auto_update_enabled` estiver `true` no `config/config.json`, o app checa atualizações periodicamente e mostra um banner para você clicar e atualizar (faz `git pull --ff-only` e oferece reiniciar).
+
 ## Próximos passos (quando você quiser)
 
 - Login/usuários do sistema (operadores) e trilha de auditoria (quem alterou o quê)

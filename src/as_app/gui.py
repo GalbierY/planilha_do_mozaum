@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import os
+import sys
+import threading
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
 
 from .config import AppConfig
 from .store import JsonStore
+from .updater import check_for_update, pull_ff_only
 from .util import br_date_to_iso, iso_to_br_date
 from .stats import compute_stats
 
@@ -23,13 +27,35 @@ class App(tk.Tk):
 
         self.selected_id: str | None = None
         self.cache: list[dict] = []
+        self._update_check_running = False
+        self._update_available = False
 
         self._build_ui()
         self.reload_cache()
         self.apply_filter()
         self.refresh_stats()
+        self._start_auto_update_checks()
 
     def _build_ui(self) -> None:
+        self.banner_frame = tk.Frame(self, bg="#fff3cd", bd=1, relief="solid")
+        self.banner_frame.pack(fill="x")
+        self.banner_message = tk.StringVar(value="")
+        tk.Label(
+            self.banner_frame,
+            textvariable=self.banner_message,
+            bg="#fff3cd",
+            fg="#664d03",
+            anchor="w",
+            padx=10,
+            pady=6,
+        ).pack(side="left", fill="x", expand=True)
+        self.banner_update_btn = ttk.Button(self.banner_frame, text="Atualizar", command=self.on_update_now)
+        self.banner_update_btn.pack(side="right", padx=(0, 10), pady=6)
+        ttk.Button(self.banner_frame, text="Fechar", command=self.hide_update_banner).pack(
+            side="right", padx=(0, 8), pady=6
+        )
+        self.banner_frame.pack_forget()
+
         self.notebook = ttk.Notebook(self)
         self.tab_cadastros = ttk.Frame(self.notebook)
         self.tab_stats = ttk.Frame(self.notebook)
@@ -365,6 +391,107 @@ class App(tk.Tk):
         except Exception as e:
             messagebox.showerror("Erro ao importar", str(e))
             self.set_status("Erro ao importar")
+
+    def _start_auto_update_checks(self) -> None:
+        if not self.cfg.auto_update_enabled:
+            return
+        self.after(1200, self._schedule_update_check)
+
+    def _schedule_update_check(self) -> None:
+        self._run_update_check()
+        self.after(int(self.cfg.update_check_minutes) * 60 * 1000, self._schedule_update_check)
+
+    def _run_update_check(self) -> None:
+        if self._update_check_running:
+            return
+
+        self._update_check_running = True
+
+        def worker() -> None:
+            try:
+                result = check_for_update(self.app_root, fetch=True)
+            except Exception as exc:
+                result = None
+                err = str(exc)
+            else:
+                err = ""
+
+            def apply() -> None:
+                self._update_check_running = False
+                if result is None:
+                    self.set_status(f"Auto-update: erro ao checar: {err}")
+                    return
+                self._apply_update_check(result)
+
+            self.after(0, apply)
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _apply_update_check(self, result) -> None:
+        if not result.ok:
+            self._update_available = False
+            self.hide_update_banner()
+            return
+
+        behind = int(result.behind or 0)
+        ahead = int(result.ahead or 0)
+
+        if behind <= 0:
+            self._update_available = False
+            self.hide_update_banner()
+            return
+
+        self._update_available = True
+        if ahead > 0:
+            self.banner_message.set(
+                f"Atualização disponível, mas há commits locais (ahead={ahead}). Atualize manualmente para evitar conflitos."
+            )
+            self.banner_update_btn.configure(state="disabled")
+        else:
+            self.banner_message.set(f"Atualização disponível ({behind} commits). Clique em Atualizar para baixar.")
+            self.banner_update_btn.configure(state="normal")
+        self.show_update_banner()
+
+    def show_update_banner(self) -> None:
+        if not self.banner_frame.winfo_ismapped():
+            self.banner_frame.pack(fill="x", before=self.notebook)
+
+    def hide_update_banner(self) -> None:
+        if self.banner_frame.winfo_ismapped():
+            self.banner_frame.pack_forget()
+
+    def on_update_now(self) -> None:
+        if self._update_check_running:
+            return
+        self.banner_update_btn.configure(state="disabled")
+        self.banner_message.set("Baixando atualização (git pull)...")
+
+        def worker() -> None:
+            ok, msg = pull_ff_only(self.app_root)
+
+            def apply() -> None:
+                if not ok:
+                    self.banner_update_btn.configure(state="normal")
+                    self.banner_message.set(f"Falha ao atualizar: {msg}")
+                    return
+
+                self.banner_message.set("Atualizado. Reiniciar o sistema agora?")
+                if messagebox.askyesno("Atualização", "Atualizado com sucesso. Deseja reiniciar agora?"):
+                    self.restart_app()
+                else:
+                    self.hide_update_banner()
+                    self._run_update_check()
+
+            self.after(0, apply)
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def restart_app(self) -> None:
+        try:
+            python = sys.executable
+            os.execl(python, python, *sys.argv)
+        except Exception as e:
+            messagebox.showerror("Reinício", f"Não consegui reiniciar automaticamente: {e}")
 
 
 def run() -> None:
