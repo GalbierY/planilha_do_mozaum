@@ -4,5 +4,8 @@
   "xlsx_default_path": "data/AssistenteSocial.xlsx",
   "xlsx_default_sheet": "Base2025",
   "auto_update_enabled": true,
-  "update_check_minutes": 5
+  "update_check_minutes": 5,
+  "attachments_dir": "data/attachments",
+  "exports_dir": "data/exports",
+  "backups_dir": "data/backups"
 }

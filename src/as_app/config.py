@@ -13,6 +13,9 @@ class AppConfig:
     xlsx_default_sheet: str
     auto_update_enabled: bool
     update_check_minutes: int
+    attachments_dir: str
+    exports_dir: str
+    backups_dir: str
 
     @staticmethod
     def load(app_root: Path) -> "AppConfig":
@@ -57,4 +60,7 @@ class AppConfig:
             xlsx_default_sheet=get("xlsx_default_sheet", "Base2025"),
             auto_update_enabled=get_bool("auto_update_enabled", True),
             update_check_minutes=max(1, get_int("update_check_minutes", 5)),
+            attachments_dir=get("attachments_dir", "data/attachments"),
+            exports_dir=get("exports_dir", "data/exports"),
+            backups_dir=get("backups_dir", "data/backups"),
         )

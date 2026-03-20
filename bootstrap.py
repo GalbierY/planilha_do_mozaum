@@ -47,8 +47,7 @@ def ensure_requirements(*, always: bool = False) -> None:
 
 def run_gui() -> None:
     ensure_venv()
-    env = dict(os.environ)
-    env["PYTHONUTF8"] = "1"
+    os.environ["PYTHONUTF8"] = "1"
     os.execv(str(VENV_PY), [str(VENV_PY), str(APP_ROOT / "gui.py")])
 
 

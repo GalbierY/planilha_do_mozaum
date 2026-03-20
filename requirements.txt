@@ -1,4 +1,1 @@
-# Dependências do projeto.
-#
-# Observação: atualmente o app roda só com bibliotecas da stdlib (tkinter, zipfile, etc),
-# então este arquivo pode ficar vazio. Ele existe para suportar crescimento do sistema.
+fpdf2>=2.7.9

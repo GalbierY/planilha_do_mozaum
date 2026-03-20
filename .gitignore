@@ -1,6 +1,9 @@
 data/metadata/*.json
 data/metadata/*.log
 *.user
+data/attachments/
+data/backups/
+data/exports/
 __pycache__/
 *.pyc
 .venv/

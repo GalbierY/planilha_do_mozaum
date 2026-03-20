@@ -4,7 +4,7 @@ import json
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from .util import now_iso, stable_key, write_json_atomic
 
@@ -24,11 +24,138 @@ class JsonStore:
 
     def _empty_db(self) -> dict[str, Any]:
         return {
-            "schema_version": 1,
+            "schema_version": 2,
             "generated_at": now_iso(),
-            "alunos": [],
+            "children": [],
+            "attendances": [],
             "import_batches": [],
+            "audit_log": [],
+            "attachments": [],
+            "users": [],
         }
+
+    def _audit(
+        self,
+        db: dict[str, Any],
+        *,
+        actor: str,
+        action: str,
+        entity_type: str,
+        entity_id: str | None,
+        details: dict[str, Any],
+    ) -> None:
+        entry = {
+            "id": str(uuid.uuid4()),
+            "at": now_iso(),
+            "actor": actor,
+            "action": action,
+            "entity_type": entity_type,
+            "entity_id": entity_id,
+            "details": details,
+        }
+        (db.setdefault("audit_log", [])).append(entry)
+
+    def log_event(self, *, actor: str, action: str, details: dict[str, Any]) -> None:
+        db = self.load()
+        self._audit(
+            db,
+            actor=actor,
+            action=action,
+            entity_type="system",
+            entity_id=None,
+            details=details,
+        )
+        self.save(db)
+
+    @staticmethod
+    def _diff(before: dict[str, Any], after: dict[str, Any]) -> dict[str, Any]:
+        keys = set(before.keys()) | set(after.keys())
+        changed: dict[str, Any] = {}
+        for k in sorted(keys):
+            if k in {"updated_at"}:
+                continue
+            if before.get(k) != after.get(k):
+                changed[k] = {"from": before.get(k), "to": after.get(k)}
+        return changed
+
+    def _ensure_v2(self, db: dict[str, Any]) -> tuple[dict[str, Any], bool]:
+        changed = False
+        version = int(db.get("schema_version") or 1)
+
+        if version < 2:
+            alunos = list(db.get("alunos") or [])
+            children: list[dict[str, Any]] = []
+            attendances: list[dict[str, Any]] = []
+
+            for a in alunos:
+                child = dict(a)
+                atendimento_text = (child.pop("atendimento_realizado", "") or "").strip()
+                vd_text = (child.pop("vd", "") or "").strip()
+
+                # Child fields
+                child.setdefault("created_at", now_iso())
+                child.setdefault("updated_at", child.get("created_at"))
+                child.setdefault("source", {"type": "imported"})
+                children.append(child)
+
+                # Initial imported attendance (only if there is content)
+                if atendimento_text or vd_text:
+                    occurred_at = (
+                        child.get("imported_at")
+                        or child.get("updated_at")
+                        or child.get("created_at")
+                        or now_iso()
+                    )
+                    ext = stable_key(
+                        f"migrate_v1|{child.get('external_key','')}|{occurred_at}"
+                    )
+                    attendances.append(
+                        {
+                            "id": str(uuid.uuid4()),
+                            "external_key": ext,
+                            "child_id": child.get("id"),
+                            "occurred_at": occurred_at,
+                            "tipo": "importado",
+                            "profissional": "",
+                            "registrado_por": "migrate",
+                            "resultado": "",
+                            "atendimento_text": atendimento_text,
+                            "vd_text": vd_text,
+                            "created_at": now_iso(),
+                            "updated_at": now_iso(),
+                            "source": child.get("source") or {"type": "migrate"},
+                        }
+                    )
+
+            db.pop("alunos", None)
+            db["schema_version"] = 2
+            db["children"] = children
+            db["attendances"] = attendances
+            db.setdefault("import_batches", [])
+            db.setdefault("audit_log", [])
+            db.setdefault("attachments", [])
+            db.setdefault("users", [])
+            changed = True
+            version = 2
+
+        # Ensure required keys
+        for k, default in {
+            "children": [],
+            "attendances": [],
+            "import_batches": [],
+            "audit_log": [],
+            "attachments": [],
+            "users": [],
+        }.items():
+            if k not in db or db.get(k) is None:
+                db[k] = default
+                changed = True
+
+        if db.get("schema_version") != 2:
+            db["schema_version"] = 2
+            changed = True
+
+        return db, changed
 
     def load(self) -> dict[str, Any]:
         if not self.db_path.exists():
@@ -40,7 +167,11 @@ class JsonStore:
             db = self._empty_db()
             write_json_atomic(self.db_path, db)
             return db
-        return json.loads(text)
+        db = json.loads(text)
+        db, changed = self._ensure_v2(db)
+        if changed:
+            self.save(db)
+        return db
 
     def save(self, db: dict[str, Any]) -> None:
         db["generated_at"] = now_iso()
@@ -48,22 +179,169 @@ class JsonStore:
 
     def list_children(self) -> list[dict[str, Any]]:
         db = self.load()
-        alunos = list(db.get("alunos") or [])
-        alunos.sort(key=lambda a: (a.get("nome") or "").lower())
-        return alunos
+        children = list(db.get("children") or [])
+        children.sort(key=lambda a: (a.get("nome") or "").lower())
+        return children
 
-    def upsert_child(self, child: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    def list_attendances(self, child_id: str) -> list[dict[str, Any]]:
         db = self.load()
-        alunos: list[dict[str, Any]] = list(db.get("alunos") or [])
+        atts = [a for a in (db.get("attendances") or []) if a.get("child_id") == child_id]
+        atts.sort(key=lambda a: (a.get("occurred_at") or ""), reverse=True)
+        return atts
+
+    def list_attachments(self, attendance_id: str) -> list[dict[str, Any]]:
+        db = self.load()
+        items = [a for a in (db.get("attachments") or []) if a.get("attendance_id") == attendance_id]
+        items.sort(key=lambda a: (a.get("added_at") or ""), reverse=True)
+        return items
+
+    def add_attachment(self, attachment: dict[str, Any], *, actor: str | None = None) -> dict[str, Any]:
+        db = self.load()
+        items: list[dict[str, Any]] = list(db.get("attachments") or [])
+        created = now_iso()
+        attachment = {**attachment}
+        attachment.setdefault("id", str(uuid.uuid4()))
+        attachment.setdefault("added_at", created)
+        items.append(attachment)
+        db["attachments"] = items
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="attachment.add",
+                entity_type="attachment",
+                entity_id=attachment.get("id"),
+                details={"attachment": attachment},
+            )
+        self.save(db)
+        return attachment
+
+    def remove_attachment(self, attachment_id: str, *, actor: str | None = None) -> bool:
+        db = self.load()
+        items: list[dict[str, Any]] = list(db.get("attachments") or [])
+        before = len(items)
+        items = [a for a in items if a.get("id") != attachment_id]
+        if len(items) == before:
+            return False
+        db["attachments"] = items
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="attachment.remove",
+                entity_type="attachment",
+                entity_id=attachment_id,
+                details={},
+            )
+        self.save(db)
+        return True
+
+    def list_users(self) -> list[dict[str, Any]]:
+        db = self.load()
+        users = list(db.get("users") or [])
+        users.sort(key=lambda u: (u.get("username") or "").lower())
+        return users
+
+    def upsert_user(self, user: dict[str, Any], *, actor: str | None = None) -> tuple[str, dict[str, Any]]:
+        db = self.load()
+        users: list[dict[str, Any]] = list(db.get("users") or [])
+
+        existing = None
+        user_id = (user.get("id") or "").strip()
+        username = (user.get("username") or "").strip().lower()
+        if user_id:
+            existing = next((u for u in users if u.get("id") == user_id), None)
+        if existing is None and username:
+            existing = next((u for u in users if (u.get("username") or "").strip().lower() == username), None)
+
+        if existing is None:
+            new_id = str(uuid.uuid4())
+            created = now_iso()
+            user = {**user}
+            user["id"] = new_id
+            user["created_at"] = created
+            user["updated_at"] = created
+            users.append(user)
+            db["users"] = users
+            if actor:
+                self._audit(
+                    db,
+                    actor=actor,
+                    action="user.insert",
+                    entity_type="user",
+                    entity_id=new_id,
+                    details={"user": {"id": new_id, "username": user.get("username"), "role": user.get("role")}},
+                )
+            self.save(db)
+            return "inserted", user
+
+        before = dict(existing)
+        for k, v in user.items():
+            if k in {"id", "created_at"}:
+                continue
+            existing[k] = v
+        existing["updated_at"] = now_iso()
+        db["users"] = users
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="user.update",
+                entity_type="user",
+                entity_id=existing.get("id"),
+                details={"diff": self._diff(before, existing)},
+            )
+        self.save(db)
+        return "updated", existing
+
+    def merge_children(self, *, keep_id: str, merge_id: str, actor: str) -> bool:
+        if keep_id == merge_id:
+            return False
+        db = self.load()
+        children: list[dict[str, Any]] = list(db.get("children") or [])
+        keep = next((c for c in children if c.get("id") == keep_id), None)
+        merge = next((c for c in children if c.get("id") == merge_id), None)
+        if not keep or not merge:
+            return False
+
+        # Move attendances
+        moved = 0
+        for att in db.get("attendances") or []:
+            if att.get("child_id") == merge_id:
+                att["child_id"] = keep_id
+                moved += 1
+
+        children = [c for c in children if c.get("id") != merge_id]
+        db["children"] = children
+
+        self._audit(
+            db,
+            actor=actor,
+            action="child.merge",
+            entity_type="child",
+            entity_id=keep_id,
+            details={
+                "keep_id": keep_id,
+                "merge_id": merge_id,
+                "moved_attendances": moved,
+                "merged_child": {"id": merge.get("id"), "nome": merge.get("nome"), "escola": merge.get("escola")},
+            },
+        )
+        self.save(db)
+        return True
+
+    def upsert_child(self, child: dict[str, Any], *, actor: str | None = None) -> tuple[str, dict[str, Any]]:
+        db = self.load()
+        children: list[dict[str, Any]] = list(db.get("children") or [])
 
         existing = None
         child_id = (child.get("id") or "").strip()
         if child_id:
-            existing = next((a for a in alunos if a.get("id") == child_id), None)
+            existing = next((a for a in children if a.get("id") == child_id), None)
         if existing is None:
             ext = (child.get("external_key") or "").strip()
             if ext:
-                existing = next((a for a in alunos if a.get("external_key") == ext), None)
+                existing = next((a for a in children if a.get("external_key") == ext), None)
 
         if existing is None:
             new_id = str(uuid.uuid4())
@@ -73,26 +351,66 @@ class JsonStore:
             child["created_at"] = created
             child["updated_at"] = created
             child.setdefault("source", {"type": "manual"})
-            alunos.append(child)
-            db["alunos"] = alunos
+            children.append(child)
+            db["children"] = children
+            if actor:
+                self._audit(
+                    db,
+                    actor=actor,
+                    action="child.insert",
+                    entity_type="child",
+                    entity_id=new_id,
+                    details={"child": child},
+                )
             self.save(db)
             return "inserted", child
 
-        incoming_source_type = ((child.get("source") or {}).get("type") or "").strip()
-        existing_source_type = ((existing.get("source") or {}).get("type") or "").strip()
         skip = {"id", "created_at"}
-        if incoming_source_type == "manual" and existing_source_type == "xlsx":
-            skip |= {"source", "imported_at"}
 
+        before = dict(existing)
         for k, v in child.items():
             if k in skip:
                 continue
             existing[k] = v
         existing["updated_at"] = now_iso()
 
-        db["alunos"] = alunos
+        db["children"] = children
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="child.update",
+                entity_type="child",
+                entity_id=existing.get("id"),
+                details={"diff": self._diff(before, existing)},
+            )
         self.save(db)
         return "updated", existing
+
+    def add_attendance(self, attendance: dict[str, Any], *, actor: str | None = None) -> dict[str, Any]:
+        db = self.load()
+        attendances: list[dict[str, Any]] = list(db.get("attendances") or [])
+
+        created = now_iso()
+        attendance = {**attendance}
+        attendance.setdefault("id", str(uuid.uuid4()))
+        attendance.setdefault("created_at", created)
+        attendance.setdefault("updated_at", created)
+        if actor:
+            attendance.setdefault("registrado_por", actor)
+        attendances.append(attendance)
+        db["attendances"] = attendances
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="attendance.add",
+                entity_type="attendance",
+                entity_id=attendance.get("id"),
+                details={"attendance": attendance},
+            )
+        self.save(db)
+        return attendance
 
     def new_child_from_form(
         self,
@@ -102,8 +420,6 @@ class JsonStore:
         idade: str,
         escola: str,
         data_nascimento_iso: str | None,
-        atendimento: str,
-        vd: str,
     ) -> dict[str, Any]:
         age = None
         idade = (idade or "").strip()
@@ -126,8 +442,6 @@ class JsonStore:
             "idade": age,
             "escola": escola,
             "data_nascimento": birth or None,
-            "atendimento_realizado": atendimento or "",
-            "vd": vd or "",
             "source": {"type": "manual"},
         }
 

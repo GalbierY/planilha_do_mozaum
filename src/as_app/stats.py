@@ -17,18 +17,30 @@ class Stats:
 
 
 def compute_stats(db: dict[str, Any]) -> Stats:
-    alunos = list(db.get("alunos") or [])
+    children = list(db.get("children") or [])
+    attendances = list(db.get("attendances") or [])
 
     def norm(s: Any, fallback: str) -> str:
         text = ("" if s is None else str(s)).strip()
         return text if text else fallback
 
-    by_school = Counter(norm(a.get("escola"), "(Sem escola)") for a in alunos)
-    by_age = Counter(norm(a.get("idade"), "(Sem idade)") for a in alunos)
-    by_source = Counter(norm((a.get("source") or {}).get("type"), "(Sem fonte)") for a in alunos)
+    by_school = Counter(norm(a.get("escola"), "(Sem escola)") for a in children)
+    by_age = Counter(norm(a.get("idade"), "(Sem idade)") for a in children)
+    by_source = Counter(norm((a.get("source") or {}).get("type"), "(Sem fonte)") for a in children)
 
-    with_atendimento = sum(1 for a in alunos if (a.get("atendimento_realizado") or "").strip())
-    with_vd = sum(1 for a in alunos if (a.get("vd") or "").strip())
+    child_has_atendimento: set[str] = set()
+    child_has_vd: set[str] = set()
+    for att in attendances:
+        cid = att.get("child_id")
+        if not cid:
+            continue
+        if (att.get("atendimento_text") or "").strip():
+            child_has_atendimento.add(cid)
+        if (att.get("vd_text") or "").strip():
+            child_has_vd.add(cid)
+
+    with_atendimento = len(child_has_atendimento)
+    with_vd = len(child_has_vd)
 
     batches = list(db.get("import_batches") or [])
     last_import = None
@@ -36,7 +48,7 @@ def compute_stats(db: dict[str, Any]) -> Stats:
         last_import = max(batches, key=lambda b: (b.get("imported_at") or ""))
 
     return Stats(
-        total=len(alunos),
+        total=len(children),
         with_atendimento=with_atendimento,
         with_vd=with_vd,
         by_school=sorted(by_school.items(), key=lambda kv: (-kv[1], kv[0].lower())),
