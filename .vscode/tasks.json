@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "AS Local: Instalar deps",
+      "label": "SAS 🥰 | Civitas: Instalar deps",
       "type": "shell",
       "command": "py",
       "args": [
@@ -13,7 +13,7 @@
       "problemMatcher": []
     },
     {
-      "label": "AS Local: Rodar GUI (Python)",
+      "label": "SAS 🥰 | Civitas: Rodar GUI (Python)",
       "type": "shell",
       "command": "py",
       "args": [

@@ -30,6 +30,7 @@ class App(tk.Tk):
 
         self.title(self.cfg.app_name)
         self.geometry("1200x720")
+        self._try_set_icon()
 
         self.selected_id: str | None = None
         self.selected_attendance_id: str | None = None
@@ -54,6 +55,27 @@ class App(tk.Tk):
         self.apply_filter()
         self.refresh_stats()
         self._start_auto_update_checks()
+
+    def _try_set_icon(self) -> None:
+        candidates = [
+            self.app_root / "icon.ico",
+            self.app_root / "icon.png",
+            self.app_root / "app.ico",
+            self.app_root / "app.png",
+            self.app_root / "assets" / "icon.ico",
+            self.app_root / "assets" / "icon.png",
+        ]
+        icon_path = next((p for p in candidates if p.exists()), None)
+        if icon_path is None:
+            return
+        try:
+            if icon_path.suffix.lower() == ".ico":
+                self.iconbitmap(str(icon_path))
+            else:
+                self._icon_img = tk.PhotoImage(file=str(icon_path))  # keep reference
+                self.iconphoto(True, self._icon_img)
+        except Exception:
+            pass
 
     def _setup_styles(self) -> None:
         style = ttk.Style(self)

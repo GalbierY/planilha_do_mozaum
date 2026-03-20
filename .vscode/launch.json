@@ -2,14 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "AS Local - GUI (Python)",
+      "name": "SAS 🥰 | Civitas - GUI (Python)",
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}\\gui.py",
       "cwd": "${workspaceFolder}",
       "python": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "preLaunchTask": "AS Local: Instalar deps",
+      "preLaunchTask": "SAS 🥰 | Civitas: Instalar deps",
       "console": "integratedTerminal",
       "justMyCode": true
     }

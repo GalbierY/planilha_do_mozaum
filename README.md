@@ -1,4 +1,4 @@
-# AS Local (MVP)
+# SAS 🥰 | Civitas
 
 GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (estilo e-SUS, só que focado na AS), com metadados de cadastro (`created_at` / `updated_at`) e importação idempotente.
 
@@ -38,6 +38,19 @@ GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (es
 - Anexos: `data/attachments/` (ignorados pelo git)
 - Backups: `data/backups/` (ignorados pelo git)
 - Exportações: `data/exports/` (ignorados pelo git)
+
+## Ícone
+
+- Se existir `assets/icon.ico` ou `assets/icon.png`, o app usa esse arquivo como ícone da janela.
+- Alternativa: `icon.ico` / `icon.png` na raiz.
+
+## Atalho com ícone (parecer “app”)
+
+Não dá para “colocar ícone dentro do `.cmd`” (o Windows usa o ícone padrão do tipo de arquivo). O jeito certo é criar um atalho com ícone.
+
+- Criar atalho no Desktop e Menu Iniciar:
+  - `py -3 install_shortcut.py`
+  - Obs.: o nome do arquivo do atalho não pode conter `|` no Windows; o script sanitiza automaticamente.
 
 ## Auto-update (git)
 
