@@ -54,7 +54,7 @@ class AppConfig:
             return default
 
         return AppConfig(
-            app_name=get("app_name", "SAS 🥰 | Civitas"),
+            app_name=get("app_name", "SAS Civitas"),
             db_path=get("db_path", "data/metadata/as_db.json"),
             xlsx_default_path=get("xlsx_default_path", "data/AssistenteSocial.xlsx"),
             xlsx_default_sheet=get("xlsx_default_sheet", "Base2025"),

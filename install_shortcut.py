@@ -98,8 +98,8 @@ def main() -> None:
         except Exception:
             pass
 
-    ap = argparse.ArgumentParser(description="Cria um atalho com ícone para abrir o SAS 🥰 | Civitas.")
-    ap.add_argument("--name", default="SAS 🥰 | Civitas", help="Nome do atalho (arquivo .url).")
+    ap = argparse.ArgumentParser(description="Cria um atalho com ícone para abrir o SAS Civitas.")
+    ap.add_argument("--name", default="SAS Civitas", help="Nome do atalho (arquivo .url).")
     ap.add_argument("--desktop", action=argparse.BooleanOptionalAction, default=True, help="Criar no Desktop.")
     ap.add_argument(
         "--start-menu",

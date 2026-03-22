@@ -8,5 +8,11 @@ data/as_db.json
 __pycache__/
 *.pyc
 .venv/
+.venv_build/
 .pytest_cache/
 .vscode/.ropeproject/
+build/
+dist/
+installer/Output/
+artifacts/
+packaging/

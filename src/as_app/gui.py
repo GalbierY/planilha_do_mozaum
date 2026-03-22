@@ -4,6 +4,7 @@ import os
 import sys
 import threading
 import tkinter as tk
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
@@ -17,15 +18,20 @@ from .store import JsonStore
 from .updater import check_for_update, pull_ff_only
 from .util import br_date_to_iso, iso_to_br_date, now_iso
 from .stats import compute_stats
+from .runtime import ensure_user_files, get_data_root, get_resource_root, is_frozen
 
 
 class App(tk.Tk):
-    def __init__(self, app_root: Path):
+    def __init__(self, app_root: Path, data_root: Path):
         super().__init__()
 
         self.app_root = app_root
-        self.cfg = AppConfig.load(app_root)
-        self.store = JsonStore(app_root / self.cfg.db_path)
+        self.data_root = data_root
+        self.cfg = AppConfig.load(self.data_root)
+        if is_frozen():
+            # Frozen builds are not git repos; auto-update would just spam errors/banners.
+            self.cfg = replace(self.cfg, auto_update_enabled=False)
+        self.store = JsonStore(self.data_root / self.cfg.db_path)
         self.current_user: dict | None = None
 
         self.title(self.cfg.app_name)
@@ -1009,7 +1015,7 @@ class App(tk.Tk):
 
             res = import_from_xlsx(
                 store=self.store,
-                xlsx_path=self.app_root / self.cfg.xlsx_default_path,
+                xlsx_path=self.data_root / self.cfg.xlsx_default_path,
                 sheet_name=self.cfg.xlsx_default_sheet,
             )
             self.reload_cache()
@@ -1060,7 +1066,7 @@ class App(tk.Tk):
         path = filedialog.asksaveasfilename(
             title="Salvar CSV",
             defaultextension=".csv",
-            initialdir=str(self.app_root / self.cfg.exports_dir),
+            initialdir=str(self.data_root / self.cfg.exports_dir),
             initialfile=default,
             filetypes=[("CSV", "*.csv")],
         )
@@ -1078,7 +1084,7 @@ class App(tk.Tk):
         path = filedialog.asksaveasfilename(
             title="Salvar PDF",
             defaultextension=".pdf",
-            initialdir=str(self.app_root / self.cfg.exports_dir),
+            initialdir=str(self.data_root / self.cfg.exports_dir),
             initialfile=default,
             filetypes=[("PDF", "*.pdf")],
         )
@@ -1103,9 +1109,9 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         out = create_backup(
-            db_path=self.app_root / self.cfg.db_path,
-            attachments_dir=self.app_root / self.cfg.attachments_dir,
-            backups_dir=self.app_root / self.cfg.backups_dir,
+            db_path=self.data_root / self.cfg.db_path,
+            attachments_dir=self.data_root / self.cfg.attachments_dir,
+            backups_dir=self.data_root / self.cfg.backups_dir,
         )
         self.backup_status_var.set(f"Backup criado: {out}")
         self.store.log_event(actor=self._actor(), action="backup.create", details={"path": str(out)})
@@ -1117,7 +1123,7 @@ class App(tk.Tk):
             return
         zip_path = filedialog.askopenfilename(
             title="Selecionar backup (.zip)",
-            initialdir=str(self.app_root / self.cfg.backups_dir),
+            initialdir=str(self.data_root / self.cfg.backups_dir),
             filetypes=[("Backup zip", "*.zip")],
         )
         if not zip_path:
@@ -1126,8 +1132,8 @@ class App(tk.Tk):
             return
         restore_backup(
             backup_zip=Path(zip_path),
-            db_path=self.app_root / self.cfg.db_path,
-            attachments_dir=self.app_root / self.cfg.attachments_dir,
+            db_path=self.data_root / self.cfg.db_path,
+            attachments_dir=self.data_root / self.cfg.attachments_dir,
         )
         self.store.log_event(actor=self._actor(), action="backup.restore", details={"path": zip_path})
         self.reload_audit()
@@ -1417,10 +1423,10 @@ class App(tk.Tk):
         actor = self._actor()
         dest = store_attachment(
             src_path=Path(src),
-            attachments_dir=self.app_root / self.cfg.attachments_dir,
+            attachments_dir=self.data_root / self.cfg.attachments_dir,
             attendance_id=self.selected_attendance_id,
         )
-        rel = str(dest.relative_to(self.app_root))
+        rel = str(dest.relative_to(self.data_root))
         self.store.add_attachment(
             {
                 "attendance_id": self.selected_attendance_id,
@@ -1444,7 +1450,9 @@ class App(tk.Tk):
         a = next((x for x in items if x.get("id") == att_id), None)
         if not a:
             return
-        p = self.app_root / (a.get("path") or "")
+        p = self.data_root / (a.get("path") or "")
+        if (not p.exists()) and (self.app_root != self.data_root):
+            p = self.app_root / (a.get("path") or "")
         if not p.exists():
             messagebox.showerror("Anexo", f"Arquivo não encontrado: {p}")
             return
@@ -1464,7 +1472,9 @@ class App(tk.Tk):
         db = self.store.load()
         a = next((x for x in (db.get("attachments") or []) if x.get("id") == attach_id), None)
         if a:
-            p = self.app_root / (a.get("path") or "")
+            p = self.data_root / (a.get("path") or "")
+            if (not p.exists()) and (self.app_root != self.data_root):
+                p = self.app_root / (a.get("path") or "")
             if p.exists():
                 try:
                     p.unlink()
@@ -1926,5 +1936,8 @@ class MergeDialog(tk.Toplevel):
 
 
 def run() -> None:
-    app_root = Path(__file__).resolve().parents[2]
-    App(app_root).mainloop()
+    os.environ.setdefault("PYTHONUTF8", "1")
+    app_root = get_resource_root()
+    data_root = get_data_root(app_root)
+    ensure_user_files(app_root, data_root)
+    App(app_root, data_root).mainloop()

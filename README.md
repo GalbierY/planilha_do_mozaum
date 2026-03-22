@@ -10,6 +10,31 @@ GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (es
 - VS Code:
   - Abra a pasta e pressione `F5` (config em `.vscode/launch.json`)
 
+## Distribuir (Windows, sem Python instalado)
+
+Para o usuário final não precisar de Python, gere um `.exe` (PyInstaller) e opcionalmente um instalador (Inno Setup).
+
+- Gerar app (`artifacts/pyinstaller-dist/SAS Civitas/`):
+  - `GERAR_EXE.cmd` (atalho) ou `packaging/build_exe.cmd`
+- Gerar instalador (`artifacts/inno-output/SAS Civitas - Instalador.exe`):
+  - Instale o Inno Setup (precisa do `iscc.exe` no PATH)
+  - `GERAR_INSTALADOR.cmd` (atalho) ou `packaging/build_installer.cmd`
+
+### Onde ficam os dados (build instalada)
+
+O app salva tudo em:
+
+- `%LOCALAPPDATA%\\SAS Civitas\\UserData\\`
+  - `config\\config.json`
+  - `data\\metadata\\as_db.json`
+  - `data\\attachments\\`, `data\\backups\\`, `data\\exports\\`
+
+### Preparar para commit (opcional)
+
+Se vocÃª quiser **versionar os binÃ¡rios** no git, use:
+
+- `packaging/preparar_release.cmd` (copia para `release/` e gera `SHA256SUMS.txt`)
+
 ## Fluxo básico (uso)
 
 1) Aba `Cadastros`: busque/filtre e selecione uma criança na lista
