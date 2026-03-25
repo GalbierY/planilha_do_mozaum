@@ -123,3 +123,67 @@ def read_xlsx_table(xlsx_path: Path, sheet_name: str) -> list[dict[str, Any]]:
                 records.append(rec)
 
         return records
+
+
+def read_criancas_column(xlsx_path: Path, sheet_name: str) -> list[str]:
+    """Lê apenas a coluna 'Crianças' do Excel para o workflow."""
+    with zipfile.ZipFile(xlsx_path, "r") as z:
+        shared = _read_shared_strings(z)
+        sheet_path = _get_sheet_entry_path(z, sheet_name)
+        root = _read_xml(z, sheet_path)
+
+        sheet_data = root.find(_q(_NS_MAIN, "sheetData"))
+        if sheet_data is None:
+            return []
+
+        rows = list(sheet_data.findall(_q(_NS_MAIN, "row")))
+        if not rows:
+            return []
+
+        def cell_value(cell: ET.Element) -> str:
+            t = cell.attrib.get("t")
+            if t == "inlineStr":
+                parts = [n.text or "" for n in cell.findall(f".//{_q(_NS_MAIN,'t')}")]
+                return "".join(parts)
+            v = cell.find(_q(_NS_MAIN, "v"))
+            if v is None or v.text is None:
+                return ""
+            raw = v.text
+            if t == "s" and shared is not None:
+                try:
+                    return shared[int(raw)]
+                except (ValueError, IndexError):
+                    return ""
+            return raw
+
+        # Encontrar a coluna "Crianças"
+        header_row = rows[0]
+        crianca_col = None
+        for cell in header_row.findall(_q(_NS_MAIN, "c")):
+            ref = cell.attrib.get("r") or ""
+            col = re.match(r"^[A-Z]+", ref)
+            if not col:
+                continue
+            header = cell_value(cell).strip()
+            if header.lower() == "crianças":
+                crianca_col = col.group(0)
+                break
+
+        if not crianca_col:
+            return []
+
+        nomes = []
+        for row in rows[1:]:
+            for cell in row.findall(_q(_NS_MAIN, "c")):
+                ref = cell.attrib.get("r") or ""
+                col_match = re.match(r"^[A-Z]+", ref)
+                if not col_match:
+                    continue
+                col = col_match.group(0)
+                if col == crianca_col:
+                    value = cell_value(cell).strip()
+                    if value:
+                        nomes.append(value)
+                    break
+
+        return nomes

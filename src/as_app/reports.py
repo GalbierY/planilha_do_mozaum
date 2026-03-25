@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import csv
 import re
-from collections import Counter, defaultdict
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 
 FALTA_RE = re.compile(r"\bfalta\b", re.IGNORECASE)
@@ -47,6 +47,32 @@ def build_reports(db: dict[str, Any], *, start: str | None = None, end: str | No
         if end_dt and d > end_dt:
             return False
         return True
+
+    reports: dict[str, Report] = {}
+
+    # Relatório de workflow
+    workflow_pending = [c for c in children if not c.get("workflow_status", False)]
+    workflow_completed = [c for c in children if c.get("workflow_status", False)]
+    rows_workflow = [
+        [c.get("nome"), c.get("escola"), c.get("idade") or "", "Pendente" if not c.get("workflow_status", False) else "Concluído"]
+        for c in children
+    ]
+    reports["workflow"] = Report(
+        title="Status do Workflow",
+        headers=["Nome", "Escola", "Idade", "Status"],
+        rows=rows_workflow,
+    )
+
+    # Estatísticas de workflow
+    total = len(children)
+    pending_count = len(workflow_pending)
+    completed_count = len(workflow_completed)
+    reports["workflow_stats"] = Report(
+        title="Estatísticas do Workflow",
+        headers=["Total", "Pendente", "Concluído", "Percentual Concluído"],
+        rows=[[str(total), str(pending_count), str(completed_count), f"{(completed_count/total*100):.1f}%"]],
+        )
+    
 
     # Pendências: crianças sem atendimentos
     has_any = {a.get("child_id") for a in attendances if a.get("child_id")}

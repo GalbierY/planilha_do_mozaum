@@ -477,6 +477,7 @@ class JsonStore:
             "idade": age,
             "escola": escola,
             "data_nascimento": birth or None,
+            "workflow_status": False,  # Novo campo: False = vermelho (pendente), True = verde (concluído)
             "source": {"type": "manual"},
         }
 

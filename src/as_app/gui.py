@@ -123,12 +123,14 @@ class App(tk.Tk):
         self.tab_reports = ttk.Frame(self.notebook)
         self.tab_backup = ttk.Frame(self.notebook)
         self.tab_audit = ttk.Frame(self.notebook)
+        self.tab_workflow = ttk.Frame(self.notebook)
         self.notebook.add(self.tab_cadastros, text="Cadastros")
         self.notebook.add(self.tab_stats, text="Estatísticas")
         self.notebook.add(self.tab_history, text="Histórico")
         self.notebook.add(self.tab_reports, text="Relatórios")
         self.notebook.add(self.tab_backup, text="Backup")
         self.notebook.add(self.tab_audit, text="Auditoria")
+        self.notebook.add(self.tab_workflow, text="Workflow")
         if self._is_admin():
             self.tab_users = ttk.Frame(self.notebook)
             self.notebook.add(self.tab_users, text="Usuários")
@@ -140,6 +142,7 @@ class App(tk.Tk):
         self._build_reports_ui(self.tab_reports)
         self._build_backup_ui(self.tab_backup)
         self._build_audit_ui(self.tab_audit)
+        self._build_workflow_ui(self.tab_workflow)
         if self._is_admin() and hasattr(self, "tab_users"):
             self._build_users_ui(self.tab_users)
 
@@ -147,22 +150,20 @@ class App(tk.Tk):
         self.action_bar.pack(fill="x", side="bottom")
         self.action_bar.columnconfigure(20, weight=1)
 
-        self.btn_import = ttk.Button(self.action_bar, text="Importar", command=self.on_import)
-        self.btn_import.grid(row=0, column=0, sticky="w")
         self.btn_new_form = ttk.Button(self.action_bar, text="Novo", command=self.on_new_child_form)
-        self.btn_new_form.grid(row=0, column=1, padx=(8, 0))
+        self.btn_new_form.grid(row=0, column=0, sticky="w")
         self.btn_add_child = ttk.Button(self.action_bar, text="+ Criança", command=self.on_add)
-        self.btn_add_child.grid(row=0, column=2, padx=(8, 0))
+        self.btn_add_child.grid(row=0, column=1, padx=(8, 0))
         self.btn_save_child = ttk.Button(self.action_bar, text="Salvar", command=self.on_save)
-        self.btn_save_child.grid(row=0, column=3, padx=(8, 0))
+        self.btn_save_child.grid(row=0, column=2, padx=(8, 0))
         self.btn_new_att = ttk.Button(self.action_bar, text="+ Atendimento", command=self.on_new_attendance, state="disabled")
-        self.btn_new_att.grid(row=0, column=4, padx=(12, 0))
+        self.btn_new_att.grid(row=0, column=3, padx=(12, 0))
         self.btn_edit_att = ttk.Button(self.action_bar, text="Editar atendimento", command=self.on_edit_attendance, state="disabled")
-        self.btn_edit_att.grid(row=0, column=5, padx=(8, 0))
+        self.btn_edit_att.grid(row=0, column=4, padx=(8, 0))
         self.btn_attach = ttk.Button(self.action_bar, text="Anexar", command=self.on_attachment_add, state="disabled")
-        self.btn_attach.grid(row=0, column=6, padx=(8, 0))
+        self.btn_attach.grid(row=0, column=5, padx=(8, 0))
         self.btn_backup_quick = ttk.Button(self.action_bar, text="Backup", command=self.on_backup_create)
-        self.btn_backup_quick.grid(row=0, column=7, padx=(12, 0))
+        self.btn_backup_quick.grid(row=0, column=6, padx=(12, 0))
 
         ttk.Separator(self.action_bar, orient="horizontal").grid(row=1, column=0, columnspan=21, sticky="ew", pady=(8, 0))
 
@@ -200,9 +201,10 @@ class App(tk.Tk):
     def _refresh_action_bar_state(self) -> None:
         can_edit = self._can_edit()
         in_cadastros = self._current_tab_text().strip().lower().startswith("cadastros")
+        in_import = self._current_tab_text().strip().lower().startswith("importar")
 
         if hasattr(self, "btn_import"):
-            self.btn_import.configure(state=("normal" if (can_edit and in_cadastros) else "disabled"))
+            self.btn_import.configure(state=("normal" if (can_edit and (in_cadastros or in_import)) else "disabled"))
         if hasattr(self, "btn_new_form"):
             self.btn_new_form.configure(state=("normal" if can_edit else "disabled"))
         if hasattr(self, "btn_add_child"):
@@ -382,6 +384,154 @@ class App(tk.Tk):
 
         self.btn_merge = ttk.Button(main_right, text="Mesclar duplicados…", command=self.on_merge_children)
         self.btn_merge.grid(row=r + 1, column=1, sticky="w", pady=(10, 0))
+
+        # Botões de importação
+        import_frame = ttk.Frame(main_right)
+        import_frame.grid(row=r + 2, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        
+        ttk.Label(import_frame, text="Importação:").grid(row=0, column=0, sticky="w")
+        self.btn_import_cadastros = ttk.Button(import_frame, text="Importar (Cadastros)", command=self.on_import_cadastros)
+        self.btn_import_cadastros.grid(row=0, column=1, padx=(8, 0))
+        self.btn_select_spreadsheet = ttk.Button(import_frame, text="Selecionar Planilha", command=self.on_select_spreadsheet)
+        self.btn_select_spreadsheet.grid(row=0, column=2, padx=(8, 0))
+
+        # Filtros de workflow
+        ttk.Separator(main_right).grid(row=r + 3, column=0, columnspan=2, sticky="ew", pady=(10, 8))
+        filter_frame = ttk.Frame(main_right)
+        filter_frame.grid(row=r + 4, column=0, columnspan=2, sticky="w")
+        
+        ttk.Label(filter_frame, text="Status Workflow:").grid(row=0, column=0, sticky="w")
+        self.filter_workflow_var = tk.StringVar(value="")
+        self.filter_workflow_cb = ttk.Combobox(
+            filter_frame,
+            textvariable=self.filter_workflow_var,
+            state="readonly",
+            values=["", "Pendente", "Concluído"],
+            width=12
+        )
+        self.filter_workflow_cb.grid(row=0, column=1, padx=(6, 0))
+        self.filter_workflow_cb.bind("<<ComboboxSelected>>", lambda _e: self.apply_filter())
+        self.filter_workflow_cb.bind("<KeyRelease>", lambda _e: self.apply_filter())
+
+        # Botões avançados
+        advanced_frame = ttk.Frame(main_right)
+        advanced_frame.grid(row=r + 5, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        
+        ttk.Label(advanced_frame, text="Ferramentas:").grid(row=0, column=0, sticky="w")
+        self.btn_export_selected = ttk.Button(advanced_frame, text="Exportar Selecionados", command=self.on_export_selected)
+        self.btn_export_selected.grid(row=0, column=1, padx=(8, 0))
+        self.btn_generate_report = ttk.Button(advanced_frame, text="Gerar Relatório", command=self.on_generate_report)
+        self.btn_generate_report.grid(row=0, column=2, padx=(8, 0))
+
+    def on_export_selected(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        
+        # Obter IDs selecionados
+        selected_items = self.tree.selection()
+        if not selected_items:
+            messagebox.showwarning("Exportar", "Selecione crianças para exportar.")
+            return
+            
+        # Coletar dados das crianças selecionadas
+        selected_children = []
+        for item_id in selected_items:
+            child = next((c for c in self.cache if c.get("id") == item_id), None)
+            if child:
+                selected_children.append(child)
+        
+        if not selected_children:
+            messagebox.showwarning("Exportar", "Nenhuma criança encontrada para exportar.")
+            return
+        
+        # Perguntar formato de exportação
+        format_dialog = ExportFormatDialog(self)
+        self.wait_window(format_dialog)
+        if format_dialog.result is None:
+            return
+            
+        format_type = format_dialog.result["format"]
+        
+        # Exportar dados
+        try:
+            from .reports import export_selected_children
+            
+            default_name = f"exportacao_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            if format_type == "csv":
+                path = filedialog.asksaveasfilename(
+                    title="Salvar exportação CSV",
+                    defaultextension=".csv",
+                    initialdir=str(self.data_root / self.cfg.exports_dir),
+                    initialfile=default_name + ".csv",
+                    filetypes=[("CSV", "*.csv")],
+                )
+                if not path:
+                    return
+                export_selected_children(selected_children, Path(path), format_type="csv")
+                self.set_status(f"Exportação CSV concluída: {path}")
+                
+            elif format_type == "json":
+                path = filedialog.asksaveasfilename(
+                    title="Salvar exportação JSON",
+                    defaultextension=".json",
+                    initialdir=str(self.data_root / self.cfg.exports_dir),
+                    initialfile=default_name + ".json",
+                    filetypes=[("JSON", "*.json")],
+                )
+                if not path:
+                    return
+                export_selected_children(selected_children, Path(path), format_type="json")
+                self.set_status(f"Exportação JSON concluída: {path}")
+                
+            elif format_type == "xlsx":
+                path = filedialog.asksaveasfilename(
+                    title="Salvar exportação Excel",
+                    defaultextension=".xlsx",
+                    initialdir=str(self.data_root / self.cfg.exports_dir),
+                    initialfile=default_name + ".xlsx",
+                    filetypes=[("Excel", "*.xlsx")],
+                )
+                if not path:
+                    return
+                export_selected_children(selected_children, Path(path), format_type="xlsx")
+                self.set_status(f"Exportação Excel concluída: {path}")
+                
+        except Exception as e:
+            messagebox.showerror("Exportar", f"Erro ao exportar: {str(e)}")
+            self.set_status("Erro ao exportar")
+
+    def on_generate_report(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        
+        # Abrir aba de relatórios
+        try:
+            self.notebook.select(self.tab_reports)
+        except Exception:
+            pass
+            
+        # Configurar filtros atuais como parâmetros do relatório
+        workflow_status = (getattr(self, "filter_workflow_var", tk.StringVar(value="")).get() or "").strip()
+        
+        # Definir tipo de relatório baseado no filtro
+        if workflow_status == "pendente":
+            self.report_key_var.set("pending")
+        elif workflow_status == "concluído":
+            self.report_key_var.set("completed")
+        else:
+            self.report_key_var.set("by_school")
+            
+        # Aplicar filtros de período
+        start = (getattr(self, "filter_start_var", tk.StringVar(value="")).get() or "").strip()
+        end = (getattr(self, "filter_end_var", tk.StringVar(value="")).get() or "").strip()
+        self.report_start_var.set(start)
+        self.report_end_var.set(end)
+        
+        # Gerar relatório
+        self.on_report_generate()
+        self.set_status("Relatório gerado com base nos filtros atuais")
 
     def _build_stats_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
@@ -586,6 +736,276 @@ class App(tk.Tk):
 
         self.reload_audit()
 
+    def _build_workflow_ui(self, root: ttk.Frame) -> None:
+        root.columnconfigure(0, weight=1)
+        root.rowconfigure(1, weight=1)
+
+        top = ttk.Frame(root, padding=10)
+        top.grid(row=0, column=0, sticky="ew")
+        ttk.Label(top, text="Workflow de Importação").grid(row=0, column=0, sticky="w")
+
+        mid = ttk.Frame(root, padding=(10, 0, 10, 10))
+        mid.grid(row=1, column=0, sticky="nsew")
+        mid.columnconfigure(0, weight=1)
+        mid.rowconfigure(0, weight=1)
+
+        # Treeview para exibir nomes da coluna "Crianças"
+        self.workflow_tree = ttk.Treeview(
+            mid, columns=("nome", "status"), show="headings", selectmode="browse"
+        )
+        self.workflow_tree.heading("nome", text="Criança")
+        self.workflow_tree.column("nome", width=400, anchor="w")
+        self.workflow_tree.heading("status", text="Status")
+        self.workflow_tree.column("status", width=120, anchor="center")
+        self._setup_treeview(self.workflow_tree)
+        
+        # Configurar cores condicionais
+        self.workflow_tree.tag_configure("pending", background="#fff1f2", foreground="#721c24")  # Vermelho claro
+        self.workflow_tree.tag_configure("completed", background="#d4edda", foreground="#155724")  # Verde claro
+        
+        self.workflow_tree.grid(row=0, column=0, sticky="nsew")
+        self.workflow_tree.bind("<<TreeviewSelect>>", lambda _e: self.on_workflow_select())
+        self.workflow_tree.bind("<Button-1>", self.on_workflow_item_click)
+
+        vsb = ttk.Scrollbar(mid, orient="vertical", command=self.workflow_tree.yview)
+        self.workflow_tree.configure(yscrollcommand=vsb.set)
+        vsb.grid(row=0, column=1, sticky="ns")
+
+        bottom = ttk.Frame(root, padding=(10, 0, 10, 10))
+        bottom.grid(row=2, column=0, sticky="ew")
+        bottom.columnconfigure(1, weight=1)
+
+        ttk.Label(bottom, text="Arquivo:").grid(row=0, column=0, sticky="w")
+        self.workflow_file_var = tk.StringVar(value="")
+        ttk.Entry(bottom, textvariable=self.workflow_file_var, state="readonly").grid(row=0, column=1, sticky="ew", padx=(8, 0))
+
+        ttk.Label(bottom, text="Status:").grid(row=1, column=0, sticky="w", pady=(8, 0))
+        self.workflow_status_var = tk.StringVar(value="")
+        ttk.Label(bottom, textvariable=self.workflow_status_var).grid(row=1, column=1, sticky="w", pady=(8, 0))
+
+        ttk.Label(bottom, text="Última importação:").grid(row=2, column=0, sticky="w", pady=(8, 0))
+        self.workflow_last_import_var = tk.StringVar(value="")
+        ttk.Label(bottom, textvariable=self.workflow_last_import_var).grid(row=2, column=1, sticky="w", pady=(8, 0))
+
+        btns = ttk.Frame(bottom)
+        btns.grid(row=3, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        self.btn_workflow_import = ttk.Button(btns, text="Importar", command=self.on_workflow_import, state="disabled")
+        self.btn_workflow_import.grid(row=0, column=0, padx=(0, 8))
+        self.btn_workflow_select = ttk.Button(btns, text="Selecionar Arquivo", command=self.on_workflow_select_file)
+        self.btn_workflow_select.grid(row=0, column=1, padx=(0, 8))
+        self.btn_workflow_clear = ttk.Button(btns, text="Limpar Histórico", command=self.on_workflow_clear, state="disabled")
+        self.btn_workflow_clear.grid(row=0, column=2)
+
+        self.reload_workflow()
+
+    def reload_workflow(self) -> None:
+        if not hasattr(self, "workflow_tree"):
+            return
+        for iid in self.workflow_tree.get_children():
+            self.workflow_tree.delete(iid)
+
+        # Exibir nomes da planilha padrão com seus status
+        try:
+            from .xlsx_reader import read_xlsx_table  # lazy import
+            
+            xlsx_path = self.data_root / self.cfg.xlsx_default_path
+            if xlsx_path.exists():
+                # Ler a planilha padrão
+                rows = read_xlsx_table(xlsx_path, sheet_name=self.cfg.xlsx_default_sheet)
+                
+                # Obter nomes únicos da coluna "Crianças" ou colunas alternativas
+                colunas_possiveis = ["Crianças", "Nome", "Aluno", "Estudante", "Criança"]
+                nomes_planilha = set()
+                
+                for row in rows:
+                    for col in colunas_possiveis:
+                        nome = row.get(col, "").strip()
+                        if nome:
+                            nomes_planilha.add(nome)
+                            break
+                
+                # Verificar status de cada nome na planilha
+                for nome_str in sorted(nomes_planilha):
+                    if not nome_str:
+                        continue
+                        
+                    # Verificar se já foi importado (existe no cache)
+                    child = next((c for c in self.cache if c.get("nome") == nome_str), None)
+                    status = child.get("workflow_status", False) if child else False
+                    status_text = "Concluído" if status else "Pendente"
+                    tag = "completed" if status else "pending"
+                    
+                    iid = self.workflow_tree.insert(
+                        "", "end", values=(nome_str, status_text), tags=(tag,)
+                    )
+            else:
+                # Planilha não encontrada
+                iid = self.workflow_tree.insert(
+                    "", "end", values=("Planilha não encontrada", ""), tags=("pending",)
+                )
+        except Exception as e:
+            # Erro ao ler a planilha
+            iid = self.workflow_tree.insert(
+                "", "end", values=(f"Erro ao ler planilha: {str(e)}", ""), tags=("pending",)
+            )
+        
+        self._apply_zebra(self.workflow_tree)
+
+    def on_workflow_select(self) -> None:
+        sel = self.workflow_tree.selection() if hasattr(self, "workflow_tree") else []
+        if not sel:
+            return
+        file_path = sel[0]
+        self.workflow_file_var.set(file_path)
+        self.workflow_status_var.set("Arquivo selecionado")
+        self.workflow_last_import_var.set("")
+        self.btn_workflow_import.configure(state="normal")
+        self.btn_workflow_clear.configure(state="normal")
+
+    def on_workflow_import(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        file_path = self.workflow_file_var.get()
+        if not file_path:
+            messagebox.showwarning("Workflow", "Selecione um arquivo na lista.")
+            return
+        try:
+            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+
+            res = import_from_xlsx(
+                store=self.store,
+                xlsx_path=Path(file_path),
+                sheet_name=self.cfg.xlsx_default_sheet,
+            )
+            self.reload_cache()
+            self.apply_filter()
+            self.refresh_stats()
+            self.set_status(
+                f"Importação OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})"
+            )
+            self.reload_workflow()
+        except Exception as e:
+            messagebox.showerror("Erro ao importar", str(e))
+            self.set_status("Erro ao importar")
+        finally:
+            self.refresh_stats()
+            self.reload_history()
+            self.reload_audit()
+
+    def on_workflow_select_file(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        try:
+            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+
+            xlsx_path = filedialog.askopenfilename(
+                title="Selecionar planilha",
+                initialdir=str(self.data_root),
+                filetypes=[("Excel", "*.xlsx"), ("Todos", "*.*")],
+            )
+            if not xlsx_path:
+                return
+
+            # Save the selected path for future imports
+            self.cfg.xlsx_default_path = str(Path(xlsx_path).relative_to(self.data_root))
+            self.cfg.save(self.data_root)
+
+            res = import_from_xlsx(
+                store=self.store,
+                xlsx_path=Path(xlsx_path),
+                sheet_name=self.cfg.xlsx_default_sheet,
+            )
+            self.reload_cache()
+            self.apply_filter()
+            self.refresh_stats()
+            self.set_status(
+                f"Importação OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})"
+            )
+            self.reload_workflow()
+        except Exception as e:
+            messagebox.showerror("Erro ao importar", str(e))
+            self.set_status("Erro ao importar")
+        finally:
+            self.refresh_stats()
+            self.reload_history()
+            self.reload_audit()
+
+    def on_workflow_clear(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        if not self.workflow_file_var.get():
+            messagebox.showwarning("Workflow", "Selecione um arquivo na lista.")
+            return
+        if not messagebox.askyesno("Workflow", "Limpar histórico deste arquivo?"):
+            return
+        db = self.store.load()
+        imports = list(db.get("import_log") or [])
+        imports = [x for x in imports if x.get("file") != self.workflow_file_var.get()]
+        db["import_log"] = imports
+        self.store.save(db, actor=self._actor())
+        self.reload_workflow()
+        self.set_status("Histórico limpo")
+        self.reload_audit()
+
+    def on_workflow_item_click(self, event) -> None:
+        """Manipula clique em itens da tabela de workflow para alternar cores."""
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        
+        # Identificar o item clicado
+        item = self.workflow_tree.identify_row(event.y)
+        if not item:
+            return
+            
+        # Obter o nome da criança (primeira coluna)
+        values = self.workflow_tree.item(item, "values")
+        if not values or len(values) < 1:
+            return
+            
+        child_name = values[0]
+        
+        # Encontrar a criança no cache e alternar o status (busca case-insensitive)
+        child = None
+        for c in self.cache:
+            if (c.get("nome") or "").strip().lower() == child_name.strip().lower():
+                child = c
+                break
+        
+        if not child:
+            self.set_status(f"Criança '{child_name}' não encontrada no banco de dados")
+            return
+            
+        # Alternar o status
+        current_status = child.get("workflow_status", False)
+        new_status = not current_status
+        
+        # Atualizar no banco de dados
+        actor = self._actor()
+        action, saved = self.store.upsert_child(
+            {
+                **child,
+                "workflow_status": new_status,
+            },
+            actor=actor,
+        )
+        
+        # Atualizar a exibição
+        self.reload_cache()
+        self.apply_filter()
+        self.refresh_stats()
+        
+        # Atualizar a cor na tabela
+        tag = "completed" if new_status else "pending"
+        status_text = "Concluído" if new_status else "Pendente"
+        self.workflow_tree.item(item, tags=(tag,), values=(child_name, status_text))
+        
+        self.set_status(f"Status alterado para {child_name}: {status_text}")
+        self.reload_audit()
+
     def refresh_stats(self) -> None:
         db = self.store.load()
         stats = compute_stats(db)
@@ -762,6 +1182,7 @@ class App(tk.Tk):
         school = (getattr(self, "filter_school_var", tk.StringVar(value="")).get() or "").strip().lower()
         has_att = bool(getattr(self, "filter_has_att_var", tk.BooleanVar(value=False)).get())
         has_vd = bool(getattr(self, "filter_has_vd_var", tk.BooleanVar(value=False)).get())
+        workflow_status = (getattr(self, "filter_workflow_var", tk.StringVar(value="")).get() or "").strip().lower()
 
         def to_int(s: str) -> int | None:
             t = (s or "").strip()
@@ -802,6 +1223,15 @@ class App(tk.Tk):
                 return True
             return False
 
+        def match_workflow_status(child: dict) -> bool:
+            if not workflow_status:
+                return True
+            if workflow_status == "pendente":
+                return not child.get("workflow_status", False)
+            elif workflow_status == "concluído":
+                return child.get("workflow_status", False)
+            return True
+
         items = []
         for c in self.cache:
             cid = c.get("id") or ""
@@ -818,6 +1248,8 @@ class App(tk.Tk):
             if has_vd and cid not in self._has_vd:
                 continue
             if not in_period(cid):
+                continue
+            if not match_workflow_status(c):
                 continue
 
             if query:
@@ -1016,6 +1448,70 @@ class App(tk.Tk):
             res = import_from_xlsx(
                 store=self.store,
                 xlsx_path=self.data_root / self.cfg.xlsx_default_path,
+                sheet_name=self.cfg.xlsx_default_sheet,
+            )
+            self.reload_cache()
+            self.apply_filter()
+            self.refresh_stats()
+            self.set_status(
+                f"Importação OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})"
+            )
+        except Exception as e:
+            messagebox.showerror("Erro ao importar", str(e))
+            self.set_status("Erro ao importar")
+        finally:
+            self.refresh_stats()
+            self.reload_history()
+            self.reload_audit()
+
+    def on_import_cadastros(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        try:
+            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+
+            res = import_from_xlsx(
+                store=self.store,
+                xlsx_path=self.data_root / self.cfg.xlsx_default_path,
+                sheet_name=self.cfg.xlsx_default_sheet,
+            )
+            self.reload_cache()
+            self.apply_filter()
+            self.refresh_stats()
+            self.set_status(
+                f"Importação OK: {res.inserted} novos, {res.updated} atualizados, {res.skipped} pulados (total {res.total})"
+            )
+        except Exception as e:
+            messagebox.showerror("Erro ao importar", str(e))
+            self.set_status("Erro ao importar")
+        finally:
+            self.refresh_stats()
+            self.reload_history()
+            self.reload_audit()
+
+    def on_select_spreadsheet(self) -> None:
+        if not self._can_edit():
+            messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
+            return
+        try:
+            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+
+            xlsx_path = filedialog.askopenfilename(
+                title="Selecionar planilha",
+                initialdir=str(self.data_root),
+                filetypes=[("Excel", "*.xlsx"), ("Todos", "*.*")],
+            )
+            if not xlsx_path:
+                return
+
+            # Save the selected path for future imports
+            self.cfg.xlsx_default_path = str(Path(xlsx_path).relative_to(self.data_root))
+            self.cfg.save(self.data_root)
+
+            res = import_from_xlsx(
+                store=self.store,
+                xlsx_path=Path(xlsx_path),
                 sheet_name=self.cfg.xlsx_default_sheet,
             )
             self.reload_cache()
@@ -1932,6 +2428,32 @@ class MergeDialog(tk.Toplevel):
         if not messagebox.askyesno("Mesclar", "Confirmar mesclagem? Isso não pode ser desfeito facilmente."):
             return
         self.result = {"keep_id": keep, "merge_id": merge}
+        self.destroy()
+
+
+class ExportFormatDialog(tk.Toplevel):
+    def __init__(self, parent: tk.Tk):
+        super().__init__(parent)
+        self.title("Formato de Exportação")
+        self.resizable(False, False)
+        self.result: dict | None = None
+
+        ttk.Label(self, text="Selecione o formato de exportação:").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
+        
+        self.format_var = tk.StringVar(value="csv")
+        ttk.Radiobutton(self, text="CSV", variable=self.format_var, value="csv").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 6))
+        ttk.Radiobutton(self, text="JSON", variable=self.format_var, value="json").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 6))
+        ttk.Radiobutton(self, text="Excel (XLSX)", variable=self.format_var, value="xlsx").grid(row=3, column=0, sticky="w", padx=10, pady=(0, 10))
+
+        btns = ttk.Frame(self)
+        btns.grid(row=4, column=0, sticky="e", padx=10, pady=(0, 10))
+        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Exportar", command=self._export).grid(row=0, column=1)
+
+        self.columnconfigure(0, weight=1)
+
+    def _export(self) -> None:
+        self.result = {"format": self.format_var.get()}
         self.destroy()
 
 

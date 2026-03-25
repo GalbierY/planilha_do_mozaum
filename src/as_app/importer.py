@@ -19,9 +19,20 @@ def _parse_int(text: Any) -> int | None:
         return None
 
 
-def import_from_xlsx(*, store: JsonStore, xlsx_path: Path, sheet_name: str) -> ImportResult:
+def import_from_xlsx(*, store: JsonStore, xlsx_path: Path, sheet_name: str, validate_workflow: bool = False) -> ImportResult:
     if not xlsx_path.exists():
         raise FileNotFoundError(f"XLSX não encontrado: {xlsx_path}")
+
+    # Validação de workflow
+    if validate_workflow:
+        db = store.load()
+        children = list(db.get("children") or [])
+        pending_children = [c for c in children if not c.get("workflow_status", False)]
+        if pending_children:
+            raise ValueError(
+                f"Existem {len(pending_children)} crianças pendentes no workflow:\n" +
+                "\n".join([f"  - {c['nome']} ({c['escola']})" for c in pending_children])
+            )
 
     rows = read_xlsx_table(xlsx_path, sheet_name)
     batch_id = str(uuid.uuid4())
@@ -61,6 +72,7 @@ def import_from_xlsx(*, store: JsonStore, xlsx_path: Path, sheet_name: str) -> I
             "data_nascimento": birth_iso,
             "imported_at": imported_at,
             "source": source,
+            "workflow_status": False,  # Novo campo: False = vermelho (pendente), True = verde (concluído)
         }
 
         existing_child = by_child_key.get(ext_key)
