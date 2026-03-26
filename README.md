@@ -95,9 +95,9 @@ Não dá para “colocar ícone dentro do `.cmd`” (o Windows usa o ícone padr
 
 - Commit:
   - `git add .`
-  - `git commit -m "v0.1.0"`
+  - `git commit -m "v1.0.0"`
 - Tag:
-  - `git tag -a v0.1.0 -m "Primeiro release"`
+  - `git tag -a v1.0.0 -m "Release estável 1.0.0"`
   - `git push --tags`
 
 ## Próximos passos (quando você quiser)

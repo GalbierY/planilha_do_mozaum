@@ -2148,7 +2148,9 @@ class App(tk.Tk):
 
         def worker() -> None:
             try:
-                result = check_for_update(self.app_root, fetch=True)
+                # Get current version from config or default
+                current_version = getattr(self.cfg, 'app_version', '1.0.0')
+                result = check_for_update(self.app_root, fetch=True, current_version=current_version)
             except Exception as exc:
                 result = None
                 err = str(exc)
@@ -2160,6 +2162,7 @@ class App(tk.Tk):
                 if result is None:
                     self.set_status(f"Auto-update: erro ao checar: {err}")
                     return
+                self._last_update_result = result
                 self._apply_update_check(result)
 
             self.after(0, apply)
@@ -2172,6 +2175,18 @@ class App(tk.Tk):
             self.hide_update_banner()
             return
 
+        # Handle GitHub-based updates (for non-git installations)
+        if result.has_github_update:
+            self._update_available = True
+            version_info = f"v{result.current_version} → v{result.latest_version}"
+            self.banner_message.set(
+                f"Nova versão disponível ({version_info}). Clique em Atualizar para baixar o instalador."
+            )
+            self.banner_update_btn.configure(state="normal")
+            self.show_update_banner()
+            return
+
+        # Handle git-based updates
         behind = int(result.behind or 0)
         ahead = int(result.ahead or 0)
 
@@ -2203,6 +2218,68 @@ class App(tk.Tk):
         if self._update_check_running:
             return
         self.banner_update_btn.configure(state="disabled")
+        
+        # Check if this is a GitHub update (non-git installation)
+        if hasattr(self, '_last_update_result') and self._last_update_result and self._last_update_result.has_github_update:
+            self._handle_github_update()
+        else:
+            self._handle_git_update()
+    
+    def _handle_github_update(self) -> None:
+        """Handle GitHub-based update (download installer)."""
+        result = self._last_update_result
+        if not result or not result.installer_url:
+            self.banner_message.set("URL do instalador não disponível.")
+            self.banner_update_btn.configure(state="normal")
+            return
+        
+        self.banner_message.set("Baixando instalador...")
+        
+        def worker() -> None:
+            try:
+                from .github_updater import download_installer
+                import tempfile
+                
+                # Create temp file for installer
+                with tempfile.NamedTemporaryFile(suffix='.exe', delete=False) as tmp:
+                    tmp_path = Path(tmp.name)
+                
+                # Download installer
+                success = download_installer(result.installer_url, tmp_path)
+                
+                def apply() -> None:
+                    if not success:
+                        self.banner_message.set("Falha ao baixar o instalador.")
+                        self.banner_update_btn.configure(state="normal")
+                        return
+                    
+                    self.banner_message.set("Instalador baixado. Abrindo...")
+                    self.hide_update_banner()
+                    
+                    # Open the installer
+                    try:
+                        os.startfile(str(tmp_path))
+                        messagebox.showinfo(
+                            "Atualização",
+                            f"O instalador da versão {result.latest_version} foi aberto.\n"
+                            "Feche o aplicativo e execute o instalador para atualizar."
+                        )
+                    except Exception as e:
+                        messagebox.showerror("Erro", f"Não foi possível abrir o instalador: {e}")
+                
+                self.after(0, apply)
+            except Exception as e:
+                self.after(
+                    0,
+                    lambda e=e: (
+                        self.banner_message.set(f"Erro ao baixar: {str(e)}"),
+                        self.banner_update_btn.configure(state="normal")
+                        ))
+        
+        threading.Thread(target=worker, daemon=True).start()
+    
+    def _handle_git_update(self) -> None:
+        """Handle git-based update (git pull)."""
         self.banner_message.set("Baixando atualização (git pull)...")
 
         def worker() -> None:

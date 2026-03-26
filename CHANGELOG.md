@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.0 - 2026-03-25
+
+- Release estável 1.0.0
+- Todas as funcionalidades do MVP validadas e estáveis
+- Sistema de cadastro de crianças completo
+- Gestão de atendimentos com anexos
+- Relatórios e estatísticas funcionais
+- Backup/Restore operacional
+- Auto-update via git implementado
+- Login e auditoria funcionais
+
 ## v0.1.0 - 2026-03-20
 
 - Nome do app: `SAS 🥰 | Civitas`.

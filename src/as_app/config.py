@@ -8,6 +8,7 @@ from pathlib import Path
 @dataclass(frozen=True)
 class AppConfig:
     app_name: str
+    app_version: str
     db_path: str
     xlsx_default_path: str
     xlsx_default_sheet: str
@@ -55,6 +56,7 @@ class AppConfig:
 
         return AppConfig(
             app_name=get("app_name", "SAS Civitas"),
+            app_version=get("app_version", "1.0.0"),
             db_path=get("db_path", "data/metadata/as_db.json"),
             xlsx_default_path=get("xlsx_default_path", "data/AssistenteSocial.xlsx"),
             xlsx_default_sheet=get("xlsx_default_sheet", "Base2025"),
