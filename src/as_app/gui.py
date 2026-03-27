@@ -90,11 +90,67 @@ class App(tk.Tk):
         except Exception:
             pass
 
+        # Fundo geral mais rosinha
+        try:
+            self.configure(bg="#FFF5F7")
+            style.configure(".", background="#FFF5F7")
+        except Exception:
+            pass
+
+        # Fonte padrão
         self.option_add("*Font", ("Segoe UI", 10))
-        style.configure("Treeview", rowheight=24)
+
+        # Botões em rosa bebê
+        style.configure(
+            "TButton",
+            background="#F9D5E5",
+            foreground="#7F2A3C",
+            borderwidth=1,
+            focusthickness=1,
+            focuscolor="#F4A7B9",
+            padding=6,
+        )
+        style.map(
+            "TButton",
+            background=[("active", "#F4A7B9")],
+        )
+
+        # Entradas padrão
+        style.configure(
+            "TEntry",
+            fieldbackground="#FFFFFF",
+            bordercolor="#F9D5E5",
+            lightcolor="#F9D5E5",
+            darkcolor="#F9D5E5",
+            borderwidth=1,
+            padding=4,
+        )
+
+        # Combobox padrão
+        style.configure(
+            "TCombobox",
+            fieldbackground="#FFFFFF",
+            bordercolor="#F9D5E5",
+            lightcolor="#F9D5E5",
+            darkcolor="#F9D5E5",
+            borderwidth=1,
+            padding=3,
+        )
+
+        # Campos inválidos levemente rosados
+        style.configure("Invalid.TEntry", fieldbackground="#FFE5EC")
+        style.configure("Invalid.TCombobox", fieldbackground="#FFE5EC")
+
+        # Treeview com linhas mais suaves
+        style.configure(
+            "Treeview",
+            background="#FFFFFF",
+            fieldbackground="#FFFFFF",
+            rowheight=24,
+            borderwidth=0,
+        )
         style.configure("Treeview.Heading", font=("Segoe UI", 10, "bold"))
-        style.configure("Invalid.TEntry", fieldbackground="#fff1f2")
-        style.configure("Invalid.TCombobox", fieldbackground="#fff1f2")
+
 
     def _build_ui(self) -> None:
         self.banner_frame = tk.Frame(self, bg="#fff3cd", bd=1, relief="solid")
@@ -244,9 +300,12 @@ class App(tk.Tk):
         self.search_entry.grid(row=0, column=1, sticky="ew", padx=(8, 0))
         self.search_entry.bind("<KeyRelease>", lambda _e: self.apply_filter())
 
+        self.btn_new_child_inline = ttk.Button(top, text="+ Novo cadastro", command=self.on_new_child_form)
+        self.btn_new_child_inline.grid(row=0, column=2, sticky="e", padx=(16, 8))
+
         self.user_label_var = tk.StringVar(value=self._user_label())
-        ttk.Label(top, textvariable=self.user_label_var).grid(row=0, column=2, sticky="e", padx=(16, 8))
-        ttk.Button(top, text="Trocar", command=self.on_switch_user).grid(row=0, column=3, sticky="e")
+        ttk.Label(top, textvariable=self.user_label_var).grid(row=0, column=3, sticky="e", padx=(16, 8))
+        ttk.Button(top, text="Trocar", command=self.on_switch_user).grid(row=0, column=4, sticky="e")
 
         # Filtros
         ttk.Separator(top).grid(row=1, column=0, columnspan=4, sticky="ew", pady=(10, 8))
@@ -367,6 +426,20 @@ class App(tk.Tk):
         self.nasc_var = tk.StringVar()
         ttk.Entry(main_right, textvariable=self.nasc_var, width=16).grid(
             row=r, column=1, sticky="w", pady=(0, 6)
+        )
+
+        r += 1
+        ttk.Label(main_right, text="Contato:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        self.contato_var = tk.StringVar()
+        ttk.Entry(main_right, textvariable=self.contato_var).grid(
+            row=r, column=1, sticky="ew", pady=(0, 6)
+        )
+
+        r += 1
+        ttk.Label(main_right, text="Endereço:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        self.endereco_var = tk.StringVar()
+        ttk.Entry(main_right, textvariable=self.endereco_var).grid(
+            row=r, column=1, sticky="ew", pady=(0, 6)
         )
 
         r += 1
@@ -1104,8 +1177,9 @@ class App(tk.Tk):
 
     def _setup_treeview(self, tree: ttk.Treeview, *, numeric_cols: set[str] | None = None) -> None:
         numeric_cols = set(numeric_cols or set())
-        tree.tag_configure("even", background="#ffffff")
-        tree.tag_configure("odd", background="#f7f7f7")
+        tree.tag_configure("even", background="#FFFFFF")
+        tree.tag_configure("odd", background="#FFEFF4")
+
 
         for col in tree["columns"]:
             tree.heading(col, command=lambda c=col: self._tree_sort(tree, c, numeric=(c in numeric_cols)))
@@ -1321,7 +1395,12 @@ class App(tk.Tk):
         self.idade_var.set("")
         self.escola_var.set("")
         self.nasc_var.set("")
+        if hasattr(self, "contato_var"):
+            self.contato_var.set("")
+        if hasattr(self, "endereco_var"):
+            self.endereco_var.set("")
         self.meta_var.set("")
+
         self._clear_child_form_validation()
         self._sync_history_selection()
         self._refresh_action_bar_state()
@@ -1333,6 +1412,10 @@ class App(tk.Tk):
         self.idade_var.set("" if child.get("idade") is None else str(child.get("idade")))
         self.escola_var.set(child.get("escola") or "")
         self.nasc_var.set(iso_to_br_date(child.get("data_nascimento")))
+        if hasattr(self, "contato_var"):
+            self.contato_var.set(child.get("contato") or "")
+        if hasattr(self, "endereco_var"):
+            self.endereco_var.set(child.get("endereco") or "")
 
         self.meta_var.set(f"created_at={child.get('created_at')} | updated_at={child.get('updated_at')}")
         self._sync_history_selection()
@@ -1340,12 +1423,16 @@ class App(tk.Tk):
 
     def _child_from_form(self, *, use_selected_id: bool) -> dict:
         birth_iso = br_date_to_iso(self.nasc_var.get() or "")
+        contato = self.contato_var.get() if hasattr(self, "contato_var") else ""
+        endereco = self.endereco_var.get() if hasattr(self, "endereco_var") else ""
         return self.store.new_child_from_form(
             child_id=self.selected_id if use_selected_id else None,
             nome=self.nome_var.get() or "",
             idade=self.idade_var.get() or "",
             escola=self.escola_var.get() or "",
             data_nascimento_iso=birth_iso,
+            contato=contato,
+            endereco=endereco,
         )
 
     def on_add(self) -> None:

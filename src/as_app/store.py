@@ -455,6 +455,8 @@ class JsonStore:
         idade: str,
         escola: str,
         data_nascimento_iso: str | None,
+        contato: str | None,
+        endereco: str | None,
     ) -> dict[str, Any]:
         age = None
         idade = (idade or "").strip()
@@ -467,6 +469,8 @@ class JsonStore:
         nome = (nome or "").strip()
         escola = (escola or "").strip()
         birth = (data_nascimento_iso or "").strip()
+        contato = (contato or "").strip()
+        endereco = (endereco or "").strip()
         seed = f"{nome}|{birth}|{escola}".lower()
         ext = stable_key(seed) if seed.replace("|", "").strip() else None
 
@@ -477,10 +481,11 @@ class JsonStore:
             "idade": age,
             "escola": escola,
             "data_nascimento": birth or None,
-            "workflow_status": False,  # Novo campo: False = vermelho (pendente), True = verde (concluído)
+            "contato": contato or None,
+            "endereco": endereco or None,
+            "workflow_status": False,
             "source": {"type": "manual"},
         }
-
 
 def build_external_key(nome: str, birth_iso: str | None, escola: str) -> str:
     seed = f"{(nome or '').strip()}|{(birth_iso or '').strip()}|{(escola or '').strip()}".lower()
