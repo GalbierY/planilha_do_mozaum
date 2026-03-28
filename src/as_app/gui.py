@@ -48,7 +48,7 @@ class App(tk.Tk):
             self._setup_styles()
         except Exception:
             self.option_add("*Font", ("Segoe UI", 10))
-            self.configure(bg="#FFF7FA")
+            self.configure(bg="#F4F7FB")
 
         # Login / setup
         self.withdraw()
@@ -112,21 +112,21 @@ class App(tk.Tk):
                 pass
 
         self.colors = {
-            "bg": "#FFF7FA",
+            "bg": "#F4F7FB",
             "panel": "#FFFFFF",
-            "panel_soft": "#FDEFF5",
-            "line": "#F2C7D8",
-            "text": "#4B2234",
-            "muted": "#865A6C",
-            "primary": "#E45A93",
-            "primary_hover": "#C7487D",
-            "header": "#A73A68",
-            "header_button": "#C14E7F",
-            "header_button_hover": "#D26292",
-            "warning_bg": "#FFE3EF",
-            "warning_fg": "#7A2D4B",
-            "invalid_bg": "#FFDDE8",
-            "status_bg": "#FFEFF6",
+            "panel_soft": "#EEF3FB",
+            "line": "#D5DEED",
+            "text": "#1E2A3A",
+            "muted": "#5E6B7F",
+            "primary": "#1D5FBF",
+            "primary_hover": "#174E9C",
+            "header": "#0E2A47",
+            "header_button": "#1A3D61",
+            "header_button_hover": "#245078",
+            "warning_bg": "#FFF3CD",
+            "warning_fg": "#664D03",
+            "invalid_bg": "#FFE6EB",
+            "status_bg": "#E9EFF9",
         }
 
         self.option_add("*Font", ("Segoe UI", 10))
@@ -140,9 +140,9 @@ class App(tk.Tk):
 
         sconf("Root.TFrame", background=self.colors["bg"])
         sconf("Header.TFrame", background=self.colors["header"])
-        sconf("HeaderTitle.TLabel", background=self.colors["header"], foreground="#FFF4FA", font=("Segoe UI Semibold", 15))
-        sconf("HeaderSubtitle.TLabel", background=self.colors["header"], foreground="#FFE0EF", font=("Segoe UI", 9))
-        sconf("HeaderMeta.TLabel", background=self.colors["header"], foreground="#FFEAF4", font=("Segoe UI Semibold", 9))
+        sconf("HeaderTitle.TLabel", background=self.colors["header"], foreground="#F4F7FF", font=("Segoe UI Semibold", 15))
+        sconf("HeaderSubtitle.TLabel", background=self.colors["header"], foreground="#C8D5EB", font=("Segoe UI", 9))
+        sconf("HeaderMeta.TLabel", background=self.colors["header"], foreground="#E6EEFA", font=("Segoe UI Semibold", 9))
         sconf("Muted.TLabel", foreground=self.colors["muted"], background=self.colors["bg"])
         sconf("Status.TLabel", foreground=self.colors["text"], background=self.colors["status_bg"], padding=(10, 6))
         sconf("MetricLabel.TLabel", foreground=self.colors["muted"], background=self.colors["panel"])
@@ -171,7 +171,7 @@ class App(tk.Tk):
             focuscolor=self.colors["line"],
             padding=(10, 6),
         )
-        smap("TButton", background=[("active", "#FBE2EC"), ("pressed", "#F4CBDD")])
+        smap("TButton", background=[("active", "#E2EAF8"), ("pressed", "#D6E2F6")])
 
         sconf("Primary.TButton", background=self.colors["primary"], foreground="#FFFFFF", borderwidth=0, padding=(12, 7))
         smap(
@@ -184,9 +184,9 @@ class App(tk.Tk):
             foreground=[("disabled", "#F4F7FF")],
         )
         sconf("Secondary.TButton", background=self.colors["panel_soft"], foreground=self.colors["text"], padding=(10, 6))
-        smap("Secondary.TButton", background=[("active", "#F9DDEA"), ("pressed", "#F3C8DB")])
+        smap("Secondary.TButton", background=[("active", "#DFE8F8"), ("pressed", "#D4E1F7")])
 
-        sconf("Header.TButton", background=self.colors["header_button"], foreground="#FFF3F9", borderwidth=0, padding=(10, 5))
+        sconf("Header.TButton", background=self.colors["header_button"], foreground="#EDF3FF", borderwidth=0, padding=(10, 5))
         smap("Header.TButton", background=[("active", self.colors["header_button_hover"]), ("pressed", self.colors["header_button_hover"])])
 
         sconf(
@@ -222,7 +222,7 @@ class App(tk.Tk):
             borderwidth=0,
             relief="flat",
         )
-        smap("Treeview", background=[("selected", "#FAD6E7")], foreground=[("selected", self.colors["text"])])
+        smap("Treeview", background=[("selected", "#D9E8FF")], foreground=[("selected", self.colors["text"])])
         sconf(
             "Treeview.Heading",
             font=("Segoe UI Semibold", 10),
@@ -314,7 +314,7 @@ class App(tk.Tk):
         self.btn_new_form.grid(row=0, column=0, sticky="w")
         self.btn_add_child = ttk.Button(self.action_bar, text="+ Crianca", command=self.on_add, style="Primary.TButton")
         self.btn_add_child.grid(row=0, column=1, padx=(8, 0))
-        self.btn_save_child = ttk.Button(self.action_bar, text="Salvar alteracoes", command=self.on_save, style="Primary.TButton")
+        self.btn_save_child = ttk.Button(self.action_bar, text="Salvar cadastro", command=self.on_save, style="Primary.TButton")
         self.btn_save_child.grid(row=0, column=2, padx=(8, 0))
         self.btn_new_att = ttk.Button(self.action_bar, text="+ Atendimento", command=self.on_new_attendance, state="disabled", style="Secondary.TButton")
         self.btn_new_att.grid(row=0, column=3, padx=(12, 0))
@@ -397,8 +397,11 @@ class App(tk.Tk):
         if hasattr(self, "btn_add_child"):
             self.btn_add_child.configure(state=("normal" if can_edit else "disabled"))
         if hasattr(self, "btn_save_child"):
-            state = "normal" if (can_edit and in_cadastros and bool(self.selected_id)) else "disabled"
+            state = "normal" if (can_edit and in_cadastros) else "disabled"
             self.btn_save_child.configure(state=state)
+        if hasattr(self, "btn_save_inline"):
+            state = "normal" if (can_edit and in_cadastros) else "disabled"
+            self.btn_save_inline.configure(state=state)
         if hasattr(self, "btn_new_att"):
             state = "normal" if (can_edit and bool(self.selected_id)) else "disabled"
             self.btn_new_att.configure(state=state)
@@ -557,9 +560,11 @@ class App(tk.Tk):
         r += 1
         ttk.Label(main_right, text="Nascimento (dd/mm/aaaa):").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.nasc_var = tk.StringVar()
-        ttk.Entry(main_right, textvariable=self.nasc_var, width=16).grid(
+        self.nasc_entry = ttk.Entry(main_right, textvariable=self.nasc_var, width=16)
+        self.nasc_entry.grid(
             row=r, column=1, sticky="w", pady=(0, 6)
         )
+        self.nasc_var.trace_add("write", self._on_nasc_var_change)
 
         r += 1
         ttk.Label(main_right, text="Contato:").grid(row=r, column=0, sticky="w", pady=(0, 6))
@@ -590,12 +595,14 @@ class App(tk.Tk):
 
         actions = ttk.Frame(main_right)
         actions.grid(row=r + 1, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        self.btn_save_inline = ttk.Button(actions, text="Salvar cadastro", command=self.on_save, style="Primary.TButton")
+        self.btn_save_inline.grid(row=0, column=0, padx=(0, 8))
         self.btn_merge = ttk.Button(actions, text="Mesclar duplicados...", command=self.on_merge_children, style="Secondary.TButton")
-        self.btn_merge.grid(row=0, column=0, padx=(0, 8))
+        self.btn_merge.grid(row=0, column=1, padx=(0, 8))
         self.btn_export_selected = ttk.Button(actions, text="Exportar selecionados", command=self.on_export_selected, style="Secondary.TButton")
-        self.btn_export_selected.grid(row=0, column=1, padx=(0, 8))
+        self.btn_export_selected.grid(row=0, column=2, padx=(0, 8))
         self.btn_generate_report = ttk.Button(actions, text="Gerar relatorio", command=self.on_generate_report, style="Secondary.TButton")
-        self.btn_generate_report.grid(row=0, column=2)
+        self.btn_generate_report.grid(row=0, column=3)
 
         import_frame = ttk.LabelFrame(main_right, text="Importacao", style="Card.TLabelframe", padding=(8, 8))
         import_frame.grid(row=r + 2, column=0, columnspan=2, sticky="ew", pady=(10, 0))
@@ -1003,8 +1010,8 @@ class App(tk.Tk):
         self._setup_treeview(self.workflow_tree)
         
         # Configurar cores condicionais
-        self.workflow_tree.tag_configure("pending", background="#fff1f2", foreground="#721c24")  # Vermelho claro
-        self.workflow_tree.tag_configure("completed", background="#d4edda", foreground="#155724")  # Verde claro
+        self.workflow_tree.tag_configure("pending", background="#FFF3F8", foreground="#7A5D6A")
+        self.workflow_tree.tag_configure("completed", background="#EEF8F2", foreground="#4E6D5B")
         
         self.workflow_tree.grid(row=0, column=0, sticky="nsew")
         self.workflow_tree.bind("<<TreeviewSelect>>", lambda _e: self.on_workflow_select())
@@ -1422,6 +1429,27 @@ class App(tk.Tk):
         if hasattr(self, "filter_school_cb"):
             self.filter_school_cb.configure(values=[""] + schools)
 
+    def _on_nasc_var_change(self, *_args) -> None:
+        if getattr(self, "_nasc_mask_lock", False):
+            return
+        raw = self.nasc_var.get() or ""
+        digits = "".join(ch for ch in raw if ch.isdigit())[:8]
+        if len(digits) <= 2:
+            masked = digits
+        elif len(digits) <= 4:
+            masked = f"{digits[:2]}/{digits[2:]}"
+        else:
+            masked = f"{digits[:2]}/{digits[2:4]}/{digits[4:]}"
+
+        if masked == raw:
+            return
+
+        self._nasc_mask_lock = True
+        try:
+            self.nasc_var.set(masked)
+        finally:
+            self._nasc_mask_lock = False
+
     def on_clear_filters(self) -> None:
         for attr, value in [
             ("search_var", ""),
@@ -1663,11 +1691,11 @@ class App(tk.Tk):
         if not self._can_edit():
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
-        if not self.selected_id:
-            self.set_status("Selecione uma criança na lista para salvar (ou use '+ Criança').")
-            if hasattr(self, "tab_cadastros"):
-                self.notebook.select(self.tab_cadastros)
-            return
+
+        is_new = not bool(self.selected_id)
+        if is_new and hasattr(self, "tab_cadastros"):
+            self.notebook.select(self.tab_cadastros)
+
         self._clear_child_form_validation()
         nome = (self.nome_var.get() or "").strip()
         if not nome:
@@ -1684,7 +1712,7 @@ class App(tk.Tk):
                 self.escola_cb.focus_set()
             return
         actor = self._actor()
-        child = self._child_from_form(use_selected_id=True)
+        child = self._child_from_form(use_selected_id=(not is_new))
         if not self._validate_child_age(child):
             return
         action, saved = self.store.upsert_child(child, actor=actor)
@@ -1692,7 +1720,10 @@ class App(tk.Tk):
         self.apply_filter()
         self.refresh_stats()
         self.fill_form(saved)
-        self.set_status(f"Salvo ({action})")
+        if is_new:
+            self.set_status(f"Cadastro criado ({action})")
+        else:
+            self.set_status(f"Cadastro salvo ({action})")
         self.reload_audit()
 
     def on_merge_children(self) -> None:
@@ -2679,11 +2710,20 @@ def _load_brand_asset(parent: tk.Tk) -> tk.PhotoImage | None:
     return None
 
 
-def _build_dialog_header(win: tk.Toplevel, parent: tk.Tk, *, title: str, subtitle: str) -> None:
+def _build_dialog_header(
+    win: tk.Toplevel,
+    parent: tk.Tk,
+    *,
+    title: str,
+    subtitle: str,
+    bg: str | None = None,
+    fg: str | None = None,
+    sub_fg: str | None = None,
+) -> None:
     colors = getattr(parent, "colors", {})
-    bg = colors.get("header", "#A73A68")
-    fg = "#FFF4FA"
-    sub_fg = "#FFE5F0"
+    bg = bg or colors.get("header", "#0E2A47")
+    fg = fg or "#F4F7FF"
+    sub_fg = sub_fg or "#D9E4F8"
     frame = tk.Frame(win, bg=bg, padx=12, pady=10)
     frame.grid(row=0, column=0, columnspan=2, sticky="ew")
     frame.grid_columnconfigure(1, weight=1)
@@ -2791,7 +2831,7 @@ class SetupAdminDialog(tk.Toplevel):
         self.result: dict | None = None
 
         if hasattr(parent, "colors"):
-            self.configure(bg=getattr(parent, "colors", {}).get("bg", "#FFF7FA"))
+            self.configure(bg=getattr(parent, "colors", {}).get("bg", "#F4F7FB"))
 
         _build_dialog_header(
             self,
@@ -2846,31 +2886,59 @@ class LoginDialog(tk.Toplevel):
         self.resizable(False, False)
         self.result: dict | None = None
 
-        if hasattr(parent, "colors"):
-            self.configure(bg=getattr(parent, "colors", {}).get("bg", "#FFF7FA"))
+        self._login_style = ttk.Style(self)
+        self._login_style.configure("Login.TFrame", background="#FFF5FA")
+        self._login_style.configure("Login.TLabel", background="#FFF5FA", foreground="#4D2F3E")
+        self._login_style.configure(
+            "Login.Primary.TButton",
+            background="#D98CAD",
+            foreground="#FFFFFF",
+            borderwidth=0,
+            padding=(10, 6),
+        )
+        self._login_style.map(
+            "Login.Primary.TButton",
+            background=[("active", "#C97E9E"), ("pressed", "#C97E9E")],
+            foreground=[("disabled", "#FDEFF5")],
+        )
+        self._login_style.configure(
+            "Login.Secondary.TButton",
+            background="#F8DFEA",
+            foreground="#4D2F3E",
+            padding=(10, 6),
+        )
+        self._login_style.map(
+            "Login.Secondary.TButton",
+            background=[("active", "#F3D2E1"), ("pressed", "#EFC8DA")],
+        )
+
+        self.configure(bg="#FFF5FA")
 
         _build_dialog_header(
             self,
             parent,
             title="Acesso ao sistema",
             subtitle="Entre com seu usuario para continuar.",
+            bg="#F2C6DA",
+            fg="#4D2F3E",
+            sub_fg="#6D4C5F",
         )
 
-        ttk.Label(self, text="Usuario:").grid(row=1, column=0, sticky="w", padx=10, pady=(10, 6))
+        ttk.Label(self, text="Usuario:", style="Login.TLabel").grid(row=1, column=0, sticky="w", padx=10, pady=(10, 6))
         self.user_var = tk.StringVar(value=(usernames[0] if usernames else ""))
         ttk.Combobox(self, textvariable=self.user_var, values=usernames, state="readonly").grid(
             row=1, column=1, sticky="ew", padx=10, pady=(10, 6)
         )
 
-        ttk.Label(self, text="Senha:").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 10))
+        ttk.Label(self, text="Senha:", style="Login.TLabel").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 10))
         self.pw_var = tk.StringVar(value="")
         pw_entry = ttk.Entry(self, textvariable=self.pw_var, show="*")
         pw_entry.grid(row=2, column=1, sticky="ew", padx=10, pady=(0, 10))
 
-        btns = ttk.Frame(self)
+        btns = ttk.Frame(self, style="Login.TFrame")
         btns.grid(row=3, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Entrar", command=self._login, style="Primary.TButton").grid(row=0, column=1)
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Login.Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Entrar", command=self._login, style="Login.Primary.TButton").grid(row=0, column=1)
 
         self.columnconfigure(1, weight=1)
         self.bind("<Return>", lambda _e: self._login())
