@@ -16,3 +16,4 @@ dist/
 installer/Output/
 artifacts/
 packaging/
+release/

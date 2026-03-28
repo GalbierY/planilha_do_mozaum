@@ -44,6 +44,12 @@ class App(tk.Tk):
         self._update_check_running = False
         self._update_available = False
 
+        try:
+            self._setup_styles()
+        except Exception:
+            self.option_add("*Font", ("Segoe UI", 10))
+            self.configure(bg="#FFF7FA")
+
         # Login / setup
         self.withdraw()
         self.current_user = self._login_flow()
@@ -52,7 +58,6 @@ class App(tk.Tk):
             return
         self.deiconify()
 
-        self._setup_styles()
         self._build_ui()
         self._bind_shortcuts()
         self._apply_permissions()
@@ -90,87 +95,186 @@ class App(tk.Tk):
         except Exception:
             pass
 
-        # Fundo geral mais rosinha
+        def sconf(style_name: str, **kwargs) -> None:
+            try:
+                style.configure(style_name, **kwargs)
+            except Exception:
+                for key, value in kwargs.items():
+                    try:
+                        style.configure(style_name, **{key: value})
+                    except Exception:
+                        pass
+
+        def smap(style_name: str, **kwargs) -> None:
+            try:
+                style.map(style_name, **kwargs)
+            except Exception:
+                pass
+
+        self.colors = {
+            "bg": "#FFF7FA",
+            "panel": "#FFFFFF",
+            "panel_soft": "#FDEFF5",
+            "line": "#F2C7D8",
+            "text": "#4B2234",
+            "muted": "#865A6C",
+            "primary": "#E45A93",
+            "primary_hover": "#C7487D",
+            "header": "#A73A68",
+            "header_button": "#C14E7F",
+            "header_button_hover": "#D26292",
+            "warning_bg": "#FFE3EF",
+            "warning_fg": "#7A2D4B",
+            "invalid_bg": "#FFDDE8",
+            "status_bg": "#FFEFF6",
+        }
+
+        self.option_add("*Font", ("Segoe UI", 10))
+
         try:
-            self.configure(bg="#FFF5F7")
-            style.configure(".", background="#FFF5F7")
+            self.configure(bg=self.colors["bg"])
         except Exception:
             pass
 
-        # Fonte padrão
-        self.option_add("*Font", ("Segoe UI", 10))
+        sconf(".", background=self.colors["bg"], foreground=self.colors["text"])
 
-        # Botões em rosa bebê
-        style.configure(
+        sconf("Root.TFrame", background=self.colors["bg"])
+        sconf("Header.TFrame", background=self.colors["header"])
+        sconf("HeaderTitle.TLabel", background=self.colors["header"], foreground="#FFF4FA", font=("Segoe UI Semibold", 15))
+        sconf("HeaderSubtitle.TLabel", background=self.colors["header"], foreground="#FFE0EF", font=("Segoe UI", 9))
+        sconf("HeaderMeta.TLabel", background=self.colors["header"], foreground="#FFEAF4", font=("Segoe UI Semibold", 9))
+        sconf("Muted.TLabel", foreground=self.colors["muted"], background=self.colors["bg"])
+        sconf("Status.TLabel", foreground=self.colors["text"], background=self.colors["status_bg"], padding=(10, 6))
+        sconf("MetricLabel.TLabel", foreground=self.colors["muted"], background=self.colors["panel"])
+        sconf("MetricValue.TLabel", foreground=self.colors["text"], background=self.colors["panel"], font=("Segoe UI Semibold", 14))
+
+        sconf(
+            "Card.TLabelframe",
+            background=self.colors["panel"],
+            bordercolor=self.colors["line"],
+            relief="solid",
+            borderwidth=1,
+        )
+        sconf(
+            "Card.TLabelframe.Label",
+            background=self.colors["panel"],
+            foreground=self.colors["text"],
+            font=("Segoe UI Semibold", 10),
+        )
+
+        sconf(
             "TButton",
-            background="#F9D5E5",
-            foreground="#7F2A3C",
+            background=self.colors["panel_soft"],
+            foreground=self.colors["text"],
             borderwidth=1,
             focusthickness=1,
-            focuscolor="#F4A7B9",
-            padding=6,
+            focuscolor=self.colors["line"],
+            padding=(10, 6),
         )
-        style.map(
-            "TButton",
-            background=[("active", "#F4A7B9")],
-        )
+        smap("TButton", background=[("active", "#FBE2EC"), ("pressed", "#F4CBDD")])
 
-        # Entradas padrão
-        style.configure(
+        sconf("Primary.TButton", background=self.colors["primary"], foreground="#FFFFFF", borderwidth=0, padding=(12, 7))
+        smap(
+            "Primary.TButton",
+            background=[
+                ("disabled", "#AFC2E4"),
+                ("pressed", self.colors["primary_hover"]),
+                ("active", self.colors["primary_hover"]),
+            ],
+            foreground=[("disabled", "#F4F7FF")],
+        )
+        sconf("Secondary.TButton", background=self.colors["panel_soft"], foreground=self.colors["text"], padding=(10, 6))
+        smap("Secondary.TButton", background=[("active", "#F9DDEA"), ("pressed", "#F3C8DB")])
+
+        sconf("Header.TButton", background=self.colors["header_button"], foreground="#FFF3F9", borderwidth=0, padding=(10, 5))
+        smap("Header.TButton", background=[("active", self.colors["header_button_hover"]), ("pressed", self.colors["header_button_hover"])])
+
+        sconf(
             "TEntry",
-            fieldbackground="#FFFFFF",
-            bordercolor="#F9D5E5",
-            lightcolor="#F9D5E5",
-            darkcolor="#F9D5E5",
+            fieldbackground=self.colors["panel"],
+            bordercolor=self.colors["line"],
+            lightcolor=self.colors["line"],
+            darkcolor=self.colors["line"],
             borderwidth=1,
             padding=4,
         )
-
-        # Combobox padrão
-        style.configure(
+        sconf(
             "TCombobox",
-            fieldbackground="#FFFFFF",
-            bordercolor="#F9D5E5",
-            lightcolor="#F9D5E5",
-            darkcolor="#F9D5E5",
+            fieldbackground=self.colors["panel"],
+            bordercolor=self.colors["line"],
+            lightcolor=self.colors["line"],
+            darkcolor=self.colors["line"],
             borderwidth=1,
             padding=3,
         )
+        sconf("Invalid.TEntry", fieldbackground=self.colors["invalid_bg"])
+        sconf("Invalid.TCombobox", fieldbackground=self.colors["invalid_bg"])
 
-        # Campos inválidos levemente rosados
-        style.configure("Invalid.TEntry", fieldbackground="#FFE5EC")
-        style.configure("Invalid.TCombobox", fieldbackground="#FFE5EC")
+        sconf("TNotebook", background=self.colors["bg"], borderwidth=0, tabmargins=(0, 0, 0, 0))
+        sconf("TNotebook.Tab", padding=(16, 8), background=self.colors["panel_soft"], foreground=self.colors["muted"])
+        smap("TNotebook.Tab", background=[("selected", self.colors["panel"])], foreground=[("selected", self.colors["text"])])
 
-        # Treeview com linhas mais suaves
-        style.configure(
+        sconf(
             "Treeview",
-            background="#FFFFFF",
-            fieldbackground="#FFFFFF",
-            rowheight=24,
+            background=self.colors["panel"],
+            fieldbackground=self.colors["panel"],
+            rowheight=26,
+            borderwidth=0,
+            relief="flat",
+        )
+        smap("Treeview", background=[("selected", "#FAD6E7")], foreground=[("selected", self.colors["text"])])
+        sconf(
+            "Treeview.Heading",
+            font=("Segoe UI Semibold", 10),
+            background=self.colors["panel_soft"],
+            foreground=self.colors["text"],
+            relief="flat",
             borderwidth=0,
         )
-        style.configure("Treeview.Heading", font=("Segoe UI", 10, "bold"))
-
-
     def _build_ui(self) -> None:
-        self.banner_frame = tk.Frame(self, bg="#fff3cd", bd=1, relief="solid")
+        self.banner_frame = tk.Frame(self, bg=self.colors["warning_bg"], bd=1, relief="solid")
         self.banner_frame.pack(fill="x")
         self.banner_message = tk.StringVar(value="")
         tk.Label(
             self.banner_frame,
             textvariable=self.banner_message,
-            bg="#fff3cd",
-            fg="#664d03",
+            bg=self.colors["warning_bg"],
+            fg=self.colors["warning_fg"],
             anchor="w",
             padx=10,
             pady=6,
         ).pack(side="left", fill="x", expand=True)
-        self.banner_update_btn = ttk.Button(self.banner_frame, text="Atualizar", command=self.on_update_now)
+        self.banner_update_btn = ttk.Button(self.banner_frame, text="Atualizar", command=self.on_update_now, style="Secondary.TButton")
         self.banner_update_btn.pack(side="right", padx=(0, 10), pady=6)
-        ttk.Button(self.banner_frame, text="Fechar", command=self.hide_update_banner).pack(
+        ttk.Button(self.banner_frame, text="Fechar", command=self.hide_update_banner, style="Secondary.TButton").pack(
             side="right", padx=(0, 8), pady=6
         )
         self.banner_frame.pack_forget()
+
+        self.header_frame = ttk.Frame(self, style="Header.TFrame", padding=(14, 12))
+        self.header_frame.pack(fill="x", padx=10, pady=(10, 8))
+        self.header_frame.columnconfigure(0, weight=1)
+
+        ttk.Label(self.header_frame, text=self.cfg.app_name, style="HeaderTitle.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(
+            self.header_frame,
+            text="Fluxo simplificado: busque, selecione, atualize e acompanhe o historico em uma tela unica.",
+            style="HeaderSubtitle.TLabel",
+        ).grid(row=1, column=0, sticky="w", pady=(2, 0))
+
+        header_actions = ttk.Frame(self.header_frame, style="Header.TFrame")
+        header_actions.grid(row=0, column=1, rowspan=2, sticky="e")
+
+        self.user_label_var = tk.StringVar(value=self._user_label())
+        ttk.Label(header_actions, textvariable=self.user_label_var, style="HeaderMeta.TLabel").grid(
+            row=0, column=0, columnspan=2, sticky="e", pady=(0, 6)
+        )
+        ttk.Button(header_actions, text="Atalhos (F1)", command=self.on_show_shortcuts, style="Header.TButton").grid(
+            row=1, column=0, padx=(0, 8)
+        )
+        ttk.Button(header_actions, text="Trocar usuario", command=self.on_switch_user, style="Header.TButton").grid(
+            row=1, column=1
+        )
 
         self.notebook = ttk.Notebook(self)
         self.tab_cadastros = ttk.Frame(self.notebook)
@@ -181,16 +285,16 @@ class App(tk.Tk):
         self.tab_audit = ttk.Frame(self.notebook)
         self.tab_workflow = ttk.Frame(self.notebook)
         self.notebook.add(self.tab_cadastros, text="Cadastros")
-        self.notebook.add(self.tab_stats, text="Estatísticas")
-        self.notebook.add(self.tab_history, text="Histórico")
-        self.notebook.add(self.tab_reports, text="Relatórios")
+        self.notebook.add(self.tab_stats, text="Estatisticas")
+        self.notebook.add(self.tab_history, text="Historico")
+        self.notebook.add(self.tab_reports, text="Relatorios")
         self.notebook.add(self.tab_backup, text="Backup")
         self.notebook.add(self.tab_audit, text="Auditoria")
         self.notebook.add(self.tab_workflow, text="Workflow")
         if self._is_admin():
             self.tab_users = ttk.Frame(self.notebook)
-            self.notebook.add(self.tab_users, text="Usuários")
-        self.notebook.pack(fill="both", expand=True)
+            self.notebook.add(self.tab_users, text="Usuarios")
+        self.notebook.pack(fill="both", expand=True, padx=10)
 
         self._build_cadastros_ui(self.tab_cadastros)
         self._build_stats_ui(self.tab_stats)
@@ -202,33 +306,56 @@ class App(tk.Tk):
         if self._is_admin() and hasattr(self, "tab_users"):
             self._build_users_ui(self.tab_users)
 
-        self.action_bar = ttk.Frame(self, padding=(10, 8))
-        self.action_bar.pack(fill="x", side="bottom")
-        self.action_bar.columnconfigure(20, weight=1)
+        self.action_bar = ttk.Frame(self, style="Root.TFrame", padding=(12, 8))
+        self.action_bar.pack(fill="x", side="bottom", padx=10, pady=(8, 10))
+        self.action_bar.columnconfigure(30, weight=1)
 
-        self.btn_new_form = ttk.Button(self.action_bar, text="Novo", command=self.on_new_child_form)
+        self.btn_new_form = ttk.Button(self.action_bar, text="Novo formulario", command=self.on_new_child_form, style="Secondary.TButton")
         self.btn_new_form.grid(row=0, column=0, sticky="w")
-        self.btn_add_child = ttk.Button(self.action_bar, text="+ Criança", command=self.on_add)
+        self.btn_add_child = ttk.Button(self.action_bar, text="+ Crianca", command=self.on_add, style="Primary.TButton")
         self.btn_add_child.grid(row=0, column=1, padx=(8, 0))
-        self.btn_save_child = ttk.Button(self.action_bar, text="Salvar", command=self.on_save)
+        self.btn_save_child = ttk.Button(self.action_bar, text="Salvar alteracoes", command=self.on_save, style="Primary.TButton")
         self.btn_save_child.grid(row=0, column=2, padx=(8, 0))
-        self.btn_new_att = ttk.Button(self.action_bar, text="+ Atendimento", command=self.on_new_attendance, state="disabled")
+        self.btn_new_att = ttk.Button(self.action_bar, text="+ Atendimento", command=self.on_new_attendance, state="disabled", style="Secondary.TButton")
         self.btn_new_att.grid(row=0, column=3, padx=(12, 0))
-        self.btn_edit_att = ttk.Button(self.action_bar, text="Editar atendimento", command=self.on_edit_attendance, state="disabled")
+        self.btn_edit_att = ttk.Button(
+            self.action_bar,
+            text="Editar atendimento",
+            command=self.on_edit_attendance,
+            state="disabled",
+            style="Secondary.TButton",
+        )
         self.btn_edit_att.grid(row=0, column=4, padx=(8, 0))
-        self.btn_attach = ttk.Button(self.action_bar, text="Anexar", command=self.on_attachment_add, state="disabled")
+        self.btn_attach = ttk.Button(self.action_bar, text="Anexar arquivo", command=self.on_attachment_add, state="disabled", style="Secondary.TButton")
         self.btn_attach.grid(row=0, column=5, padx=(8, 0))
-        self.btn_backup_quick = ttk.Button(self.action_bar, text="Backup", command=self.on_backup_create)
+        self.btn_backup_quick = ttk.Button(self.action_bar, text="Backup rapido", command=self.on_backup_create, style="Secondary.TButton")
         self.btn_backup_quick.grid(row=0, column=6, padx=(12, 0))
 
-        ttk.Separator(self.action_bar, orient="horizontal").grid(row=1, column=0, columnspan=21, sticky="ew", pady=(8, 0))
+        ttk.Label(
+            self.action_bar,
+            text="Atalhos: Ctrl+F busca | Ctrl+N novo | Ctrl+S salvar | Ctrl+Enter atendimento",
+            style="Muted.TLabel",
+        ).grid(row=0, column=30, sticky="e")
 
-        self.status_var = tk.StringVar(value="")
-        ttk.Label(self.action_bar, textvariable=self.status_var, foreground="gray").grid(
-            row=2, column=0, columnspan=21, sticky="w", pady=(6, 0)
+        ttk.Separator(self.action_bar, orient="horizontal").grid(row=1, column=0, columnspan=31, sticky="ew", pady=(8, 0))
+
+        self.status_var = tk.StringVar(value="Pronto.")
+        ttk.Label(self.action_bar, textvariable=self.status_var, style="Status.TLabel").grid(
+            row=2, column=0, columnspan=31, sticky="ew", pady=(6, 0)
         )
 
         self.notebook.bind("<<NotebookTabChanged>>", lambda _e: self._refresh_action_bar_state())
+
+    def on_show_shortcuts(self) -> None:
+        messagebox.showinfo(
+            "Atalhos disponiveis",
+            "Ctrl+F: focar busca\n"
+            "Ctrl+N: novo formulario\n"
+            "Ctrl+S: salvar cadastro\n"
+            "Ctrl+Enter: novo atendimento\n"
+            "Ctrl+E: editar atendimento\n"
+            "Alt+1..7: trocar abas",
+        )
 
     def _bind_shortcuts(self) -> None:
         def bind(seq: str, fn) -> None:
@@ -246,6 +373,10 @@ class App(tk.Tk):
         bind("<Alt-4>", lambda: self.notebook.select(self.tab_reports))
         bind("<Alt-5>", lambda: self.notebook.select(self.tab_backup))
         bind("<Alt-6>", lambda: self.notebook.select(self.tab_audit))
+        bind("<Alt-7>", lambda: self.notebook.select(self.tab_workflow))
+        if hasattr(self, "tab_users"):
+            bind("<Alt-8>", lambda: self.notebook.select(self.tab_users))
+        bind("<F1>", self.on_show_shortcuts)
 
     def _current_tab_text(self) -> str:
         try:
@@ -288,29 +419,31 @@ class App(tk.Tk):
     def _build_cadastros_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=2)
         root.columnconfigure(1, weight=3)
-        root.rowconfigure(1, weight=1)
+        root.rowconfigure(2, weight=1)
 
-        top = ttk.Frame(root, padding=10)
-        top.grid(row=0, column=0, columnspan=2, sticky="ew")
+        top = ttk.LabelFrame(root, text="Busca rapida", style="Card.TLabelframe", padding=(12, 10))
+        top.grid(row=0, column=0, columnspan=2, sticky="ew", padx=10, pady=(10, 6))
         top.columnconfigure(1, weight=1)
 
-        ttk.Label(top, text="Buscar:").grid(row=0, column=0, sticky="w")
+        ttk.Label(top, text="Nome, escola ou termo do historico:").grid(row=0, column=0, sticky="w")
         self.search_var = tk.StringVar()
         self.search_entry = ttk.Entry(top, textvariable=self.search_var)
-        self.search_entry.grid(row=0, column=1, sticky="ew", padx=(8, 0))
+        self.search_entry.grid(row=0, column=1, sticky="ew", padx=(8, 10))
         self.search_entry.bind("<KeyRelease>", lambda _e: self.apply_filter())
 
-        self.btn_new_child_inline = ttk.Button(top, text="+ Novo cadastro", command=self.on_new_child_form)
-        self.btn_new_child_inline.grid(row=0, column=2, sticky="e", padx=(16, 8))
+        self.btn_new_child_inline = ttk.Button(top, text="+ Novo cadastro", command=self.on_new_child_form, style="Primary.TButton")
+        self.btn_new_child_inline.grid(row=0, column=2, sticky="e", padx=(0, 8))
+        self.btn_clear_filters = ttk.Button(top, text="Limpar filtros", command=self.on_clear_filters, style="Secondary.TButton")
+        self.btn_clear_filters.grid(row=0, column=3, sticky="e")
 
-        self.user_label_var = tk.StringVar(value=self._user_label())
-        ttk.Label(top, textvariable=self.user_label_var).grid(row=0, column=3, sticky="e", padx=(16, 8))
-        ttk.Button(top, text="Trocar", command=self.on_switch_user).grid(row=0, column=4, sticky="e")
+        ttk.Label(
+            top,
+            text="Dica: Ctrl+F foca a busca e Enter na lista abre o cadastro selecionado.",
+            style="Muted.TLabel",
+        ).grid(row=1, column=0, columnspan=4, sticky="w", pady=(6, 0))
 
-        # Filtros
-        ttk.Separator(top).grid(row=1, column=0, columnspan=4, sticky="ew", pady=(10, 8))
-        filter_row = ttk.Frame(top)
-        filter_row.grid(row=2, column=0, columnspan=4, sticky="ew")
+        filter_row = ttk.LabelFrame(root, text="Filtros", style="Card.TLabelframe", padding=(12, 10))
+        filter_row.grid(row=1, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 8))
         for c in range(12):
             filter_row.columnconfigure(c, weight=0)
         filter_row.columnconfigure(11, weight=1)
@@ -332,34 +465,34 @@ class App(tk.Tk):
         ttk.Label(filter_row, text="Idade:").grid(row=0, column=2, sticky="w")
         age_min = ttk.Entry(filter_row, textvariable=self.filter_age_min_var, width=5)
         age_min.grid(row=0, column=3, sticky="w", padx=(6, 4))
-        ttk.Label(filter_row, text="até").grid(row=0, column=4, sticky="w")
+        ttk.Label(filter_row, text="ate").grid(row=0, column=4, sticky="w")
         age_max = ttk.Entry(filter_row, textvariable=self.filter_age_max_var, width=5)
         age_max.grid(row=0, column=5, sticky="w", padx=(6, 16))
         age_min.bind("<KeyRelease>", lambda _e: self.apply_filter())
         age_max.bind("<KeyRelease>", lambda _e: self.apply_filter())
 
-        ttk.Checkbutton(filter_row, text="Tem atendimento", variable=self.filter_has_att_var, command=self.apply_filter).grid(
+        ttk.Checkbutton(filter_row, text="Com atendimento", variable=self.filter_has_att_var, command=self.apply_filter).grid(
             row=0, column=6, sticky="w", padx=(0, 12)
         )
-        ttk.Checkbutton(filter_row, text="Tem VD", variable=self.filter_has_vd_var, command=self.apply_filter).grid(
+        ttk.Checkbutton(filter_row, text="Com VD", variable=self.filter_has_vd_var, command=self.apply_filter).grid(
             row=0, column=7, sticky="w", padx=(0, 16)
         )
 
-        ttk.Label(filter_row, text="Período (ISO):").grid(row=0, column=8, sticky="w")
-        start_e = ttk.Entry(filter_row, textvariable=self.filter_start_var, width=18)
+        ttk.Label(filter_row, text="Periodo (aaaa-mm-dd):").grid(row=0, column=8, sticky="w")
+        start_e = ttk.Entry(filter_row, textvariable=self.filter_start_var, width=14)
         start_e.grid(row=0, column=9, sticky="w", padx=(6, 6))
-        end_e = ttk.Entry(filter_row, textvariable=self.filter_end_var, width=18)
+        end_e = ttk.Entry(filter_row, textvariable=self.filter_end_var, width=14)
         end_e.grid(row=0, column=10, sticky="w")
         start_e.bind("<KeyRelease>", lambda _e: self.apply_filter())
         end_e.bind("<KeyRelease>", lambda _e: self.apply_filter())
 
-        main_left = ttk.Frame(root, padding=(10, 0, 10, 10))
-        main_left.grid(row=1, column=0, sticky="nsew")
+        main_left = ttk.LabelFrame(root, text="Lista de criancas", style="Card.TLabelframe", padding=(10, 8))
+        main_left.grid(row=2, column=0, sticky="nsew", padx=(10, 5), pady=(0, 10))
         main_left.rowconfigure(1, weight=1)
         main_left.columnconfigure(0, weight=1)
 
-        self.results_var = tk.StringVar(value="Resultados: 0")
-        ttk.Label(main_left, textvariable=self.results_var, foreground="gray").grid(
+        self.results_var = tk.StringVar(value="0 cadastro(s)")
+        ttk.Label(main_left, textvariable=self.results_var, style="Muted.TLabel").grid(
             row=0, column=0, sticky="w", pady=(0, 6)
         )
 
@@ -371,12 +504,12 @@ class App(tk.Tk):
         )
         self.tree["displaycolumns"] = ("nome", "idade", "escola")
 
-        self.tree.heading("nome", text="Criança")
+        self.tree.heading("nome", text="Crianca")
         self.tree.column("nome", width=320, anchor="w")
         self.tree.heading("idade", text="Idade")
         self.tree.column("idade", width=80, anchor="center")
         self.tree.heading("escola", text="Escola")
-        self.tree.column("escola", width=200, anchor="w")
+        self.tree.column("escola", width=220, anchor="w")
 
         self._setup_treeview(self.tree, numeric_cols={"idade"})
 
@@ -388,8 +521,8 @@ class App(tk.Tk):
         self.tree.configure(yscrollcommand=vsb.set)
         vsb.grid(row=1, column=1, sticky="ns")
 
-        main_right = ttk.Frame(root, padding=(0, 0, 10, 10))
-        main_right.grid(row=1, column=1, sticky="nsew")
+        main_right = ttk.LabelFrame(root, text="Dados da crianca selecionada", style="Card.TLabelframe", padding=(10, 8))
+        main_right.grid(row=2, column=1, sticky="nsew", padx=(5, 10), pady=(0, 10))
         main_right.columnconfigure(1, weight=1)
 
         r = 0
@@ -400,7 +533,7 @@ class App(tk.Tk):
         )
 
         r += 1
-        ttk.Label(main_right, text="Criança:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        ttk.Label(main_right, text="Nome da crianca*:").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.nome_var = tk.StringVar()
         self.nome_entry = ttk.Entry(main_right, textvariable=self.nome_var)
         self.nome_entry.grid(row=r, column=1, sticky="ew", pady=(0, 6))
@@ -414,7 +547,7 @@ class App(tk.Tk):
         )
 
         r += 1
-        ttk.Label(main_right, text="Escola:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        ttk.Label(main_right, text="Escola*:").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.escola_var = tk.StringVar()
         self.escola_cb = ttk.Combobox(main_right, textvariable=self.escola_var, state="normal", values=[])
         self.escola_cb.grid(row=r, column=1, sticky="ew", pady=(0, 6))
@@ -436,7 +569,7 @@ class App(tk.Tk):
         )
 
         r += 1
-        ttk.Label(main_right, text="Endereço:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        ttk.Label(main_right, text="Endereco:").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.endereco_var = tk.StringVar()
         ttk.Entry(main_right, textvariable=self.endereco_var).grid(
             row=r, column=1, sticky="ew", pady=(0, 6)
@@ -444,57 +577,50 @@ class App(tk.Tk):
 
         r += 1
         ttk.Label(main_right, text="Atendimentos:").grid(row=r, column=0, sticky="w", pady=(0, 6))
-        ttk.Label(main_right, text="Use a aba 'Histórico' para registrar e ver atendimentos.").grid(
+        ttk.Label(main_right, text="Use a aba Historico para registrar e editar os atendimentos.", style="Muted.TLabel").grid(
             row=r, column=1, sticky="w", pady=(0, 6)
         )
 
         r += 1
-        ttk.Label(main_right, text="Criado/Atualizado:").grid(row=r, column=0, sticky="w", pady=(0, 6))
+        ttk.Label(main_right, text="Criado / atualizado:").grid(row=r, column=0, sticky="w", pady=(0, 6))
         self.meta_var = tk.StringVar()
         ttk.Entry(main_right, textvariable=self.meta_var, state="readonly").grid(
             row=r, column=1, sticky="ew", pady=(0, 6)
         )
 
-        self.btn_merge = ttk.Button(main_right, text="Mesclar duplicados…", command=self.on_merge_children)
-        self.btn_merge.grid(row=r + 1, column=1, sticky="w", pady=(10, 0))
+        actions = ttk.Frame(main_right)
+        actions.grid(row=r + 1, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        self.btn_merge = ttk.Button(actions, text="Mesclar duplicados...", command=self.on_merge_children, style="Secondary.TButton")
+        self.btn_merge.grid(row=0, column=0, padx=(0, 8))
+        self.btn_export_selected = ttk.Button(actions, text="Exportar selecionados", command=self.on_export_selected, style="Secondary.TButton")
+        self.btn_export_selected.grid(row=0, column=1, padx=(0, 8))
+        self.btn_generate_report = ttk.Button(actions, text="Gerar relatorio", command=self.on_generate_report, style="Secondary.TButton")
+        self.btn_generate_report.grid(row=0, column=2)
 
-        # Botões de importação
-        import_frame = ttk.Frame(main_right)
-        import_frame.grid(row=r + 2, column=0, columnspan=2, sticky="w", pady=(10, 0))
-        
-        ttk.Label(import_frame, text="Importação:").grid(row=0, column=0, sticky="w")
-        self.btn_import_cadastros = ttk.Button(import_frame, text="Importar (Cadastros)", command=self.on_import_cadastros)
-        self.btn_import_cadastros.grid(row=0, column=1, padx=(8, 0))
-        self.btn_select_spreadsheet = ttk.Button(import_frame, text="Selecionar Planilha", command=self.on_select_spreadsheet)
-        self.btn_select_spreadsheet.grid(row=0, column=2, padx=(8, 0))
+        import_frame = ttk.LabelFrame(main_right, text="Importacao", style="Card.TLabelframe", padding=(8, 8))
+        import_frame.grid(row=r + 2, column=0, columnspan=2, sticky="ew", pady=(10, 0))
+        ttk.Label(import_frame, text="Atualize os cadastros com a planilha configurada.", style="Muted.TLabel").grid(
+            row=0, column=0, columnspan=3, sticky="w", pady=(0, 6)
+        )
+        self.btn_import_cadastros = ttk.Button(import_frame, text="Importar cadastros", command=self.on_import_cadastros, style="Primary.TButton")
+        self.btn_import_cadastros.grid(row=1, column=0, sticky="w")
+        self.btn_select_spreadsheet = ttk.Button(import_frame, text="Selecionar planilha", command=self.on_select_spreadsheet, style="Secondary.TButton")
+        self.btn_select_spreadsheet.grid(row=1, column=1, sticky="w", padx=(8, 0))
 
-        # Filtros de workflow
-        ttk.Separator(main_right).grid(row=r + 3, column=0, columnspan=2, sticky="ew", pady=(10, 8))
-        filter_frame = ttk.Frame(main_right)
-        filter_frame.grid(row=r + 4, column=0, columnspan=2, sticky="w")
-        
-        ttk.Label(filter_frame, text="Status Workflow:").grid(row=0, column=0, sticky="w")
+        workflow_frame = ttk.LabelFrame(main_right, text="Workflow", style="Card.TLabelframe", padding=(8, 8))
+        workflow_frame.grid(row=r + 3, column=0, columnspan=2, sticky="ew", pady=(10, 0))
+        ttk.Label(workflow_frame, text="Status:").grid(row=0, column=0, sticky="w")
         self.filter_workflow_var = tk.StringVar(value="")
         self.filter_workflow_cb = ttk.Combobox(
-            filter_frame,
+            workflow_frame,
             textvariable=self.filter_workflow_var,
             state="readonly",
-            values=["", "Pendente", "Concluído"],
-            width=12
+            values=["", "Pendente", "Concluido"],
+            width=14,
         )
-        self.filter_workflow_cb.grid(row=0, column=1, padx=(6, 0))
+        self.filter_workflow_cb.grid(row=0, column=1, padx=(6, 0), sticky="w")
         self.filter_workflow_cb.bind("<<ComboboxSelected>>", lambda _e: self.apply_filter())
         self.filter_workflow_cb.bind("<KeyRelease>", lambda _e: self.apply_filter())
-
-        # Botões avançados
-        advanced_frame = ttk.Frame(main_right)
-        advanced_frame.grid(row=r + 5, column=0, columnspan=2, sticky="w", pady=(10, 0))
-        
-        ttk.Label(advanced_frame, text="Ferramentas:").grid(row=0, column=0, sticky="w")
-        self.btn_export_selected = ttk.Button(advanced_frame, text="Exportar Selecionados", command=self.on_export_selected)
-        self.btn_export_selected.grid(row=0, column=1, padx=(8, 0))
-        self.btn_generate_report = ttk.Button(advanced_frame, text="Gerar Relatório", command=self.on_generate_report)
-        self.btn_generate_report.grid(row=0, column=2, padx=(8, 0))
 
     def on_export_selected(self) -> None:
         if not self._can_edit():
@@ -586,15 +712,15 @@ class App(tk.Tk):
             pass
             
         # Configurar filtros atuais como parâmetros do relatório
-        workflow_status = (getattr(self, "filter_workflow_var", tk.StringVar(value="")).get() or "").strip()
+        workflow_status = (getattr(self, "filter_workflow_var", tk.StringVar(value="")).get() or "").strip().lower()
         
         # Definir tipo de relatório baseado no filtro
         if workflow_status == "pendente":
-            self.report_key_var.set("pending")
-        elif workflow_status == "concluído":
-            self.report_key_var.set("completed")
+            self.report_key_var.set("Pendencias de atendimento")
+        elif workflow_status == "concluido":
+            self.report_key_var.set("Detalhamento de atendimentos")
         else:
-            self.report_key_var.set("by_school")
+            self.report_key_var.set("Resumo por escola")
             
         # Aplicar filtros de período
         start = (getattr(self, "filter_start_var", tk.StringVar(value="")).get() or "").strip()
@@ -604,19 +730,20 @@ class App(tk.Tk):
         
         # Gerar relatório
         self.on_report_generate()
-        self.set_status("Relatório gerado com base nos filtros atuais")
+        self.set_status("Relatorio gerado com base nos filtros atuais")
 
     def _build_stats_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
         root.columnconfigure(1, weight=1)
-        root.rowconfigure(1, weight=1)
+        root.rowconfigure(2, weight=1)
 
-        top = ttk.Frame(root, padding=10)
-        top.grid(row=0, column=0, columnspan=2, sticky="ew")
-        for c in range(7):
-            top.columnconfigure(c, weight=1)
+        top = ttk.LabelFrame(root, text="Visao geral", style="Card.TLabelframe", padding=(12, 10))
+        top.grid(row=0, column=0, columnspan=2, sticky="ew", padx=10, pady=(10, 8))
+        top.columnconfigure(4, weight=1)
 
-        ttk.Button(top, text="Recarregar", command=self.refresh_stats).grid(row=0, column=0, sticky="w", padx=(0, 12))
+        ttk.Button(top, text="Atualizar indicadores", command=self.refresh_stats, style="Primary.TButton").grid(
+            row=0, column=0, sticky="w", padx=(0, 16)
+        )
 
         self.stats_total_var = tk.StringVar(value="0")
         self.stats_atend_var = tk.StringVar(value="0")
@@ -624,23 +751,29 @@ class App(tk.Tk):
         self.stats_source_var = tk.StringVar(value="")
         self.stats_last_import_var = tk.StringVar(value="")
 
-        ttk.Label(top, text="Total:").grid(row=0, column=1, sticky="e")
-        ttk.Label(top, textvariable=self.stats_total_var).grid(row=0, column=2, sticky="w", padx=(6, 18))
-        ttk.Label(top, text="Com atendimento:").grid(row=0, column=3, sticky="e")
-        ttk.Label(top, textvariable=self.stats_atend_var).grid(row=0, column=4, sticky="w", padx=(6, 18))
-        ttk.Label(top, text="Com VD:").grid(row=0, column=5, sticky="e")
-        ttk.Label(top, textvariable=self.stats_vd_var).grid(row=0, column=6, sticky="w", padx=(6, 0))
+        metric_total = ttk.LabelFrame(top, text="Total de criancas", style="Card.TLabelframe", padding=(10, 6))
+        metric_total.grid(row=0, column=1, sticky="w", padx=(0, 8))
+        ttk.Label(metric_total, textvariable=self.stats_total_var, style="MetricValue.TLabel").grid(row=0, column=0, sticky="w")
 
-        ttk.Label(top, text="Fontes:").grid(row=1, column=1, sticky="e", pady=(8, 0))
-        ttk.Label(top, textvariable=self.stats_source_var).grid(row=1, column=2, columnspan=5, sticky="w", pady=(8, 0))
-        ttk.Label(top, text="Última importação:").grid(row=2, column=1, sticky="e", pady=(8, 0))
-        ttk.Label(top, textvariable=self.stats_last_import_var).grid(row=2, column=2, columnspan=5, sticky="w", pady=(8, 0))
+        metric_att = ttk.LabelFrame(top, text="Com atendimento", style="Card.TLabelframe", padding=(10, 6))
+        metric_att.grid(row=0, column=2, sticky="w", padx=(0, 8))
+        ttk.Label(metric_att, textvariable=self.stats_atend_var, style="MetricValue.TLabel").grid(row=0, column=0, sticky="w")
 
-        left = ttk.Frame(root, padding=(10, 0, 10, 10))
-        left.grid(row=1, column=0, sticky="nsew")
-        left.rowconfigure(1, weight=1)
+        metric_vd = ttk.LabelFrame(top, text="Com VD", style="Card.TLabelframe", padding=(10, 6))
+        metric_vd.grid(row=0, column=3, sticky="w", padx=(0, 8))
+        ttk.Label(metric_vd, textvariable=self.stats_vd_var, style="MetricValue.TLabel").grid(row=0, column=0, sticky="w")
+
+        ttk.Label(top, text="Fontes:", style="Muted.TLabel").grid(row=1, column=0, sticky="w", pady=(8, 0))
+        ttk.Label(top, textvariable=self.stats_source_var, style="Muted.TLabel").grid(row=1, column=1, columnspan=4, sticky="w", pady=(8, 0))
+        ttk.Label(top, text="Ultima importacao:", style="Muted.TLabel").grid(row=2, column=0, sticky="w", pady=(4, 0))
+        ttk.Label(top, textvariable=self.stats_last_import_var, style="Muted.TLabel").grid(
+            row=2, column=1, columnspan=4, sticky="w", pady=(4, 0)
+        )
+
+        left = ttk.LabelFrame(root, text="Distribuicao por escola", style="Card.TLabelframe", padding=(10, 8))
+        left.grid(row=2, column=0, sticky="nsew", padx=(10, 5), pady=(0, 10))
+        left.rowconfigure(0, weight=1)
         left.columnconfigure(0, weight=1)
-        ttk.Label(left, text="Por escola").grid(row=0, column=0, sticky="w", pady=(0, 6))
 
         self.stats_tree_school = ttk.Treeview(left, columns=("escola", "qtd"), show="headings", selectmode="none")
         self.stats_tree_school.heading("escola", text="Escola")
@@ -648,17 +781,16 @@ class App(tk.Tk):
         self.stats_tree_school.heading("qtd", text="Qtd")
         self.stats_tree_school.column("qtd", width=80, anchor="center")
         self._setup_treeview(self.stats_tree_school, numeric_cols={"qtd"})
-        self.stats_tree_school.grid(row=1, column=0, sticky="nsew")
+        self.stats_tree_school.grid(row=0, column=0, sticky="nsew")
 
         vsb1 = ttk.Scrollbar(left, orient="vertical", command=self.stats_tree_school.yview)
         self.stats_tree_school.configure(yscrollcommand=vsb1.set)
-        vsb1.grid(row=1, column=1, sticky="ns")
+        vsb1.grid(row=0, column=1, sticky="ns")
 
-        right = ttk.Frame(root, padding=(0, 0, 10, 10))
-        right.grid(row=1, column=1, sticky="nsew")
-        right.rowconfigure(1, weight=1)
+        right = ttk.LabelFrame(root, text="Distribuicao por idade", style="Card.TLabelframe", padding=(10, 8))
+        right.grid(row=2, column=1, sticky="nsew", padx=(5, 10), pady=(0, 10))
+        right.rowconfigure(0, weight=1)
         right.columnconfigure(0, weight=1)
-        ttk.Label(right, text="Por idade").grid(row=0, column=0, sticky="w", pady=(0, 6))
 
         self.stats_tree_age = ttk.Treeview(right, columns=("idade", "qtd"), show="headings", selectmode="none")
         self.stats_tree_age.heading("idade", text="Idade")
@@ -666,59 +798,97 @@ class App(tk.Tk):
         self.stats_tree_age.heading("qtd", text="Qtd")
         self.stats_tree_age.column("qtd", width=80, anchor="center")
         self._setup_treeview(self.stats_tree_age, numeric_cols={"idade", "qtd"})
-        self.stats_tree_age.grid(row=1, column=0, sticky="nsew")
+        self.stats_tree_age.grid(row=0, column=0, sticky="nsew")
 
         vsb2 = ttk.Scrollbar(right, orient="vertical", command=self.stats_tree_age.yview)
         self.stats_tree_age.configure(yscrollcommand=vsb2.set)
-        vsb2.grid(row=1, column=1, sticky="ns")
+        vsb2.grid(row=0, column=1, sticky="ns")
 
     def _build_reports_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
         root.rowconfigure(1, weight=1)
 
-        top = ttk.Frame(root, padding=10)
-        top.grid(row=0, column=0, sticky="ew")
+        top = ttk.LabelFrame(root, text="Geracao de relatorios", style="Card.TLabelframe", padding=(12, 10))
+        top.grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 8))
         top.columnconfigure(1, weight=1)
 
-        ttk.Label(top, text="Relatório:").grid(row=0, column=0, sticky="w")
-        self.report_key_var = tk.StringVar(value="pending")
+        self.report_labels = {
+            "Pendencias de atendimento": "pending",
+            "Faltas registradas": "faltas",
+            "Resumo por escola": "by_school",
+            "Atendimentos por mes": "att_by_month",
+            "Detalhamento de atendimentos": "att_detail",
+        }
+        default_report = next(iter(self.report_labels.keys()))
+
+        ttk.Label(top, text="Tipo de relatorio:").grid(row=0, column=0, sticky="w")
+        self.report_key_var = tk.StringVar(value=default_report)
         self.report_key_cb = ttk.Combobox(
             top,
             textvariable=self.report_key_var,
             state="readonly",
-            values=["pending", "faltas", "by_school", "att_by_month", "att_detail"],
+            width=32,
+            values=list(self.report_labels.keys()),
         )
         self.report_key_cb.grid(row=0, column=1, sticky="w", padx=(8, 16))
 
-        ttk.Label(top, text="Início (ISO):").grid(row=0, column=2, sticky="e")
+        ttk.Label(top, text="Inicio (aaaa-mm-dd):").grid(row=0, column=2, sticky="e")
         self.report_start_var = tk.StringVar(value="")
-        ttk.Entry(top, textvariable=self.report_start_var, width=22).grid(row=0, column=3, sticky="w", padx=(8, 16))
+        ttk.Entry(top, textvariable=self.report_start_var, width=18).grid(row=0, column=3, sticky="w", padx=(8, 16))
 
-        ttk.Label(top, text="Fim (ISO):").grid(row=0, column=4, sticky="e")
+        ttk.Label(top, text="Fim (aaaa-mm-dd):").grid(row=0, column=4, sticky="e")
         self.report_end_var = tk.StringVar(value="")
-        ttk.Entry(top, textvariable=self.report_end_var, width=22).grid(row=0, column=5, sticky="w", padx=(8, 0))
+        ttk.Entry(top, textvariable=self.report_end_var, width=18).grid(row=0, column=5, sticky="w")
+
+        ttk.Label(
+            top,
+            text="Use o periodo para limitar resultados. Deixe vazio para considerar todo o historico.",
+            style="Muted.TLabel",
+        ).grid(row=1, column=0, columnspan=6, sticky="w", pady=(6, 0))
 
         btns = ttk.Frame(top)
-        btns.grid(row=1, column=0, columnspan=6, sticky="w", pady=(10, 0))
-        ttk.Button(btns, text="Gerar", command=self.on_report_generate).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Exportar CSV", command=self.on_report_export_csv).grid(row=0, column=1, padx=(0, 8))
-        ttk.Button(btns, text="Exportar PDF", command=self.on_report_export_pdf).grid(row=0, column=2, padx=(0, 8))
-        ttk.Button(btns, text="Imprimir PDF", command=self.on_report_print_pdf).grid(row=0, column=3)
+        btns.grid(row=2, column=0, columnspan=6, sticky="w", pady=(10, 0))
+        ttk.Button(btns, text="Gerar visualizacao", command=self.on_report_generate, style="Primary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Exportar CSV", command=self.on_report_export_csv, style="Secondary.TButton").grid(row=0, column=1, padx=(0, 8))
+        ttk.Button(btns, text="Exportar PDF", command=self.on_report_export_pdf, style="Secondary.TButton").grid(row=0, column=2, padx=(0, 8))
+        ttk.Button(btns, text="Imprimir PDF", command=self.on_report_print_pdf, style="Secondary.TButton").grid(row=0, column=3)
 
-        self.report_preview = tk.Text(root, wrap="none")
-        self.report_preview.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 10))
+        preview_wrap = ttk.LabelFrame(root, text="Pre-visualizacao", style="Card.TLabelframe", padding=(10, 8))
+        preview_wrap.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 10))
+        preview_wrap.columnconfigure(0, weight=1)
+        preview_wrap.rowconfigure(0, weight=1)
+
+        self.report_preview = tk.Text(
+            preview_wrap,
+            wrap="none",
+            background=self.colors.get("panel", "#FFFFFF"),
+            foreground=self.colors.get("text", "#1E2A3A"),
+            relief="flat",
+            padx=8,
+            pady=8,
+        )
+        self.report_preview.grid(row=0, column=0, sticky="nsew")
+
+        report_vsb = ttk.Scrollbar(preview_wrap, orient="vertical", command=self.report_preview.yview)
+        self.report_preview.configure(yscrollcommand=report_vsb.set)
+        report_vsb.grid(row=0, column=1, sticky="ns")
 
         self._last_report = None
         self._last_pdf_path: Path | None = None
 
     def _build_backup_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
-        box = ttk.Frame(root, padding=10)
-        box.grid(row=0, column=0, sticky="ew")
-        ttk.Button(box, text="Fazer backup", command=self.on_backup_create).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(box, text="Restaurar", command=self.on_backup_restore).grid(row=0, column=1)
+        box = ttk.LabelFrame(root, text="Seguranca dos dados", style="Card.TLabelframe", padding=(12, 10))
+        box.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
+        ttk.Label(
+            box,
+            text="Crie backups frequentes antes de importacoes ou grandes alteracoes.",
+            style="Muted.TLabel",
+        ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        ttk.Button(box, text="Fazer backup agora", command=self.on_backup_create, style="Primary.TButton").grid(row=1, column=0, padx=(0, 8), sticky="w")
+        ttk.Button(box, text="Restaurar backup", command=self.on_backup_restore, style="Secondary.TButton").grid(row=1, column=1, sticky="w")
         self.backup_status_var = tk.StringVar(value="")
-        ttk.Label(box, textvariable=self.backup_status_var, foreground="gray").grid(row=1, column=0, columnspan=2, sticky="w", pady=(10, 0))
+        ttk.Label(box, textvariable=self.backup_status_var, style="Muted.TLabel").grid(row=2, column=0, columnspan=2, sticky="w", pady=(10, 0))
 
     def _build_users_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
@@ -1111,7 +1281,8 @@ class App(tk.Tk):
         self._apply_zebra(self.stats_tree_age)
 
     def set_status(self, msg: str) -> None:
-        self.status_var.set(msg)
+        stamp = datetime.now().strftime("%H:%M:%S")
+        self.status_var.set(f"[{stamp}] {msg}")
 
     def _actor(self) -> str:
         return ((self.current_user or {}).get("username") or "").strip()
@@ -1122,7 +1293,7 @@ class App(tk.Tk):
     def _user_label(self) -> str:
         u = (self.current_user or {}).get("username") or ""
         r = (self.current_user or {}).get("role") or ""
-        return f"Usuário: {u} ({r})"
+        return f"Usuario: {u} ({r})"
 
     def _can_edit(self) -> bool:
         return self._role() in {"admin", "editor"}
@@ -1177,8 +1348,8 @@ class App(tk.Tk):
 
     def _setup_treeview(self, tree: ttk.Treeview, *, numeric_cols: set[str] | None = None) -> None:
         numeric_cols = set(numeric_cols or set())
-        tree.tag_configure("even", background="#FFFFFF")
-        tree.tag_configure("odd", background="#FFEFF4")
+        tree.tag_configure("even", background=self.colors.get("panel", "#FFFFFF"))
+        tree.tag_configure("odd", background=self.colors.get("panel_soft", "#EEF3FB"))
 
 
         for col in tree["columns"]:
@@ -1251,6 +1422,27 @@ class App(tk.Tk):
         if hasattr(self, "filter_school_cb"):
             self.filter_school_cb.configure(values=[""] + schools)
 
+    def on_clear_filters(self) -> None:
+        for attr, value in [
+            ("search_var", ""),
+            ("filter_school_var", ""),
+            ("filter_age_min_var", ""),
+            ("filter_age_max_var", ""),
+            ("filter_start_var", ""),
+            ("filter_end_var", ""),
+            ("filter_workflow_var", ""),
+        ]:
+            var = getattr(self, attr, None)
+            if var is not None:
+                var.set(value)
+        if hasattr(self, "filter_has_att_var"):
+            self.filter_has_att_var.set(False)
+        if hasattr(self, "filter_has_vd_var"):
+            self.filter_has_vd_var.set(False)
+        self.apply_filter()
+        self.set_status("Filtros limpos.")
+        self.focus_search()
+
     def apply_filter(self) -> None:
         query = (self.search_var.get() or "").strip().lower()
         school = (getattr(self, "filter_school_var", tk.StringVar(value="")).get() or "").strip().lower()
@@ -1302,7 +1494,7 @@ class App(tk.Tk):
                 return True
             if workflow_status == "pendente":
                 return not child.get("workflow_status", False)
-            elif workflow_status == "concluído":
+            elif workflow_status == "concluido":
                 return child.get("workflow_status", False)
             return True
 
@@ -1351,12 +1543,13 @@ class App(tk.Tk):
             or school
             or has_att
             or has_vd
+            or workflow_status
             or (age_min is not None)
             or (age_max is not None)
             or bool(start_dt)
             or bool(end_dt)
         )
-        msg = f"Resultados: {len(items)}" + (" (filtrado)" if filtered else "")
+        msg = f"{len(items)} cadastro(s) exibido(s)" + (" com filtros ativos" if filtered else "")
         if hasattr(self, "results_var"):
             self.results_var.set(msg)
         self.set_status(msg)
@@ -1620,7 +1813,8 @@ class App(tk.Tk):
         start = (self.report_start_var.get() or "").strip() or None
         end = (self.report_end_var.get() or "").strip() or None
         reports = build_reports(db, start=start, end=end)
-        key = (self.report_key_var.get() or "").strip()
+        label = (self.report_key_var.get() or "").strip()
+        key = (getattr(self, "report_labels", {}).get(label) or label or "pending").strip()
         rep = reports.get(key)
         if not rep:
             messagebox.showerror("Relatório", "Relatório inválido.")
@@ -1636,7 +1830,9 @@ class App(tk.Tk):
             self.report_preview.insert("end", f"\n... ({len(rep.rows)} linhas)\n")
 
     def _default_export_name(self, ext: str) -> str:
-        key = (self.report_key_var.get() or "report").strip()
+        label = (self.report_key_var.get() or "").strip()
+        key = (getattr(self, "report_labels", {}).get(label) or label or "report").strip()
+        key = key.replace(" ", "_")
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         return f"{key}_{ts}.{ext}"
 
@@ -1825,20 +2021,25 @@ class App(tk.Tk):
     def _build_history_ui(self, root: ttk.Frame) -> None:
         root.columnconfigure(0, weight=1)
         root.rowconfigure(1, weight=1)
+        root.rowconfigure(3, weight=1)
 
-        top = ttk.Frame(root, padding=10)
-        top.grid(row=0, column=0, sticky="ew")
+        top = ttk.LabelFrame(root, text="Contexto atual", style="Card.TLabelframe", padding=(12, 10))
+        top.grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 8))
         top.columnconfigure(1, weight=1)
 
-        ttk.Label(top, text="Criança:").grid(row=0, column=0, sticky="w")
+        ttk.Label(top, text="Crianca selecionada:").grid(row=0, column=0, sticky="w")
         self.history_child_var = tk.StringVar(value="(nenhuma selecionada)")
         ttk.Label(top, textvariable=self.history_child_var).grid(row=0, column=1, sticky="w", padx=(8, 0))
-        ttk.Button(top, text="+ Atendimento", command=self.on_new_attendance).grid(row=0, column=2, padx=(8, 0))
-        self.btn_history_edit = ttk.Button(top, text="Editar", command=self.on_edit_attendance, state="disabled")
+        ttk.Button(top, text="+ Atendimento", command=self.on_new_attendance, style="Primary.TButton").grid(row=0, column=2, padx=(8, 0))
+        self.btn_history_edit = ttk.Button(top, text="Editar", command=self.on_edit_attendance, state="disabled", style="Secondary.TButton")
         self.btn_history_edit.grid(row=0, column=3, padx=(8, 0))
 
-        mid = ttk.Frame(root, padding=(10, 0, 10, 10))
-        mid.grid(row=1, column=0, sticky="nsew")
+        ttk.Label(top, text="Selecione um item para visualizar o texto do atendimento e os anexos.", style="Muted.TLabel").grid(
+            row=1, column=0, columnspan=4, sticky="w", pady=(6, 0)
+        )
+
+        mid = ttk.LabelFrame(root, text="Linha do tempo de atendimentos", style="Card.TLabelframe", padding=(10, 8))
+        mid.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 8))
         mid.columnconfigure(0, weight=1)
         mid.rowconfigure(0, weight=1)
 
@@ -1871,7 +2072,7 @@ class App(tk.Tk):
         self.history_tree.configure(yscrollcommand=vsb.set)
         vsb.grid(row=0, column=1, sticky="ns")
 
-        bottom = ttk.Frame(root, padding=(10, 0, 10, 10))
+        bottom = ttk.LabelFrame(root, text="Detalhes do registro", style="Card.TLabelframe", padding=(10, 8))
         bottom.grid(row=2, column=0, sticky="ew")
         bottom.columnconfigure(1, weight=1)
         bottom.columnconfigure(3, weight=1)
@@ -1889,17 +2090,16 @@ class App(tk.Tk):
         self.history_txt_atend.configure(state="disabled")
         self.history_txt_vd.configure(state="disabled")
 
-        attach = ttk.Frame(root, padding=(10, 0, 10, 10))
-        attach.grid(row=3, column=0, sticky="nsew")
+        attach = ttk.LabelFrame(root, text="Anexos do atendimento", style="Card.TLabelframe", padding=(10, 8))
+        attach.grid(row=3, column=0, sticky="nsew", padx=10, pady=(0, 10))
         attach.columnconfigure(0, weight=1)
         attach.rowconfigure(1, weight=1)
 
-        ttk.Label(attach, text="Anexos:").grid(row=0, column=0, sticky="w", pady=(0, 6))
         btns = ttk.Frame(attach)
         btns.grid(row=0, column=1, sticky="e")
-        ttk.Button(btns, text="Adicionar", command=self.on_attachment_add).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Abrir", command=self.on_attachment_open).grid(row=0, column=1, padx=(0, 8))
-        ttk.Button(btns, text="Remover", command=self.on_attachment_remove).grid(row=0, column=2)
+        ttk.Button(btns, text="Adicionar", command=self.on_attachment_add, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Abrir", command=self.on_attachment_open, style="Secondary.TButton").grid(row=0, column=1, padx=(0, 8))
+        ttk.Button(btns, text="Remover", command=self.on_attachment_remove, style="Secondary.TButton").grid(row=0, column=2)
 
         self.attach_tree = ttk.Treeview(attach, columns=("nome", "quando", "por"), show="headings", selectmode="browse")
         self.attach_tree.heading("nome", text="Arquivo")
@@ -2397,6 +2597,110 @@ class App(tk.Tk):
             messagebox.showerror("Reinício", f"Não consegui reiniciar automaticamente: {e}")
 
 
+def _setup_modal_window(win: tk.Toplevel, parent: tk.Tk, *, min_width: int = 460, min_height: int = 260) -> None:
+    parent_visible = False
+    try:
+        parent_visible = bool(parent.winfo_viewable()) and str(parent.state()) != "withdrawn"
+    except Exception:
+        parent_visible = False
+
+    if parent_visible:
+        try:
+            win.transient(parent)
+        except Exception:
+            pass
+
+    win.update_idletasks()
+    width = max(min_width, win.winfo_reqwidth())
+    height = max(min_height, win.winfo_reqheight())
+
+    if parent_visible:
+        px = parent.winfo_rootx()
+        py = parent.winfo_rooty()
+        pw = max(parent.winfo_width(), width)
+        ph = max(parent.winfo_height(), height)
+        x = px + max((pw - width) // 2, 20)
+        y = py + max((ph - height) // 2, 20)
+    else:
+        sw = win.winfo_screenwidth()
+        sh = win.winfo_screenheight()
+        x = max((sw - width) // 2, 20)
+        y = max((sh - height) // 3, 20)
+
+    win.geometry(f"{width}x{height}+{x}+{y}")
+
+    try:
+        win.lift()
+        win.focus_force()
+    except Exception:
+        pass
+
+    if parent_visible:
+        try:
+            win.grab_set()
+        except Exception:
+            pass
+
+
+def _load_brand_asset(parent: tk.Tk) -> tk.PhotoImage | None:
+    candidates: list[Path] = []
+    app_root = getattr(parent, "app_root", None)
+    if isinstance(app_root, Path):
+        candidates.extend(
+            [
+                app_root / "assets" / "login.png",
+                app_root / "assets" / "logo.png",
+                app_root / "assets" / "icon.png",
+                app_root / "login.png",
+                app_root / "logo.png",
+                app_root / "icon.png",
+                app_root / "app.png",
+            ]
+        )
+    project_root = Path(__file__).resolve().parents[2]
+    candidates.extend(
+        [
+            project_root / "assets" / "login.png",
+            project_root / "assets" / "logo.png",
+            project_root / "assets" / "icon.png",
+            project_root / "login.png",
+            project_root / "logo.png",
+            project_root / "icon.png",
+            project_root / "app.png",
+        ]
+    )
+    for p in candidates:
+        if not p.exists():
+            continue
+        try:
+            return tk.PhotoImage(file=str(p))
+        except Exception:
+            continue
+    return None
+
+
+def _build_dialog_header(win: tk.Toplevel, parent: tk.Tk, *, title: str, subtitle: str) -> None:
+    colors = getattr(parent, "colors", {})
+    bg = colors.get("header", "#A73A68")
+    fg = "#FFF4FA"
+    sub_fg = "#FFE5F0"
+    frame = tk.Frame(win, bg=bg, padx=12, pady=10)
+    frame.grid(row=0, column=0, columnspan=2, sticky="ew")
+    frame.grid_columnconfigure(1, weight=1)
+
+    img = _load_brand_asset(parent)
+    if img is not None:
+        setattr(win, "_brand_img", img)
+        tk.Label(frame, image=img, bg=bg).grid(row=0, column=0, rowspan=2, sticky="w", padx=(0, 10))
+
+    tk.Label(frame, text=title, bg=bg, fg=fg, anchor="w", font=("Segoe UI Semibold", 12)).grid(
+        row=0, column=1, sticky="w"
+    )
+    tk.Label(frame, text=subtitle, bg=bg, fg=sub_fg, anchor="w", font=("Segoe UI", 9)).grid(
+        row=1, column=1, sticky="w", pady=(2, 0)
+    )
+
+
 class AttendanceDialog(tk.Toplevel):
     def __init__(self, parent: tk.Tk, *, default_prof: str, attendance: dict | None = None):
         super().__init__(parent)
@@ -2409,7 +2713,8 @@ class AttendanceDialog(tk.Toplevel):
 
         ttk.Label(self, text="Data/hora (ISO):").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
         self.when_var = tk.StringVar(value=(attendance.get("occurred_at") if attendance else now_iso()))
-        ttk.Entry(self, textvariable=self.when_var).grid(row=0, column=1, sticky="ew", padx=10, pady=(10, 6))
+        when_entry = ttk.Entry(self, textvariable=self.when_var)
+        when_entry.grid(row=0, column=1, sticky="ew", padx=10, pady=(10, 6))
 
         ttk.Label(self, text="Tipo:").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 6))
         self.tipo_var = tk.StringVar(value=((attendance.get("tipo") if attendance else "") or "atendimento"))
@@ -2439,11 +2744,18 @@ class AttendanceDialog(tk.Toplevel):
 
         btns = ttk.Frame(self)
         btns.grid(row=6, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Salvar", command=self._save).grid(row=0, column=1)
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Salvar", command=self._save, style="Primary.TButton").grid(row=0, column=1)
 
         self.bind("<Escape>", lambda _e: self.destroy())
         self.bind("<Control-Return>", lambda _e: self._save())
+        if hasattr(parent, "colors"):
+            panel = getattr(parent, "colors", {}).get("panel", "#FFFFFF")
+            text = getattr(parent, "colors", {}).get("text", "#1E2A3A")
+            self.txt_at.configure(background=panel, foreground=text, relief="flat", padx=6, pady=6)
+            self.txt_vd.configure(background=panel, foreground=text, relief="flat", padx=6, pady=6)
+        _setup_modal_window(self, parent, min_width=760, min_height=620)
+        self.after(10, when_entry.focus_set)
 
     def _save(self) -> None:
         when = (self.when_var.get() or "").strip()
@@ -2478,24 +2790,37 @@ class SetupAdminDialog(tk.Toplevel):
         self.resizable(False, False)
         self.result: dict | None = None
 
-        ttk.Label(self, text="Usuário admin:").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
+        if hasattr(parent, "colors"):
+            self.configure(bg=getattr(parent, "colors", {}).get("bg", "#FFF7FA"))
+
+        _build_dialog_header(
+            self,
+            parent,
+            title="Bem-vinda(o) ao sistema",
+            subtitle="Crie o usuario administrador para iniciar.",
+        )
+
+        ttk.Label(self, text="Usuario admin:").grid(row=1, column=0, sticky="w", padx=10, pady=(10, 6))
         self.user_var = tk.StringVar(value="admin")
-        ttk.Entry(self, textvariable=self.user_var).grid(row=0, column=1, sticky="ew", padx=10, pady=(10, 6))
+        user_entry = ttk.Entry(self, textvariable=self.user_var)
+        user_entry.grid(row=1, column=1, sticky="ew", padx=10, pady=(10, 6))
 
-        ttk.Label(self, text="Senha:").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 6))
+        ttk.Label(self, text="Senha:").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 6))
         self.pw_var = tk.StringVar(value="")
-        ttk.Entry(self, textvariable=self.pw_var, show="*").grid(row=1, column=1, sticky="ew", padx=10, pady=(0, 6))
+        ttk.Entry(self, textvariable=self.pw_var, show="*").grid(row=2, column=1, sticky="ew", padx=10, pady=(0, 6))
 
-        ttk.Label(self, text="Confirmar:").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 10))
+        ttk.Label(self, text="Confirmar:").grid(row=3, column=0, sticky="w", padx=10, pady=(0, 10))
         self.pw2_var = tk.StringVar(value="")
-        ttk.Entry(self, textvariable=self.pw2_var, show="*").grid(row=2, column=1, sticky="ew", padx=10, pady=(0, 10))
+        ttk.Entry(self, textvariable=self.pw2_var, show="*").grid(row=3, column=1, sticky="ew", padx=10, pady=(0, 10))
 
         btns = ttk.Frame(self)
-        btns.grid(row=3, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Criar", command=self._create).grid(row=0, column=1)
+        btns.grid(row=4, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Criar", command=self._create, style="Primary.TButton").grid(row=0, column=1)
 
         self.columnconfigure(1, weight=1)
+        _setup_modal_window(self, parent, min_width=560, min_height=320)
+        self.after(10, user_entry.focus_set)
 
     def _create(self) -> None:
         u = (self.user_var.get() or "").strip()
@@ -2521,24 +2846,37 @@ class LoginDialog(tk.Toplevel):
         self.resizable(False, False)
         self.result: dict | None = None
 
-        ttk.Label(self, text="Usuário:").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
-        self.user_var = tk.StringVar(value=(usernames[0] if usernames else ""))
-        ttk.Combobox(self, textvariable=self.user_var, values=usernames, state="readonly").grid(
-            row=0, column=1, sticky="ew", padx=10, pady=(10, 6)
+        if hasattr(parent, "colors"):
+            self.configure(bg=getattr(parent, "colors", {}).get("bg", "#FFF7FA"))
+
+        _build_dialog_header(
+            self,
+            parent,
+            title="Acesso ao sistema",
+            subtitle="Entre com seu usuario para continuar.",
         )
 
-        ttk.Label(self, text="Senha:").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 10))
+        ttk.Label(self, text="Usuario:").grid(row=1, column=0, sticky="w", padx=10, pady=(10, 6))
+        self.user_var = tk.StringVar(value=(usernames[0] if usernames else ""))
+        ttk.Combobox(self, textvariable=self.user_var, values=usernames, state="readonly").grid(
+            row=1, column=1, sticky="ew", padx=10, pady=(10, 6)
+        )
+
+        ttk.Label(self, text="Senha:").grid(row=2, column=0, sticky="w", padx=10, pady=(0, 10))
         self.pw_var = tk.StringVar(value="")
-        ttk.Entry(self, textvariable=self.pw_var, show="*").grid(row=1, column=1, sticky="ew", padx=10, pady=(0, 10))
+        pw_entry = ttk.Entry(self, textvariable=self.pw_var, show="*")
+        pw_entry.grid(row=2, column=1, sticky="ew", padx=10, pady=(0, 10))
 
         btns = ttk.Frame(self)
-        btns.grid(row=2, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Entrar", command=self._login).grid(row=0, column=1)
+        btns.grid(row=3, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Entrar", command=self._login, style="Primary.TButton").grid(row=0, column=1)
 
         self.columnconfigure(1, weight=1)
         self.bind("<Return>", lambda _e: self._login())
         self.bind("<Escape>", lambda _e: self.destroy())
+        _setup_modal_window(self, parent, min_width=520, min_height=300)
+        self.after(10, pw_entry.focus_set)
 
     def _login(self) -> None:
         u = (self.user_var.get() or "").strip()
@@ -2568,7 +2906,8 @@ class MergeDialog(tk.Toplevel):
 
         ttk.Label(self, text="Manter:").grid(row=0, column=0, sticky="w", padx=10, pady=(10, 6))
         self.keep_var = tk.StringVar(value=(options[0] if options else ""))
-        ttk.Combobox(self, textvariable=self.keep_var, values=options, state="readonly", width=70).grid(
+        keep_cb = ttk.Combobox(self, textvariable=self.keep_var, values=options, state="readonly", width=70)
+        keep_cb.grid(
             row=0, column=1, sticky="ew", padx=10, pady=(10, 6)
         )
 
@@ -2580,8 +2919,10 @@ class MergeDialog(tk.Toplevel):
 
         btns = ttk.Frame(self)
         btns.grid(row=2, column=0, columnspan=2, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Mesclar", command=self._merge).grid(row=0, column=1)
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Mesclar", command=self._merge, style="Primary.TButton").grid(row=0, column=1)
+        _setup_modal_window(self, parent, min_width=740, min_height=220)
+        self.after(10, keep_cb.focus_set)
 
     def _merge(self) -> None:
         keep = self._id_by_label.get(self.keep_var.get() or "", "")
@@ -2611,10 +2952,11 @@ class ExportFormatDialog(tk.Toplevel):
 
         btns = ttk.Frame(self)
         btns.grid(row=4, column=0, sticky="e", padx=10, pady=(0, 10))
-        ttk.Button(btns, text="Cancelar", command=self.destroy).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(btns, text="Exportar", command=self._export).grid(row=0, column=1)
+        ttk.Button(btns, text="Cancelar", command=self.destroy, style="Secondary.TButton").grid(row=0, column=0, padx=(0, 8))
+        ttk.Button(btns, text="Exportar", command=self._export, style="Primary.TButton").grid(row=0, column=1)
 
         self.columnconfigure(0, weight=1)
+        _setup_modal_window(self, parent, min_width=420, min_height=230)
 
     def _export(self) -> None:
         self.result = {"format": self.format_var.get()}
