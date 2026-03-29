@@ -4,7 +4,6 @@ import os
 import sys
 import threading
 import tkinter as tk
-from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
@@ -18,7 +17,7 @@ from .store import JsonStore
 from .updater import check_for_update, pull_ff_only
 from .util import br_date_to_iso, iso_to_br_date, now_iso
 from .stats import compute_stats
-from .runtime import ensure_user_files, get_data_root, get_resource_root, is_frozen
+from .runtime import ensure_user_files, get_data_root, get_resource_root
 
 
 class App(tk.Tk):
@@ -28,9 +27,6 @@ class App(tk.Tk):
         self.app_root = app_root
         self.data_root = data_root
         self.cfg = AppConfig.load(self.data_root)
-        if is_frozen():
-            # Frozen builds are not git repos; auto-update would just spam errors/banners.
-            self.cfg = replace(self.cfg, auto_update_enabled=False)
         self.store = JsonStore(self.data_root / self.cfg.db_path)
         self.current_user: dict | None = None
 
@@ -2467,7 +2463,7 @@ class App(tk.Tk):
         def worker() -> None:
             try:
                 # Get current version from config or default
-                current_version = getattr(self.cfg, 'app_version', '1.0.0')
+                current_version = getattr(self.cfg, 'app_version', '0.0.0')
                 result = check_for_update(self.app_root, fetch=True, current_version=current_version)
             except Exception as exc:
                 result = None

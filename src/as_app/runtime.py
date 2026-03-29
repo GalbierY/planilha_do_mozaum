@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import sys
@@ -51,6 +52,33 @@ def _copy_tree_missing(src: Path, dst: Path) -> None:
         shutil.copy2(p, target)
 
 
+def _sync_app_version(src_cfg: Path, dst_cfg: Path) -> None:
+    if not (src_cfg.exists() and dst_cfg.exists()):
+        return
+    try:
+        src_raw = json.loads(src_cfg.read_text(encoding="utf-8") or "{}")
+        dst_raw = json.loads(dst_cfg.read_text(encoding="utf-8") or "{}")
+    except Exception:
+        return
+    if not isinstance(src_raw, dict) or not isinstance(dst_raw, dict):
+        return
+
+    src_version = src_raw.get("app_version")
+    if not isinstance(src_version, str) or not src_version.strip():
+        return
+    src_version = src_version.strip()
+
+    dst_version = dst_raw.get("app_version")
+    if isinstance(dst_version, str) and dst_version.strip() == src_version:
+        return
+
+    dst_raw["app_version"] = src_version
+    try:
+        dst_cfg.write_text(json.dumps(dst_raw, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    except Exception:
+        return
+
+
 def get_data_root(resource_root: Path) -> Path:
     override = (os.environ.get("SAS_DATA_DIR") or "").strip()
     if override:
@@ -73,6 +101,7 @@ def ensure_user_files(resource_root: Path, data_root: Path) -> None:
     if src_cfg.exists() and (not dst_cfg.exists()):
         dst_cfg.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_cfg, dst_cfg)
+    _sync_app_version(src_cfg, dst_cfg)
 
     # Seed the XLSX template (default base sheet).
     src_xlsx = resource_root / "data" / "AssistenteSocial.xlsx"
