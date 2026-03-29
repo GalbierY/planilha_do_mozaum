@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 - 2026-03-28
+
+- Hotfix do sistema de atualizacao para instalacoes via instalador/portable.
+- Checagem automatica de update reativada em build empacotado (fallback GitHub Releases).
+- Sincronizacao de `app_version` do build para o config do usuario na inicializacao.
+
 ## v1.1.0 - 2026-03-28
 
 - UX da interface redesenhado para fluxo mais intuitivo e funcional.
