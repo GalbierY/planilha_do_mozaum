@@ -1,107 +1,192 @@
-# SAS 🥰 | Civitas
+# SAS Civitas
 
-GUI local para evoluir a planilha `data/AssistenteSocial.xlsx` em um sistema (estilo e-SUS, só que focado na AS), com metadados de cadastro (`created_at` / `updated_at`) e importação idempotente.
+Desktop app (Tkinter) for social assistance workflows: child records, sessions, attachments, reports, and local data management without a server.
 
-## Como rodar (Windows)
+## Main features
 
-- Duplo clique: `start_gui.cmd` (cria venv e instala deps automaticamente)
-- Ou via terminal:
-  - `py -3 bootstrap.py` (idem)
-- VS Code:
-  - Abra a pasta e pressione `F5` (config em `.vscode/launch.json`)
+- Child records with fast edit form.
+- Multi-tag support per child (for example: `Violencia`, `TEA`) with user-defined tags.
+- Session history (including home visits) with create/edit flow.
+- Attachment support per session.
+- Reports and exports.
+- Basic statistics dashboard.
+- Tag-based filtering and tag distribution stats.
+- Backup and restore.
+- Access control (`admin`, `editor`, `viewer`) and audit trail.
+- XLSX import workflow with pending/completed status.
+- Auto-update via `git pull` (dev clone) or GitHub Releases (installed build).
+- UI language support:
+  - Default: `pt-BR`
+  - Optional: `en`
 
-## Distribuir (Windows, sem Python instalado)
+## Requirements
 
-Para o usuário final não precisar de Python, gere um `.exe` (PyInstaller) e opcionalmente um instalador (Inno Setup).
+- Windows 10/11
+- Python 3 (`py` launcher available)
+- Internet access to install dependencies
+- Optional for installer packaging: Inno Setup (`iscc.exe`)
 
-- Gerar app (`artifacts/pyinstaller-dist/SAS Civitas/`):
-  - `GERAR_EXE.cmd` (atalho) ou `packaging/build_exe.cmd`
-- Gerar instalador (`artifacts/inno-output/SAS Civitas - Instalador.exe`):
-  - Instale o Inno Setup (precisa do `iscc.exe` no PATH)
-  - `GERAR_INSTALADOR.cmd` (atalho) ou `packaging/build_installer.cmd`
+## Run (development)
 
-### Onde ficam os dados (build instalada)
+1. Clone this repository.
+2. From project root, run:
 
-O app salva tudo em:
+```cmd
+py -3 bootstrap.py
+```
 
-- `%LOCALAPPDATA%\\SAS Civitas\\UserData\\`
-  - `config\\config.json`
-  - `data\\metadata\\as_db.json`
-  - `data\\attachments\\`, `data\\backups\\`, `data\\exports\\`
+Or use:
 
-### Preparar para commit (opcional)
+```cmd
+start_gui.cmd
+```
 
-Se vocÃª quiser **versionar os binÃ¡rios** no git, use:
+`bootstrap.py` creates `.venv`, installs `requirements.txt`, and starts the GUI.
 
-- `packaging/preparar_release.cmd` (copia para `release/` e gera `SHA256SUMS.txt`)
+## First access
 
-## Fluxo básico (uso)
+- If there is no local user yet, the app opens an admin setup dialog.
+- After that, login is required.
 
-1) Aba `Cadastros`: busque/filtre e selecione uma criança na lista
-2) Use a barra fixa inferior:
-   - `Novo` limpa o formulário
-   - `+ Criança` cria uma criança
-   - `Salvar` salva alterações na criança selecionada
-3) Aba `Histórico`:
-   - `+ Atendimento` cria um atendimento/VD (data/hora fica registrada)
-   - Selecione um atendimento e use `Editar` (ou duplo clique) para alterar Atendimento/VD
-   - Selecione um atendimento e use `Anexar` para vincular arquivos
+## Quick usage flow
 
-## Atalhos
+1. In `Cadastros` (Records), search and select a child.
+2. Use action buttons to create/update records.
+3. In `Historico` (History), create/edit sessions.
+4. In `Workflow`, import and track pending/completed items.
+5. Use `Relatorios`, `Estatisticas`, and `Backup` as needed.
 
-- `Ctrl+F`: focar busca
-- `Ctrl+N`: novo formulário (criança)
-- `Ctrl+S`: salvar criança
-- `Ctrl+Enter`: novo atendimento
-- `Ctrl+E`: editar atendimento selecionado
-- `Alt+1..6`: trocar abas (Cadastros/Estatísticas/Histórico/Relatórios/Backup/Auditoria)
+## Keyboard shortcuts
 
-## Onde ficam os dados
+- `Ctrl+F`: focus search
+- `Ctrl+N`: new record form
+- `Ctrl+S`: save record
+- `Ctrl+Enter`: new session
+- `Ctrl+E`: edit selected session
+- `Ctrl+I`: import records
+- `Alt+1..7`: switch main tabs
+- `Alt+8`: `Usuarios` tab (admin-only, when available)
 
-- A planilha base: `data/AssistenteSocial.xlsx`
-- O “banco” local (JSON): `data/metadata/as_db.json` (configurável em `config/config.json` e ignorado pelo git)
-- Anexos: `data/attachments/` (ignorados pelo git)
-- Backups: `data/backups/` (ignorados pelo git)
-- Exportações: `data/exports/` (ignorados pelo git)
+## UI language
 
-## Ícone
+- Default language is `pt-BR`.
+- End users can switch language in-app using the `Idioma / Language` button.
+- Current supported languages:
+  - `pt-BR`
+  - `en`
 
-- Se existir `assets/icon.ico` ou `assets/icon.png`, o app usa esse arquivo como ícone da janela.
-- Alternativa: `icon.ico` / `icon.png` na raiz.
+Config key:
 
-## Atalho com ícone (parecer “app”)
+```json
+{
+  "ui_language": "pt-BR"
+}
+```
 
-Não dá para “colocar ícone dentro do `.cmd`” (o Windows usa o ícone padrão do tipo de arquivo). O jeito certo é criar um atalho com ícone.
+## Data location
 
-- Criar atalho no Desktop e Menu Iniciar:
-  - `py -3 install_shortcut.py`
-  - Obs.: o nome do arquivo do atalho não pode conter `|` no Windows; o script sanitiza automaticamente.
+In development mode, data lives in this project folder.
 
-## Auto-update (git)
+In packaged installations (`.exe` / installer), data is stored in:
 
-- Se `auto_update_enabled` estiver `true` no `config/config.json`, o app checa atualizações periodicamente e mostra um banner para você clicar e atualizar (faz `git pull --ff-only` e oferece reiniciar).
-- Requer que a pasta seja um clone git com remoto configurado (ex.: GitHub).
+```text
+%LOCALAPPDATA%\SAS Civitas\UserData\
+```
 
-## Funcionalidades (MVP)
+Main files/folders:
 
-- Crianças separadas de Atendimentos (vários por criança) + aba `Histórico` (com edição)
-- Login simples (admin/editor/viewer) + permissões
-- Auditoria (aba `Auditoria`) com logs de alterações
-- Anexos por atendimento
-- Relatórios (CSV/PDF/Imprimir) + filtros básicos
-- Backup/Restore (zip do banco + anexos)
+- `config\config.json`
+- `data\metadata\as_db.json`
+- `data\attachments\`
+- `data\backups\`
+- `data\exports\`
+- `data\AssistenteSocial.xlsx`
 
-## Release (git)
+You can override data root with:
 
-- Commit:
-  - `git add .`
-  - `git commit -m "v1.0.0"`
-- Tag:
-  - `git tag -a v1.0.0 -m "Release estável 1.0.0"`
-  - `git push --tags`
+```text
+SAS_DATA_DIR
+```
 
-## Próximos passos (quando você quiser)
+## Configuration
 
-- Login/usuários do sistema (operadores) e trilha de auditoria (quem alterou o quê)
-- Mais entidades (ex.: casos judiciais, atendimentos por data, anexos)
-- Migração de JSON → SQLite (sem mudar a GUI), mantendo o mesmo contrato de repositório
+Main config file:
+
+```text
+config/config.json
+```
+
+Common keys:
+
+- `app_name`
+- `app_version`
+- `xlsx_default_path`
+- `xlsx_default_sheet`
+- `auto_update_enabled`
+- `update_check_minutes`
+- `ui_language`
+
+## Build and distribution
+
+Build executable (PyInstaller):
+
+```cmd
+packaging\build_exe.cmd
+```
+
+Output:
+
+```text
+artifacts\pyinstaller-dist\SAS Civitas\SAS Civitas.exe
+```
+
+Build installer (Inno Setup):
+
+```cmd
+packaging\build_installer.cmd
+```
+
+Output:
+
+```text
+artifacts\inno-output\SAS Civitas - Instalador.exe
+```
+
+Sync version from `config.json` into installer script:
+
+```cmd
+packaging\sync_version.cmd
+```
+
+Prepare release artifacts (`portable`, installer, `SHA256SUMS.txt`):
+
+```cmd
+packaging\preparar_release.cmd
+```
+
+Output:
+
+```text
+release\
+```
+
+## Auto-update behavior
+
+- Git clone: checks updates and applies `git pull --ff-only`.
+- Non-git installation: checks GitHub Releases, downloads installer, and opens it for manual update.
+
+## Project structure
+
+- `src/as_app/`: application source code
+- `config/`: default configuration
+- `data/`: base spreadsheet and local metadata
+- `assets/`: icons/images
+- `packaging/`: build/installer/release scripts
+- `artifacts/`: intermediate build outputs
+- `release/`: final distributable artifacts
+
+## Version history
+
+See:
+
+- `CHANGELOG.md`

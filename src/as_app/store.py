@@ -9,6 +9,44 @@ from typing import Any
 from .util import now_iso, stable_key, write_json_atomic
 
 
+DEFAULT_TAGS = ["Violencia", "TEA"]
+
+
+def _normalize_tags(raw_tags: Any) -> list[str]:
+    items: list[str] = []
+    seen: set[str] = set()
+    if isinstance(raw_tags, str):
+        source = [raw_tags]
+    elif isinstance(raw_tags, list):
+        source = raw_tags
+    elif raw_tags is None:
+        source = []
+    else:
+        source = [str(raw_tags)]
+    for raw in source:
+        t = ("" if raw is None else str(raw)).strip()
+        if not t:
+            continue
+        k = t.casefold()
+        if k in seen:
+            continue
+        seen.add(k)
+        items.append(t)
+    return items
+
+
+def _ensure_catalog_defaults(raw_catalog: Any) -> list[str]:
+    tags = _normalize_tags(raw_catalog)
+    by_key = {t.casefold(): t for t in tags}
+    for default_tag in DEFAULT_TAGS:
+        k = default_tag.casefold()
+        if k not in by_key:
+            tags.append(default_tag)
+            by_key[k] = default_tag
+    tags.sort(key=str.casefold)
+    return tags
+
+
 @dataclass
 class ImportResult:
     batch_id: str
@@ -32,6 +70,7 @@ class JsonStore:
             "audit_log": [],
             "attachments": [],
             "users": [],
+            "tags_catalog": list(DEFAULT_TAGS),
         }
 
     def _audit(
@@ -135,6 +174,7 @@ class JsonStore:
             db.setdefault("audit_log", [])
             db.setdefault("attachments", [])
             db.setdefault("users", [])
+            db.setdefault("tags_catalog", list(DEFAULT_TAGS))
             changed = True
             version = 2
 
@@ -146,10 +186,33 @@ class JsonStore:
             "audit_log": [],
             "attachments": [],
             "users": [],
+            "tags_catalog": list(DEFAULT_TAGS),
         }.items():
             if k not in db or db.get(k) is None:
                 db[k] = default
                 changed = True
+
+        catalog = _ensure_catalog_defaults(db.get("tags_catalog"))
+        if db.get("tags_catalog") != catalog:
+            db["tags_catalog"] = list(catalog)
+            changed = True
+
+        catalog_keys = {t.casefold() for t in catalog}
+        for child in db.get("children") or []:
+            normalized = _normalize_tags(child.get("tags"))
+            if child.get("tags") != normalized:
+                child["tags"] = normalized
+                changed = True
+            for tag in normalized:
+                key = tag.casefold()
+                if key in catalog_keys:
+                    continue
+                catalog.append(tag)
+                catalog_keys.add(key)
+                changed = True
+        if db.get("tags_catalog") != catalog:
+            db["tags_catalog"] = list(catalog)
+            changed = True
 
         if db.get("schema_version") != 2:
             db["schema_version"] = 2
@@ -242,6 +305,41 @@ class JsonStore:
         users.sort(key=lambda u: (u.get("username") or "").lower())
         return users
 
+    def list_tags(self) -> list[str]:
+        db = self.load()
+        tags = _ensure_catalog_defaults(db.get("tags_catalog"))
+        if db.get("tags_catalog") != tags:
+            db["tags_catalog"] = list(tags)
+            self.save(db)
+        return list(tags)
+
+    def add_tag(self, tag_name: str, *, actor: str | None = None) -> tuple[bool, str]:
+        candidate = (tag_name or "").strip()
+        if not candidate:
+            return False, ""
+
+        db = self.load()
+        tags = _ensure_catalog_defaults(db.get("tags_catalog"))
+        by_key = {t.casefold(): t for t in tags}
+        key = candidate.casefold()
+        if key in by_key:
+            return False, by_key[key]
+
+        tags.append(candidate)
+        tags = _ensure_catalog_defaults(tags)
+        db["tags_catalog"] = tags
+        if actor:
+            self._audit(
+                db,
+                actor=actor,
+                action="tag.add",
+                entity_type="tag",
+                entity_id=key,
+                details={"name": candidate},
+            )
+        self.save(db)
+        return True, candidate
+
     def upsert_user(self, user: dict[str, Any], *, actor: str | None = None) -> tuple[str, dict[str, Any]]:
         db = self.load()
         users: list[dict[str, Any]] = list(db.get("users") or [])
@@ -304,6 +402,10 @@ class JsonStore:
         if not keep or not merge:
             return False
 
+        # Merge tags from both children.
+        merged_tags = _normalize_tags((keep.get("tags") or []) + (merge.get("tags") or []))
+        keep["tags"] = merged_tags
+
         # Move attendances
         moved = 0
         for att in db.get("attendances") or []:
@@ -325,6 +427,7 @@ class JsonStore:
                 "merge_id": merge_id,
                 "moved_attendances": moved,
                 "merged_child": {"id": merge.get("id"), "nome": merge.get("nome"), "escola": merge.get("escola")},
+                "tags": merged_tags,
             },
         )
         self.save(db)
@@ -333,6 +436,14 @@ class JsonStore:
     def upsert_child(self, child: dict[str, Any], *, actor: str | None = None) -> tuple[str, dict[str, Any]]:
         db = self.load()
         children: list[dict[str, Any]] = list(db.get("children") or [])
+        tags_catalog = _ensure_catalog_defaults(db.get("tags_catalog"))
+        tags_catalog_keys = {t.casefold() for t in tags_catalog}
+
+        child = {**child}
+        if "tags" in child:
+            child["tags"] = _normalize_tags(child.get("tags"))
+        else:
+            child.setdefault("tags", [])
 
         existing = None
         child_id = (child.get("id") or "").strip()
@@ -353,6 +464,13 @@ class JsonStore:
             child.setdefault("source", {"type": "manual"})
             children.append(child)
             db["children"] = children
+            for tag in _normalize_tags(child.get("tags")):
+                key = tag.casefold()
+                if key in tags_catalog_keys:
+                    continue
+                tags_catalog.append(tag)
+                tags_catalog_keys.add(key)
+            db["tags_catalog"] = _ensure_catalog_defaults(tags_catalog)
             if actor:
                 self._audit(
                     db,
@@ -373,8 +491,16 @@ class JsonStore:
                 continue
             existing[k] = v
         existing["updated_at"] = now_iso()
+        existing["tags"] = _normalize_tags(existing.get("tags"))
+        for tag in existing["tags"]:
+            key = tag.casefold()
+            if key in tags_catalog_keys:
+                continue
+            tags_catalog.append(tag)
+            tags_catalog_keys.add(key)
 
         db["children"] = children
+        db["tags_catalog"] = _ensure_catalog_defaults(tags_catalog)
         if actor:
             self._audit(
                 db,
@@ -457,6 +583,7 @@ class JsonStore:
         data_nascimento_iso: str | None,
         contato: str | None,
         endereco: str | None,
+        tags: list[str] | None = None,
     ) -> dict[str, Any]:
         age = None
         idade = (idade or "").strip()
@@ -483,6 +610,7 @@ class JsonStore:
             "data_nascimento": birth or None,
             "contato": contato or None,
             "endereco": endereco or None,
+            "tags": _normalize_tags(tags),
             "workflow_status": False,
             "source": {"type": "manual"},
         }

@@ -12,6 +12,7 @@ class Stats:
     with_vd: int
     by_school: list[tuple[str, int]]
     by_age: list[tuple[str, int]]
+    by_tag: list[tuple[str, int]]
     by_source: list[tuple[str, int]]
     last_import: dict[str, Any] | None
 
@@ -26,6 +27,21 @@ def compute_stats(db: dict[str, Any]) -> Stats:
 
     by_school = Counter(norm(a.get("escola"), "(Sem escola)") for a in children)
     by_age = Counter(norm(a.get("idade"), "(Sem idade)") for a in children)
+    by_tag = Counter()
+    for child in children:
+        tags_raw = child.get("tags")
+        if isinstance(tags_raw, str):
+            tags = [tags_raw]
+        elif isinstance(tags_raw, list):
+            tags = [str(t).strip() for t in tags_raw if str(t).strip()]
+        else:
+            tags = []
+        if not tags:
+            by_tag["(Sem tag)"] += 1
+            continue
+        unique = {t for t in tags}
+        for tag in unique:
+            by_tag[tag] += 1
     by_source = Counter(norm((a.get("source") or {}).get("type"), "(Sem fonte)") for a in children)
 
     child_has_atendimento: set[str] = set()
@@ -53,6 +69,7 @@ def compute_stats(db: dict[str, Any]) -> Stats:
         with_vd=with_vd,
         by_school=sorted(by_school.items(), key=lambda kv: (-kv[1], kv[0].lower())),
         by_age=sorted(by_age.items(), key=lambda kv: (-kv[1], kv[0].lower())),
+        by_tag=sorted(by_tag.items(), key=lambda kv: (-kv[1], kv[0].lower())),
         by_source=sorted(by_source.items(), key=lambda kv: (-kv[1], kv[0].lower())),
         last_import=last_import,
     )
