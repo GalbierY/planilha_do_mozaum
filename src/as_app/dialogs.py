@@ -4,7 +4,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
 
-from .util import now_iso
+from .core.util import now_iso
 
 
 def _setup_modal_window(win: tk.Toplevel, parent: tk.Tk, *, min_width: int = 460, min_height: int = 260) -> None:

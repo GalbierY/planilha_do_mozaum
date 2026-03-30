@@ -10,17 +10,17 @@ from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
-from .auth import hash_password, verify_password
-from .backup import create_backup, restore_backup
-from .config import AppConfig
-from .files import store_attachment
+from .core.auth import hash_password, verify_password
+from .core.backup import create_backup, restore_backup
+from .core.config import AppConfig
+from .core.files import store_attachment
 from .i18n import I18N, normalize_language
-from .reports import build_reports, export_csv, export_pdf
-from .store import JsonStore
-from .updater import check_for_update, pull_ff_only
-from .util import br_date_to_iso, iso_to_br_date
-from .stats import compute_stats
-from .runtime import ensure_user_files, get_data_root, get_resource_root
+from .core.reports import build_reports, export_csv, export_pdf
+from .core.store import JsonStore
+from .core.updater import check_for_update, pull_ff_only
+from .core.util import br_date_to_iso, iso_to_br_date
+from .core.stats import compute_stats
+from .core.runtime import ensure_user_files, get_data_root, get_resource_root
 from .dialogs import AttendanceDialog, ExportFormatDialog, LoginDialog, MergeDialog, SetupAdminDialog
 from .tabs import (
     build_audit_tab,
@@ -596,7 +596,7 @@ class App(tk.Tk):
         
         # Exportar dados
         try:
-            from .reports import export_selected_children
+            from .core.reports import export_selected_children
             
             default_name = f"exportacao_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             if format_type == "csv":
@@ -700,7 +700,7 @@ class App(tk.Tk):
 
         # Exibir nomes da planilha padrão com seus status
         try:
-            from .xlsx_reader import read_xlsx_table  # lazy import
+            from .core.xlsx_reader import read_xlsx_table  # lazy import
             
             xlsx_path = self.data_root / self.cfg.xlsx_default_path
             if xlsx_path.exists():
@@ -765,7 +765,7 @@ class App(tk.Tk):
             messagebox.showwarning("Workflow", "Selecione um arquivo na lista.")
             return
         try:
-            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+            from .core.importer import import_from_xlsx  # lazy import (tk startup faster)
 
             res = import_from_xlsx(
                 store=self.store,
@@ -792,7 +792,7 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         try:
-            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+            from .core.importer import import_from_xlsx  # lazy import (tk startup faster)
 
             xlsx_path = filedialog.askopenfilename(
                 title="Selecionar planilha",
@@ -1602,7 +1602,7 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         try:
-            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+            from .core.importer import import_from_xlsx  # lazy import (tk startup faster)
 
             res = import_from_xlsx(
                 store=self.store,
@@ -1628,7 +1628,7 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         try:
-            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+            from .core.importer import import_from_xlsx  # lazy import (tk startup faster)
 
             res = import_from_xlsx(
                 store=self.store,
@@ -1654,7 +1654,7 @@ class App(tk.Tk):
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
             return
         try:
-            from .importer import import_from_xlsx  # lazy import (tk startup faster)
+            from .core.importer import import_from_xlsx  # lazy import (tk startup faster)
 
             xlsx_path = filedialog.askopenfilename(
                 title="Selecionar planilha",
@@ -2309,7 +2309,7 @@ class App(tk.Tk):
         
         def worker() -> None:
             try:
-                from .github_updater import download_installer
+                from .core.github_updater import download_installer
                 import tempfile
                 
                 # Create temp file for installer
