@@ -100,12 +100,21 @@ def build_cadastros_tab(app: "App", root: ttk.Frame) -> None:
 
     main_left = ttk.LabelFrame(root, text="Lista de criancas", style="Card.TLabelframe", padding=(10, 8))
     main_left.grid(row=2, column=0, sticky="nsew", padx=(10, 5), pady=(0, 10))
-    main_left.rowconfigure(1, weight=1)
+    main_left.rowconfigure(2, weight=1)
     main_left.columnconfigure(0, weight=1)
 
     app.results_var = tk.StringVar(value="0 cadastro(s)")
     ttk.Label(main_left, textvariable=app.results_var, style="Muted.TLabel").grid(
-        row=0, column=0, sticky="w", pady=(0, 6)
+        row=0, column=0, sticky="w", pady=(0, 2)
+    )
+
+    # Nome da planilha configurada + aba
+    sheet_info = app.cfg.xlsx_default_path or ""
+    if getattr(app.cfg, "xlsx_default_sheet", ""):
+        sheet_info += f" | Aba: {app.cfg.xlsx_default_sheet}"
+    app.sheet_label_var = tk.StringVar(value="Planilha: " + sheet_info)
+    ttk.Label(main_left, textvariable=app.sheet_label_var, style="Muted.TLabel").grid(
+        row=1, column=0, sticky="w", pady=(0, 6)
     )
 
     app.tree = ttk.Treeview(
@@ -127,13 +136,14 @@ def build_cadastros_tab(app: "App", root: ttk.Frame) -> None:
 
     app._setup_treeview(app.tree, numeric_cols={"idade"})
 
-    app.tree.grid(row=1, column=0, sticky="nsew")
+    app.tree.grid(row=2, column=0, sticky="nsew")
+
     app.tree.bind("<<TreeviewSelect>>", lambda _e: app.on_select())
     app.tree.bind("<Return>", lambda _e: getattr(app, "nome_entry", app.tree).focus_set())
 
     vsb = ttk.Scrollbar(main_left, orient="vertical", command=app.tree.yview)
     app.tree.configure(yscrollcommand=vsb.set)
-    vsb.grid(row=1, column=1, sticky="ns")
+    vsb.grid(row=2, column=1, sticky="ns")
 
     right_wrap = ttk.Frame(root, style="Root.TFrame")
     right_wrap.grid(row=2, column=1, sticky="nsew", padx=(5, 10), pady=(0, 10))

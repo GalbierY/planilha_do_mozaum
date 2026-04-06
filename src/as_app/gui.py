@@ -704,9 +704,12 @@ class App(tk.Tk):
             
             xlsx_path = self.data_root / self.cfg.xlsx_default_path
             if xlsx_path.exists():
+                # Resolver nome real da aba antes de ler
+                resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
                 # Ler a planilha padrão
-                rows = read_xlsx_table(xlsx_path, sheet_name=self.cfg.xlsx_default_sheet)
-                
+                rows = read_xlsx_table(xlsx_path, sheet_name=resolved_sheet)
+
                 # Obter nomes únicos da coluna "Crianças" ou colunas alternativas
                 colunas_possiveis = ["Crianças", "Nome", "Aluno", "Estudante", "Criança"]
                 nomes_planilha = set()
@@ -767,11 +770,15 @@ class App(tk.Tk):
         try:
             from .importer import import_from_xlsx  # lazy import (tk startup faster)
 
+            xlsx_path = Path(file_path)
+            resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
             res = import_from_xlsx(
                 store=self.store,
-                xlsx_path=Path(file_path),
-                sheet_name=self.cfg.xlsx_default_sheet,
+                xlsx_path=xlsx_path,
+                sheet_name=resolved_sheet,
             )
+
             self.reload_cache()
             self.apply_filter()
             self.refresh_stats()
@@ -794,22 +801,37 @@ class App(tk.Tk):
         try:
             from .importer import import_from_xlsx  # lazy import (tk startup faster)
 
-            xlsx_path = filedialog.askopenfilename(
+            xlsx_path_str = filedialog.askopenfilename(
                 title="Selecionar planilha",
                 initialdir=str(self.data_root),
                 filetypes=[("Excel", "*.xlsx"), ("Todos", "*.*")],
             )
-            if not xlsx_path:
+            if not xlsx_path_str:
                 return
 
-            # Save the selected path for future imports
-            self.cfg.xlsx_default_path = str(Path(xlsx_path).relative_to(self.data_root))
+            xlsx_path = Path(xlsx_path_str)
+
+            # Save the selected path for future imports (absoluto ou relativo)
+            try:
+                rel = xlsx_path.relative_to(self.data_root)
+                self.cfg.xlsx_default_path = str(rel)
+            except ValueError:
+                self.cfg.xlsx_default_path = str(xlsx_path)
             self.cfg.save(self.data_root)
+
+            resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
+            # Atualizar label da planilha no workflow e na aba de cadastros
+            if hasattr(self, "sheet_label_var"):
+                sheet_info = self.cfg.xlsx_default_path or ""
+                if getattr(self.cfg, "xlsx_default_sheet", ""):
+                    sheet_info += f" | Aba: {self.cfg.xlsx_default_sheet}"
+                self.sheet_label_var.set("Planilha: " + sheet_info)
 
             res = import_from_xlsx(
                 store=self.store,
-                xlsx_path=Path(xlsx_path),
-                sheet_name=self.cfg.xlsx_default_sheet,
+                xlsx_path=xlsx_path,
+                sheet_name=resolved_sheet,
             )
             self.reload_cache()
             self.apply_filter()
@@ -1243,7 +1265,7 @@ class App(tk.Tk):
             if d is not None:
                 self._att_dates_by_child.setdefault(cid, []).append(d)
 
-        schools = sorted({(c.get("escola") or "").strip() for c in children if (c.get("escola") or "").strip()}, key=str.lower)
+                schools = sorted({(c.get("escola") or "").strip() for c in children if (c.get("escola") or "").strip()}, key=str.lower)
         if hasattr(self, "escola_cb"):
             self.escola_cb.configure(values=schools)
         if hasattr(self, "filter_school_cb"):
@@ -1251,6 +1273,14 @@ class App(tk.Tk):
         self._refresh_tag_controls()
         if selected_form_tags:
             self._set_selected_tags(selected_form_tags)
+
+        # Atualizar label da planilha na interface de cadastros, se existir
+        if hasattr(self, "sheet_label_var"):
+            sheet_info = self.cfg.xlsx_default_path or ""
+            if getattr(self.cfg, "xlsx_default_sheet", ""):
+                sheet_info += f" | Aba: {self.cfg.xlsx_default_sheet}"
+            self.sheet_label_var.set("Planilha: " + sheet_info)
+
 
     def _on_nasc_var_change(self, *_args) -> None:
         if getattr(self, "_nasc_mask_lock", False):
@@ -1597,6 +1627,24 @@ class App(tk.Tk):
         self.set_status("Mesclado")
         self.reload_audit()
 
+    def _resolve_and_save_sheet_name(self, xlsx_path: Path) -> str:
+        """Resolve o nome real da aba e atualiza a config se for diferente.
+
+        Isso evita quebrar quando a aba muda de "Base2025" para
+        "Base2025-2026", por exemplo.
+        """
+        from .importer import _resolve_sheet_name
+
+        resolved = _resolve_sheet_name(xlsx_path, self.cfg.xlsx_default_sheet)
+        if resolved.strip() and resolved.strip() != self.cfg.xlsx_default_sheet.strip():
+            self.cfg.xlsx_default_sheet = resolved
+            # Salvar config para que o próximo uso já venha certo
+            try:
+                self.cfg.save(self.data_root)
+            except Exception:
+                pass
+        return resolved
+
     def on_import(self) -> None:
         if not self._can_edit():
             messagebox.showwarning("Permissão", "Seu perfil é somente leitura.")
@@ -1604,11 +1652,15 @@ class App(tk.Tk):
         try:
             from .importer import import_from_xlsx  # lazy import (tk startup faster)
 
+            xlsx_path = self.data_root / self.cfg.xlsx_default_path
+            resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
             res = import_from_xlsx(
                 store=self.store,
-                xlsx_path=self.data_root / self.cfg.xlsx_default_path,
-                sheet_name=self.cfg.xlsx_default_sheet,
+                xlsx_path=xlsx_path,
+                sheet_name=resolved_sheet,
             )
+
             self.reload_cache()
             self.apply_filter()
             self.refresh_stats()
@@ -1630,11 +1682,15 @@ class App(tk.Tk):
         try:
             from .importer import import_from_xlsx  # lazy import (tk startup faster)
 
+            xlsx_path = self.data_root / self.cfg.xlsx_default_path
+            resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
             res = import_from_xlsx(
                 store=self.store,
-                xlsx_path=self.data_root / self.cfg.xlsx_default_path,
-                sheet_name=self.cfg.xlsx_default_sheet,
+                xlsx_path=xlsx_path,
+                sheet_name=resolved_sheet,
             )
+
             self.reload_cache()
             self.apply_filter()
             self.refresh_stats()
@@ -1656,23 +1712,41 @@ class App(tk.Tk):
         try:
             from .importer import import_from_xlsx  # lazy import (tk startup faster)
 
-            xlsx_path = filedialog.askopenfilename(
+            xlsx_path_str = filedialog.askopenfilename(
                 title="Selecionar planilha",
                 initialdir=str(self.data_root),
                 filetypes=[("Excel", "*.xlsx"), ("Todos", "*.*")],
             )
-            if not xlsx_path:
+            if not xlsx_path_str:
                 return
 
-            # Save the selected path for future imports
-            self.cfg.xlsx_default_path = str(Path(xlsx_path).relative_to(self.data_root))
-            self.cfg.save(self.data_root)
+            xlsx_path = Path(xlsx_path_str)
+
+            # Se o arquivo estiver fora da pasta de dados, guarda caminho absoluto;
+            # caso contrário, guarda relativo à pasta de dados.
+            try:
+                rel = xlsx_path.relative_to(self.data_root)
+                self.cfg.xlsx_default_path = str(rel)
+            except ValueError:
+                self.cfg.xlsx_default_path = str(xlsx_path)
+
+                        # Resolver e salvar o nome real da aba antes de importar
+            resolved_sheet = self._resolve_and_save_sheet_name(xlsx_path)
+
+            # Atualizar label da planilha
+            if hasattr(self, "sheet_label_var"):
+                sheet_info = self.cfg.xlsx_default_path or ""
+                if getattr(self.cfg, "xlsx_default_sheet", ""):
+                    sheet_info += f" | Aba: {self.cfg.xlsx_default_sheet}"
+                self.sheet_label_var.set("Planilha: " + sheet_info)
 
             res = import_from_xlsx(
+
                 store=self.store,
-                xlsx_path=Path(xlsx_path),
-                sheet_name=self.cfg.xlsx_default_sheet,
+                xlsx_path=xlsx_path,
+                sheet_name=resolved_sheet,
             )
+
             self.reload_cache()
             self.apply_filter()
             self.refresh_stats()
