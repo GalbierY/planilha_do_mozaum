@@ -2,7 +2,7 @@
   "app_name": "SAS Civitas",
   "app_version": "1.1.1",
   "db_path": "data/metadata/as_db.json",
-  "xlsx_default_path": "data/AssistenteSocial.xlsx",
+  "xlsx_default_path": "C:\\Users\\I012898\\Downloads\\AssistenteSocial.xlsx",
   "xlsx_default_sheet": "Base2025",
   "auto_update_enabled": true,
   "update_check_minutes": 5,

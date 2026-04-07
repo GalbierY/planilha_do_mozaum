@@ -21,6 +21,18 @@ def _read_xml(z: zipfile.ZipFile, name: str) -> ET.Element:
         return ET.fromstring(f.read())
 
 
+def list_sheet_names(xlsx_path: Path) -> list[str]:
+    """Retorna a lista de abas disponíveis em um arquivo XLSX."""
+    with zipfile.ZipFile(xlsx_path, "r") as z:
+        wb = _read_xml(z, "xl/workbook.xml")
+        names: list[str] = []
+        for sheet in wb.findall(f".//{_q(_NS_MAIN,'sheet')}"):
+            name = (sheet.attrib.get("name") or "").strip()
+            if name:
+                names.append(name)
+        return names
+
+
 def _get_sheet_entry_path(z: zipfile.ZipFile, sheet_name: str) -> str:
     wb = _read_xml(z, "xl/workbook.xml")
     rels = _read_xml(z, "xl/_rels/workbook.xml.rels")
