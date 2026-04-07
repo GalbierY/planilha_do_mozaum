@@ -101,7 +101,7 @@ def _build_dialog_header(
 ) -> None:
     colors = getattr(parent, "colors", {})
     bg = bg or colors.get("header", "#0E2A47")
-    fg = fg or "#F4FFF"
+    fg = fg or "#F4FFFF"
     sub_fg = sub_fg or "#D9E4F8"
     frame = tk.Frame(win, bg=bg, padx=12, pady=10)
     frame.grid(row=0, column=0, columnspan=2, sticky="ew")

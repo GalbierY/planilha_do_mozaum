@@ -1,0 +1,3200 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-04-07T10:35:19-03:00",
+  "children": [
+    {
+      "external_key": "5eacf5d71131018944e2c1a44bda3f53ba35e3cb92e2d1c23a910d505149064b",
+      "nome": "Nahomy Yosnielys Henriquez Rangel",
+      "idade": 6,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-07-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 2,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "9066aca1-3ef1-4f62-947c-89e7c78bf188",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "830e7835b9f27ddc8be6ec695f6be7e4bbbe3b847a65b892ba1ef12b14850ce6",
+      "nome": "Valentina da Silva Marques Azevedo",
+      "idade": 4,
+      "escola": "Regina Estela",
+      "data_nascimento": "2020-09-13",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 3,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "ae646042-a9c0-4841-8cbe-92ba9627b5f8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "d2bf7ee515b28a86a3b69d29d2aad0d0b3bc9a0357de2ade328068aa09481b3e",
+      "nome": "Abraham Isaac Dionisio Galea",
+      "idade": 6,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-05-20",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 4,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "641b4e76-7299-48e9-b5a5-7057d2f8bf20",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "1378594dab2882cffbbeeafd702e669d4662b54926423c40ed894e88c299e228",
+      "nome": "Jean Silveira",
+      "idade": 5,
+      "escola": "Maria de Lourdes",
+      "data_nascimento": "2020-04-27",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 81,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "e17d2f0d-f380-4f3f-9c50-7c41ce822d24",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "8f89e97e02cde10c4a3b911b785851efcf2f683da18171dc73dc801213a7e526",
+      "nome": "Angelo Gabriel Rocha Domingues",
+      "idade": 4,
+      "escola": "Maria de Lourdes",
+      "data_nascimento": "2020-10-27",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 6,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "171033c9-db12-4ee7-b31d-b421343e4430",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "83fd2acaa8b0e7f49ee4354aac020b8ba039e63e70689d60ed30ca619a0e9c05",
+      "nome": "Enzo dos Santos Coutinho",
+      "idade": 9,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2016-08-23",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 7,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "2be62d9c-a31f-4932-9f72-8162a7e05af8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "674d762e9898074da8e9e86f88d58d8fb6d1b02005835bf72a624cb867a8fdb6",
+      "nome": "Enzo Miguel de Moraes da Silva",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-11-02",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 8,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "9fa3bb0d-9b3f-42db-a29f-ef18c968e81c",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "cd48e0fc21885805f513b92cfa31ac0dc9a919590b6eea18e531f627a84c7a39",
+      "nome": "Adryan Ferreira Nascimento",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-12-05",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 9,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "910a3258-fce1-4434-ab08-cc3bdda43b44",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "459bbcd5acf61bc129321d95c68bf5c494d7a66c596c43491938a6ca0c99b7ad",
+      "nome": "Ana Alice Aparecida Rodrigues",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-05-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 10,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "d62bf71e-4251-450a-a1ed-b8aa9b464090",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "cd13ae7e4e294571fd9d7e570fba33517248d22e16e9042928b28e7c4882e515",
+      "nome": "Thalis Dias dos Santos",
+      "idade": 7,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2018-10-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 11,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "b0dec224-fe81-4ef3-9bd5-4b9be9f4094f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "bcc6384737e777e263950e1646912f2c8ae57a728330e11d40a558df34e9bc1f",
+      "nome": "Weslley Alves Caetano",
+      "idade": 12,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2013-07-29",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 12,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "d10c0765-0268-40c7-a967-fedcb6501779",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "dcd7cbf37001191630e9c3b19c0d2864d455e00b6b77e7c3c1e124fd3d2a496e",
+      "nome": "Pedro Luccas Setra Moreno",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-07-07",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 13,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "65c092e6-c9c0-4732-ba40-a9116735be17",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "48921db602fb96dfee66ee4ed5e77946cfbeee833892d3d5835911ae20dffcfb",
+      "nome": "Ingrid de Oliveira",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-03-31",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 14,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "509d2d2d-2ff2-484c-8a59-9b2e2fc12582",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "d0dc3bb896c7df2fc69a25319fca32020f468e05a1b929901522623b215f7171",
+      "nome": "Gessé Lucas Domingues",
+      "idade": 9,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2016-10-13",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 15,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "dfea34d4-9077-450e-87a0-2de08e40a818",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "4bd3fd72f7056f921caf94c990b722d354775b55f73ba683a2f22179792e981f",
+      "nome": "Gabrielle Barbosa Cavalcante",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2016-01-12",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 16,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "3c6be5ce-ce17-48d0-a050-c28de8f88175",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "1c337f674bc8e060467a8be305cc9909fe1ac7c8211f3d7caa2c1d75bc7d9b5e",
+      "nome": "Beatriz Godoy da Luz",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2014-12-21",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 17,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "ff100894-0d69-410d-bf7a-3f3fca21862b",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "485517839f2ecfb46f02f67bf1036cc9f3d07db9ca6c5480d823e3973971b351",
+      "nome": "Anthony Rubi da Silva",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-03-20",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 18,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "4e213f27-2c01-4ddd-8a73-995070b6fb02",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "2cbf229c3851b371d9d062ca57cc1f0c447296e609ddeee785813aa0aee56b2e",
+      "nome": "Vitor Ubinha de Campos",
+      "idade": 8,
+      "escola": "José Hamilton",
+      "data_nascimento": "2017-02-11",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 19,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "87b6090c-3a35-4a29-be13-a67236e564e1",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "33afd42831e54567cebeb3a5c3f8e20eb65d13c1f77ce100db45701075b03610",
+      "nome": "Valentina Maria P. Alves",
+      "idade": 8,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2017-08-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 20,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "1b51bca4-f8e8-45df-8875-b4f19bec19ca",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "4e483858f06e7d233d0b428876da57c019e605e855503949f301e06746cf95c1",
+      "nome": "Davi Lucca de Lima",
+      "idade": 8,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2017-09-03",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 21,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "22bc3e97-6a9b-41ff-917c-bccf87102507",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "94c4a4f9257f907c390ce8385c9efab062f02c5226336dd46fa62a16692ac0fa",
+      "nome": "Emanuelle de Figueiredo Silva",
+      "idade": 8,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2018-03-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 22,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "e3a2dfa7-00a8-4f77-a7ee-c24048f5edf1",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "12f4eb42f8021979b91f69a849accf77f871f2370404710d746a028497718a8b",
+      "nome": "Danylo Leandro Molena",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2014-08-04",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 23,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "dbdf25cf-0c7c-45a7-891c-dc745f8c0693",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "843aeb2d45b733cf97303301606b7a3c57e16ada6f3001dd6276414b93d9a60d",
+      "nome": "Maria Julia Soares Dias da Silva",
+      "idade": 10,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2014-07-24",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 24,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "3cf6887e-7398-4e87-b9fc-989eb2217e70",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "041e91a226d941d6fe11ab12508320adf1ba9260069042d4f349b7a40f1aba25",
+      "nome": "Davi de Jesus Ribeiro",
+      "idade": 14,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2010-11-09",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 25,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "8131f10e-0abb-403c-8bc9-617470a3d382",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "25ec33a3af700955d01570ed8c14d3ebce8ded0209fab7eb540b3df91f99174c",
+      "nome": "Mayra Macedo de Souza",
+      "idade": 11,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2014-02-11",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 26,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "f984566e-486e-4d6e-b297-91fa8230ca32",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "a7274f4114621ae9bae311857e68057d61ba387a25adba71556f28b7efad9b5a",
+      "nome": "Ryan Lucas de Souza Pereira",
+      "idade": 5,
+      "escola": "Regina Estela",
+      "data_nascimento": "2020-01-19",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 27,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "92ca2741-f741-4b48-b7f2-7b4b41ccb16e",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "06bc063c5ca67c61dde7ea8c0e29002ff4313664f0dc56529df61fca91244a30",
+      "nome": "Maria Julia Laurentino da Silva",
+      "idade": 6,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-05-13",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 28,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "1333165c-c564-4e91-a723-3c47c2de28d2",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "e816cb6fbe959f2f3bf30569d12389b90ada5ab78a77e8a18adadbb9eda11de7",
+      "nome": "Rhavi Ife da Cruz Obidike",
+      "idade": 6,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-07-24",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 29,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "243bbea2-4310-4490-a201-1da2f8407598",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "fa8a49b0cc9e6bb0a15724f7a78eab1f98be73a62707615ce0239a272288b684",
+      "nome": "Alexandre M. de O. Calheirani",
+      "idade": 5,
+      "escola": "Regina Estela",
+      "data_nascimento": "2020-07-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 30,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "49272971-6447-4ffb-84d6-58edc175622b",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "6fee3778f0249735d0497ec22400dff8afd9690f6b4081662c3a15489e8bd695",
+      "nome": "Pietro da Silva Lopes",
+      "idade": 5,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-11-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 31,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "e615158b-6d42-41e7-a433-1c2044697765",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "7e3e597a2efd2e904d12fbf67e9d93c88aa547efd2521686f11bce793744fb6f",
+      "nome": "Bryan de Sena Silva",
+      "idade": 6,
+      "escola": "Regina Estela",
+      "data_nascimento": "2019-04-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 32,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "e7e80f55-0771-4c03-8f33-755a6b4ab724",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "114ba284462578ddb333a4c86781ea67d56bb31d662328b584da7eb741542ca8",
+      "nome": "Melissa dos Santos Dantas",
+      "idade": 5,
+      "escola": "Regina Estela",
+      "data_nascimento": "2020-06-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 33,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "8af4626c-ddc1-41dd-8617-8ba6c7d357c9",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "a94a98108db1c49e1a683bbee5fce42de7f270b579fba2b9838b048ce1a8cd45",
+      "nome": "Sophia Gabrielle da Silva",
+      "idade": 5,
+      "escola": "Regina Estela",
+      "data_nascimento": "2020-04-09",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 80,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "57b3cd4a-418f-44d6-9e1b-a104c905cd36",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "c9ed59e18b3ab5bd635f2c566e519755091ee8b32f392ea6a8e81bddce00cd84",
+      "nome": "Maria Eduarda Silva Camargo",
+      "idade": 13,
+      "escola": "José Hamilton",
+      "data_nascimento": "2012-09-23",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 35,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "34c222cc-eb65-4796-9723-9f79692de9f8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "165f35fa536f158a5a01178a4612661d43ca961d962e89cea1d09344ce995017",
+      "nome": "Jakeline de Assis Paiva",
+      "idade": 13,
+      "escola": "José Hamilton",
+      "data_nascimento": "2011-11-01",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 36,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "1aa871d9-9153-46fd-85b1-732571950390",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "225a4aa131a2d674f5d600a1a27e11ab4afc49ddff4f4dc39c9a5d59ac9effac",
+      "nome": "Phelipe Daniell M. Dias da Silva",
+      "idade": 9,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2015-12-28",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 37,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "c4e6549c-2d48-4da2-a732-a1a66d7c90bc",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "d4d54266c5c9eeab5b39425335b6a27557f52de04fa5085780d505cf7f0ba8c2",
+      "nome": "Brenda Ferreira Souza",
+      "idade": 10,
+      "escola": "José Hamilton",
+      "data_nascimento": "2015-04-30",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 38,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "47bf9937-e0b2-4c23-93b0-7f1b37aca55f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "621d3c2d5f40371228d4f222fa9e446b4eaadea13cc49501655f353b8d1093c8",
+      "nome": "Henzo dos Santos Souza",
+      "idade": 12,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2012-11-03",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 39,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "241ff7d9-006a-4005-b94c-bba20fe90e27",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "e7462ad674aacc278dd64c23e922ed65d4a9b9b14b63e913db98130b94087382",
+      "nome": "Gabriel Guilherme Ferraz Barbosa",
+      "idade": 6,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2018-11-13",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 40,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "87ce1444-f3c7-4552-9ef4-e9c1d0dc1408",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "c41fc680b532afbe6af983525df818929c849a1e252d2208b063eb0fb471be57",
+      "nome": "Diego Lima Pereira Silva",
+      "idade": 9,
+      "escola": "Irmã Amélia Fúria",
+      "data_nascimento": "2016-04-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 41,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "55d155b2-5360-4b8b-ba5d-66f886d195f5",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "2e1e0025991cdcdc8fa8d1382628ee4dbd8cfc4ff4d9510a55284caed0791a92",
+      "nome": "Stefany Beatriz de Melo",
+      "idade": 8,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2017-05-09",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 42,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "410fb100-af83-4106-82ca-c430bfb813b4",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "b502d48b87f0a5df61f5bc635fa9f62652527b4ef195adf2b174ba158b4a329d",
+      "nome": "Murilo dos Santos Pinto",
+      "idade": 12,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2013-07-31",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 78,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "497b3218-506a-4775-b6dc-ea551fd5b8cd",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "b16d33d9041371a0da43773bc1758e8317874181683767d604143eb05b3ab5b0",
+      "nome": "Carlos Daniel Espinoze Gonzales",
+      "idade": 12,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2013-05-21",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 44,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "6557b07d-71f0-4cc0-810e-481e8bf839b8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "615108cd5e2fff19f0621b22305511e0c40738057f6dc091787b64bd51ecd69b",
+      "nome": "Evelyn de Lima Fermino",
+      "idade": 6,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2018-09-02",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 76,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "f4c63032-dd83-455f-801e-059a234e2ef0",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "93e64f5200243a471ef53a082cc8fd7fc49c2007803f0c17a2fcd4f3b7c71afd",
+      "nome": "Luis Miguel Danzo Vieira",
+      "idade": 10,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2015-06-30",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 46,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "8ec2d6f3-c2a4-435a-933f-17e23d27c9e0",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "c0f5c04d57e411ca08bf62d67895739f82b7584b2083840f3f285b60c06cd1dd",
+      "nome": "Ianny C. de Araújo",
+      "idade": 6,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2018-09-27",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 77,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "a24c6d38-aa60-456b-b2a9-86c889050b20",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "f95741e5ddbc235a8f6397d4a34b443f7f6c2adf5a3183e3800f80bdfe97d63f",
+      "nome": "Riana Souza Pereira",
+      "idade": 8,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2017-08-04",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 48,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "f154e36d-565b-46f4-860c-fa0308bea696",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "cebd8b67fed357f69cc5dd1ec05f6b8d58e37d9a298209a9708bcb739d216959",
+      "nome": "Nickollas A. dos Santos",
+      "idade": 6,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2018-12-09",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 49,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "615dfe31-4e4e-41d9-bcfd-d7c983b354b4",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "3bbef6d9941b039ee500af18bd23caf030d9e3932ce99ea9bb16cbe3540902f0",
+      "nome": "Bernardo Costa Moraes",
+      "idade": 6,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2019-03-05",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 50,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "176c0324-9cb3-4147-80ec-486f4479a9fa",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "0e42b0073ac9042fe4fb1dd27e2f057d398251a1f8c1c3189f83894f8e16f396",
+      "nome": "Vitória Guimarães Jesus Santos",
+      "idade": 13,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2012-02-27",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 51,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "d6b8a02d-c270-4f34-af50-eb4f16dd06a0",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "9ca62f031b42c8905fdb270b604049946ab7a2371f449fa83cf4b154ce857583",
+      "nome": "Jefferson Hugo Pires Teixeira",
+      "idade": 12,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2013-03-23",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 52,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "d785d616-c614-4ca4-a6b4-fae951f61c3d",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "5aed0fbdef06f230bb982934ed8a4cc3c9cb4b4df0b8a6751d20c0449b6e3bd9",
+      "nome": "Marco Antonio Junior Alcantara",
+      "idade": 14,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2011-09-29",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 53,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "bb1fa9ec-8a29-404f-9712-ecf15e72bcaa",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "f3a7bf2fb3c2bb529bb1c26d576c8cd62df1b2d4f99a0e8c00b21a9750dfe9dd",
+      "nome": "Julio Cesar de Araujo",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2010-05-18",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 54,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "e3039fe9-a132-486e-b917-e8a8c27c4373",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "2384e53b1d0ae6b2ef2fc299b53601cb864dc7e31cb9476da299c8a6424aa764",
+      "nome": "Ruan Miler Fernandes Coelho",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2010-09-06",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 55,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "d4ebf0fd-b3c6-4077-b60f-2f0b2bd6ed75",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "34d5513a8f85a2e88d2778cc8d69b8761d78390de0c1ef296784aba7502a7b0d",
+      "nome": "Milena de Lima Fernandes",
+      "idade": 16,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-09-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 56,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "aba316f4-c7ce-446c-9501-69eed3e77ea3",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "851d4b13458fef1ab0a5264d44e18b0654a7794eee2cdec03ee61643a9ed275e",
+      "nome": "Micaely de Lima Fernandes",
+      "idade": 16,
+      "escola": "",
+      "data_nascimento": "2009-09-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 57,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "b52c6b5d-1a68-4c2c-bced-fb747d5bc2eb",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "8e87118f159d751fac1b395492b42910786b2d5be6919a945065a5605760b271",
+      "nome": "João Enrique Alves dos Santos",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2010-07-06",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 58,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "98765434-5cbd-4402-9ad8-b1cbafde43f4",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "7af062549a282a3771bfc3f014d306eb478429451bfe1bd4989be61e42a9d5f7",
+      "nome": "Carlos Eduardo Paschoal da Cruz",
+      "idade": 16,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-06-22",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 59,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "81853469-9d1f-4387-8181-6a1e3aba4298",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "9529875511ff92bff75148c19d2a41054ccdcb134ef07b51c1270b00edccf874",
+      "nome": "Ana Beatriz Jesus Oliveira",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2010-02-03",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 60,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "1b88ecac-7690-489e-9c70-57aa932a4811",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "539a4d49b3a36c67663a3f51c5978c17fbc714c4eeab4c3608d9deab02c87df4",
+      "nome": "Gabrielly da Silva Cardoso",
+      "idade": 16,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-09-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 61,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "8fdc3875-c0fb-4f40-9754-2d1dd682e3c4",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "592b775f2a5484d3a7d58227d8f6174d24c0642a3a71977873231e7800b5b2b3",
+      "nome": "João Vitor Pires Teixeira",
+      "idade": 14,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2011-03-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 62,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "cf296244-dbee-4211-a15d-92ad3c52308e",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "de4bd4f0e3b5351273d35543a69636386d6c652f28c5e6c6a7e1b1e2397708ac",
+      "nome": "Iarley Leal França",
+      "idade": 14,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2011-01-25",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 63,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "a6f2d5a9-30e3-4d73-9b09-e9511304ee58",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "85b9fb99c6eb2adfe51e0f39c08991a495af1d7257992353852f092fb8c6ad93",
+      "nome": "Antony Samuel Muniz Cezar",
+      "idade": 12,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2012-12-04",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 64,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "1b7e8c8d-be87-4e5e-94e6-41be494daca6",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "ebbe53e879f23c5aef6e71b8e3091d300ad5592b08cacfb6737cf5b9127c62a5",
+      "nome": "Jhon Molena Bozi",
+      "idade": 14,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2011-06-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 65,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "dfe4a9d4-550c-4288-b771-1aee425a1d39",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "b3258e93776f1f87684ba55ba1dcf3ea3bd2872edf595b31f5028b92228f3d06",
+      "nome": "João Paulo Silva dos Santos",
+      "idade": 17,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2007-11-22",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 66,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "7edbe90f-d691-4524-87f8-19f565b210d6",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "c33f9de26b7cdcc88829f26bd29a2dd8a3f04d3782c24b9c56389e831183383d",
+      "nome": "Michel Santana Santos",
+      "idade": 17,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2008-08-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 67,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "485e32e7-38bc-4eba-9473-5f9e3fb75982",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "4b1a656853e594ac346e7cd1d3f53b80c4c022c067c2249a4dd58b6b3a7cb41f",
+      "nome": "Karolaine Vitória Gonçalves Silva",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2010-04-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 68,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "9909bfef-44e6-4ad3-92aa-6c93415dc9cd",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "362a1f8c57fee5139f89693c0799804a59d5aed38868dc30bf226cc29f5f4d90",
+      "nome": "Marcela Bernardo de Oliveira",
+      "idade": 16,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-07-24",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 69,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "89cff4ca-0392-4ed3-a385-a442b640d6fb",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "0eb83b545b7b9595d830f90a27fb79dde5bad21b9f7b736067efe74f814887c6",
+      "nome": "Italo dos Santos Silva",
+      "idade": 14,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2011-01-26",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 70,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "9f947021-65e3-47df-82b5-6de08415e407",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "454097d8ca2c5ceea360d8dfbf45c895535351a2939a48528113ead95c36ad8b",
+      "nome": "Bryan Neves Pariz",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-12-02",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 71,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "dfffd070-f0eb-4d12-9a73-52480181573d",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "711e078be5f26201eda1056a7077ea517724ba4153fa41d89e6a9c6896fdcf56",
+      "nome": "Nicolas Daniel Matos da Sena",
+      "idade": 15,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2009-09-16",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 72,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "38524384-1ef3-4bff-b420-96cc6b9a5aea",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "a6109138fc5b396b108432dc7d751d80eb3cdec4ce65190a436ea147b5ada60a",
+      "nome": "Pedro Henrique de Oliveira Coutinho",
+      "idade": 7,
+      "escola": "Antonio Rodrigues",
+      "data_nascimento": "2018-12-22",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 73,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "28e5a8b7-fd2b-4f5b-8c8c-a2bc8b9c1159",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "821eb568e11c27501376417cc9dc9f393e94fcf99aebebed34719462d63e4718",
+      "nome": "Felipe Cardozo Arantes",
+      "idade": 12,
+      "escola": "Irineu Tobias",
+      "data_nascimento": "2014-01-14",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 74,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "68e6689b-740a-49f5-a430-d20c1cf00175",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "73917fb1ff676c36a4eec8b43c93cd663eb1a36961fb6442e22ac7b553cb9e33",
+      "nome": "Nicolas Gabriel da Cruz Martins",
+      "idade": 6,
+      "escola": "Maria Apparecida",
+      "data_nascimento": "2019-10-21",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 75,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "8c24aeff-924e-4716-92f1-3a2775baf73f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    },
+    {
+      "external_key": "30030004c48ee3990c2fca213caacc864123d372ca09f7fcddb8012c6f8aa7a4",
+      "nome": "Theo Barassa",
+      "idade": null,
+      "escola": "Maria Apparecida",
+      "data_nascimento": null,
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 79,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "workflow_status": false,
+      "id": "cdbcc525-e4bb-42c1-ac28-187cce2c11c5",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00",
+      "tags": []
+    }
+  ],
+  "attendances": [
+    {
+      "external_key": "23d6e48512b1f31b3bc43f1856d4bdff40107c71b9f9eadc7d57cbd5ff91a78b",
+      "child_id": "9066aca1-3ef1-4f62-947c-89e7c78bf188",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Falta em 22/08\nRemarco para às\n09:00 do dia\n27/08/2025 Família\ncomparece, realizo\ntriagem",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 2,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "9df0c377-7869-47b9-a6c0-a2a9a8248ac7",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "602eb4f71b5e58ea52c60f1c60321e1331ca2e852ad1f8cb237e3e48a81388ae",
+      "child_id": "ae646042-a9c0-4841-8cbe-92ba9627b5f8",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Falta em 22/08 Falta\nem 03/09",
+      "vd_text": "VD marcada\np/\n19/09/2025\n(suspensa,\npois\nmotorista\nnão\nreconheceu\no endereço\n- mãe não\ninformou o\nnome da\nrua ou\nnúmero/nome\ndo sítio)\n14/11/2025\n- Marco\nVD, mas\nmãe afirma\nque irão\npara praia",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 3,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "87110b1c-373e-4edb-9aa6-f8fc7ac999ba",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "74329f29bfb0ca4d6fc453c0362e3ac85f6b82551a0d055cca371506fc34c8e3",
+      "child_id": "641b4e76-7299-48e9-b5a5-7057d2f8bf20",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Irá se mudar para\nVenezuela",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 4,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "848aba87-8ec1-4319-af03-a466b2af315d",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "6ec22c872da74e220ad8bb2f51456e9bacc86289026cbf0872b732c0168bcc10",
+      "child_id": "e17d2f0d-f380-4f3f-9c50-7c41ce822d24",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Consigo novo contato\ncom escola em\n26/08/2025 Falta em\n27/08 Falta em 03/09\nAtendimento\nrealizado em\n09/09/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 5,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "28973b26-01e8-4950-9753-9a0e2b4f35ce",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "82e1e45c119a74b5129310fd3c5eec1bceb38879901a1ef7fef4a4fbe9424e08",
+      "child_id": "171033c9-db12-4ee7-b31d-b421343e4430",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Atendimento\npsicossocial\nrealizado em\n30/09/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 6,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "3ffd459e-847f-43e7-a442-3f7d6dff70d4",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "6bf70906b83cd5304e5e3ac866e01232c401810447611afd783ea8e908399cb9",
+      "child_id": "2be62d9c-a31f-4932-9f72-8162a7e05af8",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 7,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "83ab011a-023c-4b73-b293-9b24aa5a487a",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "0305d656b4ec5717d26df3f2e169f59c0bb15824722e2315b3b85db9a2777161",
+      "child_id": "9fa3bb0d-9b3f-42db-a29f-ef18c968e81c",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 8,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "4a9bc48a-aef3-45dd-8248-d51515837cb7",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "3c8b815e4a0d0599cb0a8f8e71e002fcd97ec0c39aebda8cab3909d78ebb5c9c",
+      "child_id": "910a3258-fce1-4434-ab08-cc3bdda43b44",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 9,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "6e9889f9-3a16-47e4-98cc-7964a0cbaaac",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "ad5eaf55cd8cc2e9627f2fb8d5ff6d0c038120eee2e955673a39e756c7d8c81a",
+      "child_id": "d62bf71e-4251-450a-a1ed-b8aa9b464090",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 10,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "c01b245d-5935-4bf2-9b67-88d8b4162c8f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "512503031a19a8af5bcea60b8a4a45704dd5624c71eaea75370b6d2e74b44f71",
+      "child_id": "b0dec224-fe81-4ef3-9bd5-4b9be9f4094f",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 11,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2a7d910f-ce39-4a1c-a40c-68184ae4456c",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "8b8eca8fa86e0cddec44d2983f8a314d82b38b69ce9e7ad9ccfa6171f0a2ffad",
+      "child_id": "d10c0765-0268-40c7-a967-fedcb6501779",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Realizaremos\nVD com\nprofessora,\ncoordenadora\ndo nap,\npsico e AS",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 12,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d00bf6f5-82e2-4de6-a79f-3c056fb3f863",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "eba2c77037131e1056c94b4a59c8d78912c669597abdc0dfd26f4353ac021baf",
+      "child_id": "65c092e6-c9c0-4732-ba40-a9116735be17",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 13,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "a726d54e-b09e-4355-a126-a178aa20845b",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "55cbd6fff2226925fcd1918aa4716f39f002bd79c9175dcc26ab75d944cfc243",
+      "child_id": "509d2d2d-2ff2-484c-8a59-9b2e2fc12582",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Marco atendimento em\n26/11/2025, mas mãe\ndesmarca; 04/12/2025\n- mãe confirma\npresença, mas no dia\nanterior desmarca e\nsolicita que\nacolhimento seja\nrealizado no próximo\nano. Coloco na pasta\npara psicopedagoga",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 14,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "facd5289-93a5-41eb-94b9-81f129f04b4f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "831bfeab7826f4ddb19c5a108e433c4988f6e9a6f09b7845ad96c0fa7a62096d",
+      "child_id": "dfea34d4-9077-450e-87a0-2de08e40a818",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 15,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "165da497-2f18-43cb-b58e-43a427852852",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d5431c9ee1d98d045d5f05d6db0aba5a0f2d6d89b2926829995fa066b325d99a",
+      "child_id": "3c6be5ce-ce17-48d0-a050-c28de8f88175",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Realizo acolhimento\ncom a genitora em\n12/12/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 16,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "b6cb9322-aa5b-486a-9ec9-997855924bac",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "5c139d572be6ac23f9a85c36edbbff24076c694797429ca331dfe314022cefcf",
+      "child_id": "ff100894-0d69-410d-bf7a-3f3fca21862b",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 17,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "5c1e1cf7-c679-49a0-9f75-7c83dd103dfd",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "4a4a0e9489e8f5affc95fea68b51860c3f03ad81e190276916bb4602b48541fb",
+      "child_id": "4e213f27-2c01-4ddd-8a73-995070b6fb02",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogo",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 18,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2a9f0b67-c2ef-4dad-b887-9a7cb800f7ab",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "4b227e0beee482ee0d5b2c701b074f0472a82993f5d4ce7bcafaeb551bd72718",
+      "child_id": "87b6090c-3a35-4a29-be13-a67236e564e1",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "iniciou atendimento,\nmas passou a faltar\nem 20/08/2025 -\nRetornou",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 19,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "4767b6a6-c797-40b4-adbd-2c2abe0302ff",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "6b9ad459ed906c07b8a601f92f6172c83c85380f7e53173d01b864706f5b4acd",
+      "child_id": "1b51bca4-f8e8-45df-8875-b4f19bec19ca",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "09/09 11:00 com\npsicólogos, mãe\ncomparece",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 20,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d2103b9e-b47c-4bfd-a326-923634d7316c",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "c9916252ed7704817289ee8ff48e3bb9a00f58476974eb3d5ebf0918ad2f2e90",
+      "child_id": "22bc3e97-6a9b-41ff-917c-bccf87102507",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "11:00 11/09 com\npsicólogos, mãe\ncompareceu",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 21,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "111dcd51-d507-4e50-b038-68e829201772",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d77f2338546d3f9b5cfb753e7ef66aaf3fa7255d1a8b1141311a29389676c260",
+      "child_id": "e3a2dfa7-00a8-4f77-a7ee-c24048f5edf1",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "09:30 10/09 com\npsicólogos, não\ncompareceu",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 22,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "9a0c514f-54c1-470b-a63e-e4be82c0ba37",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "2977a9ec93bf7780007bf4d22d2eeff0267fea2f89daf734353c82902c46a527",
+      "child_id": "dbdf25cf-0c7c-45a7-891c-dc745f8c0693",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "falta em 11/09 09:30\ncom psicólogos",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 23,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "65e54b60-0830-47ee-9694-7f41bdd3afea",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "c1909efc7fe4bcab8cc7f62a44dd039ed68f1ce1f63851b0d067d883da42d067",
+      "child_id": "3cf6887e-7398-4e87-b9fc-989eb2217e70",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "03/11/2025 -\nagendado orientação\naos responsáveis no\nNAP com os\npsicólogos, às 11:00\nmas não compareceu.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 24,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "20f68ca4-1a89-436a-ae32-4930657ce879",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "b9667a06129b8df532e43f3a30a7f65ef84a0f9d6346193425056aabfcbf613a",
+      "child_id": "8131f10e-0abb-403c-8bc9-617470a3d382",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Compareceu para\natendimento em\n27/08/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 25,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "7aa918a9-8c15-4121-94e6-a24b5d09bdd8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "f3914e206a359d13363b315ad7ed6116e286e329809cafd570e31b569ab664c8",
+      "child_id": "f984566e-486e-4d6e-b297-91fa8230ca32",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Realizo acolhimento\ncom a genitora em\n02/10/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 26,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "e302a169-c626-4015-b758-efdbd2e524d7",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "5bcf7deb2e5a9f5e2c72700a2822f6ff1dc72451eacce5cca119d9c211beb3d4",
+      "child_id": "92ca2741-f741-4b48-b7f2-7b4b41ccb16e",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Remarcado o\natendimento p/ 03/09\nFamília não\ncomparece; Mãe\nafirma mudança de\nendereço.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 27,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "90fbfca8-2abc-4d76-a7c1-33e2b2b9bc53",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "51b82855c9302ce813fe62fd482bc876f64c41d3638d96c60187987b01c15b90",
+      "child_id": "1333165c-c564-4e91-a723-3c47c2de28d2",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Mãe não compareceu\np/ atendimento em\n10/09 às 11:30; Mãe\nfalta em atendimento\nna escola 25/09/2025\nàs 13:00; Mãe falta\nem atendimento\n18/11/2025 às 12:00;\nEncaminho caso para\no CRAS, Conselho\nTutelar e escola em\n19/11/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 28,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "aeaecc0f-35ed-4884-b4ff-941bea7481aa",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "dea1efaa942e4687efbc9d39ba4abe9f2581ca08ec154f80984551cb6fc092bd",
+      "child_id": "243bbea2-4310-4490-a201-1da2f8407598",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Compareceu para\natendimento em\n28/08/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 29,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2874e8c5-580e-436b-b143-63d35ad7ad12",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "72d9280d27a310e5ca7373f24732783397acfa85463cb8de01f2b04baa7275c8",
+      "child_id": "49272971-6447-4ffb-84d6-58edc175622b",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Atendido PsicoNAP\n28/08/2025.\nAcompanhamento na\nescola",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 30,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "f826f653-8076-48df-acfa-7bb3617a06e5",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "362a2439639a25d876f02e61c88fa2372e030ccef4c4ebf6dd478e82091a8c20",
+      "child_id": "e615158b-6d42-41e7-a433-1c2044697765",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Atendido PsicoNAP em\n21/08/2025.\nEncaminhado para\npsicologia CAPS",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 31,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "832a9651-0782-4a5a-8d2b-b6c3f806fc02",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "ac3162eec7427d2242cde31c57772cda493f2753f7675cf49bfa975c6e465bfe",
+      "child_id": "e7e80f55-0771-4c03-8f33-755a6b4ab724",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Atendido PsicoNAp em\n21/08/2025.\nEncaminhado para\nfono.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 32,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "ed5d0d3d-6083-4156-bc1b-9d1433c9fa1f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "804d82acce80b0fe7616372c23490ad3025ee7f0b48403259a6c0042738a7489",
+      "child_id": "8af4626c-ddc1-41dd-8617-8ba6c7d357c9",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Realizo\nencaminhamento para\nServiço Social da\nsaúde",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 33,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "f1c576e9-44b4-43f9-8b3a-01708d846167",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "60bffeeadaf66f112a072f7c52f842eb05f4ce9ad063bac049f44d0935215146",
+      "child_id": "57b3cd4a-418f-44d6-9e1b-a104c905cd36",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Falta em atendimento\n18/09/2025 às 11:30;\nFalta em atendimento\n18/11/2025 às 10:00.\nEnvio comunicado\npara escola em\n24/11/2025,\nsolicitando a\npresença dos pais em\n02/12/2025; Família\nfalta em 02/12/2025.",
+      "vd_text": "Marcar VD",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 34,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "ad2ad849-79eb-431a-8fd1-e6e71bbce239",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "70eed4dcbcef00fcf6b2842db481258782442e53e8d0c72445345178114beda6",
+      "child_id": "34c222cc-eb65-4796-9723-9f79692de9f8",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Marco atendimento\npara 10/09 às 10:30,\nnão conseguimos\nrealizar contato\nEnviamos recado para\nfamiliares por meio\na escola e tentamos\ntelefonar no\ntrabalho do pai em\n25/09/25 para\natendimento em\n01/10/25. O familiar\nnão compareceu. Está\nsendo acompanhada\npelo CAPS.\n24/02/2026 - Reunião\ncom Família,\npsicóloga CAPS e\nConselho Tutelar.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 35,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "3f068d45-d1b7-45f3-9738-e3acf3df8e38",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "b8e3cb3ef82684b827de8abed10603db22c0a9db2b387c0cb2fa724ed1324827",
+      "child_id": "1aa871d9-9153-46fd-85b1-732571950390",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Mãe comparece em\natendimento 10/09",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 36,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "28f2cb68-1700-4bfb-b75b-ebc78fb8af86",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "e7cc45f4c8da21f0dda114746449a2e4ee984ebcac22857f91b96304f2814966",
+      "child_id": "c4e6549c-2d48-4da2-a732-a1a66d7c90bc",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Observar aluno para\nrealização de\nrelatório ao final\ndo ano; Reunião\nintersetorial em\n17/11/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 37,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "964ca922-ae38-481e-95ac-63c5073a617b",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "956aee421d5f6090a0ded3de9e9f469657f4f8a4d3d9ffa06020b5417a370fdf",
+      "child_id": "47bf9937-e0b2-4c23-93b0-7f1b37aca55f",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Psicopedagogia\nGenitora não\ncompareceu para o\nacolhimento em\n10/12/2025; Coloco\nna pasta para\npsicopedagoga\n13/02/2026",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 38,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "3a37481d-2d4a-4c69-be7a-ac9b33c72f40",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "adb5a4ee4083d949e2f66ffce4d27a36bae47f85f8fd4f23cb0434ac1adc7220",
+      "child_id": "87ce1444-f3c7-4552-9ef4-e9c1d0dc1408",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n14/11/2025\ncom AS\nBeatriz e\nEugênia\n(estagiária).",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 40,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d0445a30-dd40-49a2-8683-52f6dce04f8e",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d439cb5cd38eb0e0334b14796049b30740d41d8457466c9d1399a95091323294",
+      "child_id": "55d155b2-5360-4b8b-ba5d-66f886d195f5",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Tento contato\ntelefônico em\n26/08/2025 para\nmarcar VD e família\nnão atende Marco\natendimento no NAP\npara 10/09,\ncompareceu",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 41,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "68c838b5-78f5-486a-b989-3a3f25f2f287",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "161cb04a31db3ae8d05365c24c52f8123080922cd376dde1a6802205fb061a5b",
+      "child_id": "410fb100-af83-4106-82ca-c430bfb813b4",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Tento contato\ntelefônico em\n26/08/2025 para\nmarcar VD e família\nnão atende",
+      "vd_text": "VD\nrealizada\nem\n26/09/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 42,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2f672e39-8427-4dc7-8307-9cc5f978cb3f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "9e15c615174e69f96ed416a50347a61b70b75a28a7caa90e771620bdc5a8d959",
+      "child_id": "497b3218-506a-4775-b6dc-ea551fd5b8cd",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD seria\nrealizada\nem\n05/12/2025,\nmas foi\ndesmarcada\npor setor\nde\ntransporte",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 43,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "67af8a68-d2f2-4802-824f-6bf71bd3b31e",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "ef52190a3704009b23a66cd8ea2d30c98a6989aaf142f04d4d5af9d9b6f7ec5e",
+      "child_id": "6557b07d-71f0-4cc0-810e-481e8bf839b8",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Realizo atendimento\nem 18/09 às 11:00",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 44,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "718fc3ed-0a43-4fb7-a537-9c6b86e5fd19",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "c237f1a76bda77fe6b18030a353a75f28f23fa7af59d988aa78946d0e6ad29ee",
+      "child_id": "f4c63032-dd83-455f-801e-059a234e2ef0",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Família falta em\nacolhimento no dia\n10/12/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 45,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "cce89d5e-c8e8-4e7f-a798-274525796ef3",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "843e48b3f8432b30199727afa4d1b56057d9641779cb809699b21e785633544b",
+      "child_id": "8ec2d6f3-c2a4-435a-933f-17e23d27c9e0",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Agendo atendimento\npara 12/11/2025, mas\nmãe afirma que não\npode comparecer por\nestar acompanhando\nfilho mais velho no\nhospital;\nAtendimento\nrealizado em\n24/11/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 46,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "61dbbf2e-3c7d-4ec7-8363-5983127e9149",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "791f358a9003d211f4e85d1d7b92591b2362a60f9a6e55ac845d52bdef5123a9",
+      "child_id": "a24c6d38-aa60-456b-b2a9-86c889050b20",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Família faltou em\nacolhimento no dia\n25/11/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 47,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "264e35d9-75a2-4af0-b588-1295166ad0b6",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "733e22d3c1ff24de56653447f82819c5404fadaae3a3eabb283111b326812564",
+      "child_id": "f154e36d-565b-46f4-860c-fa0308bea696",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Marco atendimento\npara 12/11/2025, mas\nmãe informa que não\nestão mais residindo\nem Morungaba.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 48,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "a9bda512-53be-430a-9c5c-eaaeec0bcba2",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "8a318a9705183858f4911790804481770a8f7ac994f32fa32e23cde63054d617",
+      "child_id": "615dfe31-4e4e-41d9-bcfd-d7c983b354b4",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Fazer atendimento\ncompartilhado com a\npsicologia; Criança\nacompanha pela\nUNICAMP, mãe enviou\nrelatórios.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 49,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "3718e567-c518-4739-b1c0-fa13f697ef0a",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "eee2326fbbb6514f325f17f49ee73a85e34011704b8063c131bd4d4d8f2e3409",
+      "child_id": "176c0324-9cb3-4147-80ec-486f4479a9fa",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Fono e Psicopedagogo\nMarco acolhimento\npara 26/11/2025, mas\nmãe desmarca por\nfilho estar doente;\nAcolhimento\nrealizado em\n02/12/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 50,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "f570267e-e0ab-4472-9595-2805af8e9e1d",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d24e9e3ddd2e242bae048c9c033a5bfd7240a51593272071a66b5f41a8b033e3",
+      "child_id": "d6b8a02d-c270-4f34-af50-eb4f16dd06a0",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "No sistema da saúde\nnão consta uso de\nmedicações e possui\nalta da\npsicoterapia.",
+      "vd_text": "VD\nrealizada\nem\n03/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 51,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "efde177f-e694-4430-b579-ab5273db7ad8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "30bff56f6fcbb25ecbf8c299ff4cbceefa86d06b3e8c40d145982f9e9d5e3edd",
+      "child_id": "d785d616-c614-4ca4-a6b4-fae951f61c3d",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Equipe psicossocial\nconversa com\ngenitora em\n17/09/2025; Equipe\nacolhe criança no\nâmbito escolar em\n29/09/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 52,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "bacc25ac-47ae-4dec-ab71-eeb555887f7e",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "2f6e7a57bb40b18f76554de21440fc9b4cb5844bc25fefcaa516b4f6b9a942eb",
+      "child_id": "bb1fa9ec-8a29-404f-9712-ecf15e72bcaa",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Responsável familiar\nnão comparece em\n30/09/2025",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 53,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "1888356f-597b-409c-8576-6d0d1da3d945",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "2ec1c03d84662a9f76a203dcdfe5efcc35f4af998a87d77341ee4ad4e29352a0",
+      "child_id": "e3039fe9-a132-486e-b917-e8a8c27c4373",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Aluno\ndesligado\ndo sistema\nescolar\npor\nausências.\nConselho\nTutelar\nciente.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 54,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "0ade60d2-e8cb-497d-9e47-fc032fe6dd84",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "6110efeb049f371e6d706b1c073975ed46f0bcbc6610f224468db623856511a1",
+      "child_id": "d4ebf0fd-b3c6-4077-b60f-2f0b2bd6ed75",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Coordenadora\nMargarida\ninforma\nque\nadolescente\nretornou,\napesar de\noscilação\nde\npresenças.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 55,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "c9e515c3-620d-4b40-977b-1a1c366f71bc",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "8728410c7d795c9f8c9fecd69a0fd7e61f547d0398d3bf78c20ab421f1cccdf7",
+      "child_id": "aba316f4-c7ce-446c-9501-69eed3e77ea3",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD marcada\np/\n03/10/2025;\nFamília\nnão\natendeu a\nporta VD\nrealizada\nem\n07/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 56,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "4cc031b4-31c0-4992-b1d0-31a11ca48fd8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "5dd61cd4d73af3849208c69bdffc074e527eb5c60151fd8555d92d7cfc95b557",
+      "child_id": "b52c6b5d-1a68-4c2c-bced-fb747d5bc2eb",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nRealizada\nem\n07/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 57,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2289db01-5970-461f-8911-f5cc66f6825f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "4a7560fcd7d8f38b3bdb6b97c5e8137ba830de709a00336a7b75e083e710de4c",
+      "child_id": "98765434-5cbd-4402-9ad8-b1cbafde43f4",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Em\n08/10/2025\nnão\natenderam\na VD. Em\n22/10/2025\nentrego\natividades\nem mãos da\ncoordenadora\nMargarida,\nesta\nafirma que\no aluno\nestá\nfrequentando\na escola.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 58,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "cf0e0e20-9bb9-4698-9f9d-42006c936ec6",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "f9f173b220b572cc595fba01408ea8294a683830d80cb6b8a450ea68cd5efe7f",
+      "child_id": "81853469-9d1f-4387-8181-6a1e3aba4298",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Genitora Joice viria\nem 20/10/2025, mas\ndesmarca e afirma\nque não buscará as\natividades e Carlos\nnão retornará para\nescola, pois está\ntrabalhando. Envio\nrelatório para CT.",
+      "vd_text": "VD\nrealizada\nem\n07/10/2025\n-\nconversei\ncom o tio\nmaterno\nFernando",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 59,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "6593c2f4-6ece-4522-9e2c-b0170fa3eeff",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d2e9e166c7864560c1439f605727243a421cfdaffff62de829b223be05cc80fa",
+      "child_id": "1b88ecac-7690-489e-9c70-57aa932a4811",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n07/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 60,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "85784700-91b9-4a72-b6f0-b6a0db1c1e68",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "168c31cecdd069ae38e88d31c405cfe1ebfba3c603b0a88028185105f0653832",
+      "child_id": "8fdc3875-c0fb-4f40-9754-2d1dd682e3c4",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Escola não possui\ncontato telefônico",
+      "vd_text": "VD\nrealizada\nem\n26/09/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 61,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "c33253a8-8a66-4649-a869-f020f5368f63",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "b39da910f6ef60cd423f3814aab9da1eba403977b55d066023495d7a3c8f9936",
+      "child_id": "cf296244-dbee-4211-a15d-92ad3c52308e",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Realizado\nacolhimento\ncompartilhado com\npsicologia com a mãe\nem 17/09/2025",
+      "vd_text": "VD p/\nentrega de\natividades\nrealizada\nem\n10/10/2025;\nVD\nrealizada\nabordagem\ncom a mãe\nem seu\nespaço de\ntrabalho.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 62,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "e1be746e-2d3a-4cd0-a79c-3b54186f2575",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "757626aa95bdb0e63f8a558266b656283a6aadad33d8017a7811dc9e8766e3f6",
+      "child_id": "a6f2d5a9-30e3-4d73-9b09-e9511304ee58",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Coordenadora\nMargarida informou\nque adolescente\nretornou para\nescola.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 63,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "4db3410a-78fa-41e8-8e6c-f0302446d747",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "d6a1f6dbc2ec3ba601096ab37c9863473b3c79f0a7577528ecc564826e3b28bf",
+      "child_id": "1b7e8c8d-be87-4e5e-94e6-41be494daca6",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Mãe\nafirmou\nque não\npoderia\nreceber VD\nem\n07/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 64,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "a9fc6efa-20ed-4533-b0d3-75071fd71f96",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "745fdd552ab87ff268e9612dfe0c09c57c20d9a0ef5541e4de058b09313df1a4",
+      "child_id": "dfe4a9d4-550c-4288-b771-1aee425a1d39",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Coordenadora\nMargarida entra em\ncontato em 15/09 e\ninforma que\nadolescente não está\nem acompanhamento\nmédico, por conduta\ndos pais. Família\napresenta atestado.\nJá acompanhados por\nCT",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 65,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "a47d9477-4d9b-4787-a783-433ac1c7e7a8",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "0b2a870987544c47ecd0958b071bf91b752226d290f3e9c504d8245371eccc85",
+      "child_id": "7edbe90f-d691-4524-87f8-19f565b210d6",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Desligado do sistema\npor faltas. Caso já\nem ciência do\nConselho Tutelar.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 66,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "64e8b146-1306-47c8-9303-cea9d2406b72",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "4856a590f2f626768971d2521b90aba3fe2b683e03278d88a9dd0ffb9ac561a9",
+      "child_id": "485e32e7-38bc-4eba-9473-5f9e3fb75982",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "Realizar\nVD em\n08/10/2025\n- não\natendem o\nportão VD\nrealizada\nem\n10/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 67,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d2da8f9b-0ca5-4048-910e-27b1986ad9bd",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "0c318cb2a3fbe6498d620be89e4c0fd05ff79c18517352d009e413dc9bd0010f",
+      "child_id": "9909bfef-44e6-4ad3-92aa-6c93415dc9cd",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n22/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 68,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "c402eff5-4625-4883-9f30-fe3ea6581336",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "7538deb8c437488a82ae7ca2c1c0f8be5821504d7711b5553fa737c9450887f3",
+      "child_id": "89cff4ca-0392-4ed3-a385-a442b640d6fb",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n08/10/2025",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 69,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "2cd94b68-92c7-4c91-8a63-dc66f5fb3c19",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "72dac623d6ad5315e102dbacfd318590e0b3e559e488461ddc89628d0db3718b",
+      "child_id": "9f947021-65e3-47df-82b5-6de08415e407",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n10/10/2025;\nVD não\nrealizada\nem\n24/11/2025\npor\nproblemas\nmecânicos\nna van.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 70,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "05840284-0046-4530-94fa-8a8574defabd",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "3b400df853a938b16a9b4e03696ede7850972208433d35f7df0ceec675e488a3",
+      "child_id": "dfffd070-f0eb-4d12-9a73-52480181573d",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD\nrealizada\nem\n22/10/2025;\nVD\nrealizada\nem\n25/11/2025,\nmas não\nfomos\natendidos",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 71,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d88c46bf-27e9-47fa-b8e9-b07bcf2e20ef",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "b7bbfd21408cda4b24b3d5e3c03b99d16f68d3e9a92ce3899f3a30a68b9c76c7",
+      "child_id": "38524384-1ef3-4bff-b420-96cc6b9a5aea",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Caso acompanhado\npelo CT e saúde\n(aguardando novas\ninformações após\nreunião com a rede);\nEmito parecer social\nem 16/12/2025.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 72,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "cc270e59-c92b-4fd4-88d2-f1a08a918d72",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "8ff5217a4ec4e7917718474c772aab631fe3c35f71f7029c57cbb587918f3865",
+      "child_id": "28e5a8b7-fd2b-4f5b-8c8c-a2bc8b9c1159",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Acolhimento\nrealizado no dia\n12/02/2026 às 14:00,\ncompartilhada com\npsicologia",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 73,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "cb5e5e96-d159-4bf2-9869-d58f5d3b4c14",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "b99a68fc34cdbdf356a42e85fd370e6181b4e6018198e6fd303119e24e4f87ec",
+      "child_id": "68e6689b-740a-49f5-a430-d20c1cf00175",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Mãe desmarca\nacolhimento em\n02/03/2026 às 16:00.\nRemarcamos para\n05/03/2026 às 13:00.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 74,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "346ddf2a-f983-42d1-856b-2367c00b7463",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "c5cda7ace0b7eb72b9504fdc46b1dec79b4ce9b71e7405654e5513c4f8562bbc",
+      "child_id": "8c24aeff-924e-4716-92f1-3a2775baf73f",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Mãe compareceu em\natendimento\ncompartilhado dia\n24/02/2026 às 13:00.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 75,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "26bc9e55-35ce-4faa-b484-531cd5f4943c",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "db6c099e849eb0e2c1e6eb50a0112a71eb76226f87e54308c7770707b14860dc",
+      "child_id": "f4c63032-dd83-455f-801e-059a234e2ef0",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Família falta em\nacolhimento no dia\n10/12/2025. Família\nfalta em atendimento\ncompartilhado dia\n02/03/2026 às 13:00.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 76,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "d0f4030e-1100-4bf6-ba54-12833c602455",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "1753ab47324ecb31fcf42a234c706999b478ff828ed959be6025c3ff1e3bec65",
+      "child_id": "a24c6d38-aa60-456b-b2a9-86c889050b20",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Família falta ao\nacolhimento no dia\n25/11/2025. Família\nfalta em acolhimento\ncompartilhado em\n02/03/2026 às 14:30.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 77,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "0a928b55-66f8-47de-b667-4b2e2caf03be",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "21e4b4eaff19e751202fc6fcaf240ae4cf105ba5aeb030fc95023589064f7163",
+      "child_id": "497b3218-506a-4775-b6dc-ea551fd5b8cd",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "",
+      "vd_text": "VD seria\nrealizada\nem\n05/12/2025,\nmas foi\ndesmarcada\npor setor\nde\ntransporte;\nVD marcada\npara o dia\n27/02/2026.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 78,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "b5efc10e-1c7e-4b07-b047-ad06385ab31b",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "a0028c5098fc9bb4e8955b1ce1fcefb70b8a8b714a6b87b4cc563ed838247736",
+      "child_id": "57b3cd4a-418f-44d6-9e1b-a104c905cd36",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Falta em atendimento\n18/09/2025 às 11:30;\nFalta em atendimento\n18/11/2025 às 10:00.\nEnvio comunicado\npara escola em\n24/11/2025,\nsolicitando a\npresença dos pais em\n02/12/2025; Família\nfalta em 02/12/2025.",
+      "vd_text": "VD marcada\npara o dia\n27/02/2026.",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 80,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "df6a8c13-f624-4d0b-a57d-a31d606dad70",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    },
+    {
+      "external_key": "84b317c7e6c1c800c27ceecff9c3db4497fb1168b7c6c250ded4f7e55478c05e",
+      "child_id": "e17d2f0d-f380-4f3f-9c50-7c41ce822d24",
+      "occurred_at": "2026-04-07T10:35:19-03:00",
+      "tipo": "importado",
+      "profissional": "",
+      "registrado_por": "import",
+      "resultado": "",
+      "atendimento_text": "Consigo novo contato\ncom escola em\n26/08/2025 Falta em\n27/08 Falta em 03/09\nAtendimento\nrealizado em\n09/09/2025; Tento\nmarcar 13/03/2026\npara levar mãe ao\nCAPS.",
+      "vd_text": "",
+      "source": {
+        "type": "xlsx",
+        "file": "AssistenteSocial.xlsx",
+        "sheet": "Base2025",
+        "row": 81,
+        "batch": "739e549a-a5ca-47a5-b960-c5c9c603babc"
+      },
+      "id": "ee1e1500-6513-4d12-b34f-70a0af5d8d3f",
+      "created_at": "2026-04-07T10:35:18-03:00",
+      "updated_at": "2026-04-07T10:35:19-03:00"
+    }
+  ],
+  "import_batches": [
+    {
+      "id": "24c04ba7-939f-4088-9487-d1ffbf56e0f7",
+      "imported_at": "2026-04-07T10:35:18-03:00",
+      "file": "AssistenteSocial.xlsx",
+      "sheet": "Base2025",
+      "inserted": 75,
+      "updated": 5,
+      "skipped": 0
+    },
+    {
+      "id": "739e549a-a5ca-47a5-b960-c5c9c603babc",
+      "imported_at": "2026-04-07T10:35:19-03:00",
+      "file": "AssistenteSocial.xlsx",
+      "sheet": "Base2025",
+      "inserted": 0,
+      "updated": 80,
+      "skipped": 0
+    }
+  ],
+  "audit_log": [
+    {
+      "id": "baa1096d-0764-4bac-bb48-b56cc9482625",
+      "at": "2026-04-07T09:53:12-03:00",
+      "actor": "admin",
+      "action": "user.insert",
+      "entity_type": "user",
+      "entity_id": "a199f6b6-f450-4f0e-a8eb-3367d670ad19",
+      "details": {
+        "user": {
+          "id": "a199f6b6-f450-4f0e-a8eb-3367d670ad19",
+          "username": "admin",
+          "role": "admin"
+        }
+      }
+    }
+  ],
+  "attachments": [],
+  "users": [
+    {
+      "username": "admin",
+      "role": "admin",
+      "salt_hex": "6805c2db43cdfa6bbdaa1d6e14d7359f",
+      "hash_hex": "f63eaa2e966c023d126b860393678e9288971465e3b11d2e22398c3e2f7628d3",
+      "active": true,
+      "id": "a199f6b6-f450-4f0e-a8eb-3367d670ad19",
+      "created_at": "2026-04-07T09:53:12-03:00",
+      "updated_at": "2026-04-07T09:53:12-03:00"
+    }
+  ],
+  "tags_catalog": [
+    "TEA",
+    "Violencia"
+  ]
+}

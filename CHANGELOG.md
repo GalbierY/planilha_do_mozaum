@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.0 - 2026-04-07
+
+- Hotfix de UI: cor hexadecimal invalida no cabecalho de dialogs corrigida.
+- Hotfix de inicializacao: `reload_cache` ajustado para inicializar a lista de escolas corretamente.
+
 ## v1.1.1 - 2026-03-28
 
 - Hotfix do sistema de atualizacao para instalacoes via instalador/portable.

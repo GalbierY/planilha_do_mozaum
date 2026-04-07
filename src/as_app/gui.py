@@ -1265,7 +1265,7 @@ class App(tk.Tk):
             if d is not None:
                 self._att_dates_by_child.setdefault(cid, []).append(d)
 
-                schools = sorted({(c.get("escola") or "").strip() for c in children if (c.get("escola") or "").strip()}, key=str.lower)
+        schools = sorted({(c.get("escola") or "").strip() for c in children if (c.get("escola") or "").strip()}, key=str.lower)
         if hasattr(self, "escola_cb"):
             self.escola_cb.configure(values=schools)
         if hasattr(self, "filter_school_cb"):
@@ -1633,7 +1633,7 @@ class App(tk.Tk):
         Isso evita quebrar quando a aba muda de "Base2025" para
         "Base2025-2026", por exemplo.
         """
-        from .importer import _resolve_sheet_name
+        from .core.importer import _resolve_sheet_name
 
         resolved = _resolve_sheet_name(xlsx_path, self.cfg.xlsx_default_sheet)
         if resolved.strip() and resolved.strip() != self.cfg.xlsx_default_sheet.strip():
